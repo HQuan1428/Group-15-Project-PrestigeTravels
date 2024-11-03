@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Prestige Travels</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">Prestige Travels</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="../index.html#tours">Tour du lịch</a></li>
+                <li><a href="register.html">Đăng ký</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Register Section -->
+    <div class="register-container">
+        <div class="register-box">
+            <div class="register-left">
+                <div class="register-welcome">
+                    <h2>Chào mừng bạn!</h2>
+                    <p>Đăng ký để khám phá những điểm đến tuyệt vời cùng chúng tôi</p>
+                    <div class="welcome-image"></div>
+                </div>
+            </div>
+            <div class="register-right">
+                <h2>Đăng ký tài khoản</h2>
+                <form class="register-form" id="registerForm">
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Họ và tên" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" placeholder="Số điện thoại" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Mật khẩu" required>
+                            <i class="fas fa-eye toggle-password"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Xác nhận mật khẩu" required>
+                            <i class="fas fa-eye toggle-password"></i>
+                        </div>
+                    </div>
+                    <div class="form-group terms">
+                        <label class="checkbox-container">
+                            <input type="checkbox" required>
+                            <span class="checkmark"></span>
+                            Tôi đồng ý với các điều khoản và điều kiện
+                        </label>
+                    </div>
+                    <button type="submit" class="register-btn">Đăng ký</button>
+                    <div class="social-register">
+                        <p>Hoặc đăng ký với</p>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button type="button" class="social-btn google">
+                                <i class="fab fa-google"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="login-link">Đã có tài khoản? <a href="#">Đăng nhập</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Travels</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Prestige Travels</a>
+            </div>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="#tours">Tour</a></li>
+                </ul>
+                <div class="nav-search">
+                    <form class="header-search-form">
+                        <div class="search-input-group">
+                            <input type="text" placeholder="Tìm kiếm tour...">
+                            <select class="search-select">
+                                <option value="">Tất cả địa điểm</option>
+                                <option value="hanoi">Hà Nội</option>
+                                <option value="halong">Hạ Long</option>
+                                <option value="danang">Đà Nẵng</option>
+                                <option value="hoian">Hội An</option>
+                                <option value="nhatrang">Nha Trang</option>
+                                <option value="dalat">Đà Lạt</option>
+                                <option value="phuquoc">Phú Quốc</option>
+                            </select>
+                            <button type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="pages/register.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Khám phá Việt Nam</h1>
+            <p>Trải nghiệm những chuyến đi tuyệt vời cùng Prestige Travels</p>
+        </div>
+    </section>
+
+    <!-- Khám phá các Tour du lịch -->
+    <section class="explore-section">
+        <div class="container">
+            <h2 class="section-title">Tour du lịch trong nước được yêu thích</h2>
+            
+            <!-- Tour tags -->
+            <div class="tour-tags">
+                <button class="tour-tag active">Tour Biển Đảo</button>
+                <button class="tour-tag">Tour Sinh Thái</button>
+                <button class="tour-tag">Tour Tự Lái</button>
+                <button class="tour-tag">Tour Di Sản</button>
+            </div>
+
+            <!-- Tour slider -->
+            <div class="tour-slider">
+                <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="tour-cards">
+                    <!-- Tour card 1 -->
+                    <div class="tour-card">
+                        <img src="images/beach-tour-1.jpg" alt="Tour Phú Quốc">
+                        <div class="tour-info">
+                            <h3>Khám phá 2 đảo, Sun World Hòn Thơm</h3>
+                            <div class="tour-price">
+                                <span class="price">1,300,000đ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Thêm nhiều tour card khác -->
+                </div>
+                <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tour du lịch -->
+    <section class="tours-section" id="tours">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tour du lịch nổi bật</h2>
+                <p>Những tour được yêu thích nhất</p>
+            </div>
+            <div class="tours-grid">
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="images/halong.jpg" alt="Hạ Long">
+                        <div class="tour-price">2.990.000đ</div>
+                    </div>
+                    <div class="tour-content">
+                        <h3>Du lịch Vịnh Hạ Long</h3>
+                        <div class="tour-info">
+                            <span><i class="fas fa-clock"></i> 3 ngày 2 đêm</span>
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <p>Khám phá kỳ quan thiên nhiên thế giới với du thuyền 5 sao</p>
+                        <a href="#" class="tour-btn">Chi tiết</a>
+                    </div>
+                </div>
+                <!-- Thêm các tour-card khác tương tự -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Điểm đến yêu thích -->
+    <section class="destinations-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Điểm đến yêu thích</h2>
+                <p>Những địa điểm được du khách lựa chọn nhiều nhất</p>
+            </div>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="images/hoian.jpg" alt="Hội An">
+                    <div class="destination-content">
+                        <h3>Phố cổ Hội An</h3>
+                        <div class="destination-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Quảng Nam</span>
+                            <span><i class="fas fa-heart"></i> 2,456</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Thêm các destination-card khác -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Đánh giá khách hàng -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Đánh giá từ khách hàng</h2>
+                <p>Những trải nghiệm thực tế từ khách hàng của chúng tôi</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Chuyến đi tuyệt vời với dịch vụ chuyên nghiệp. Chắc chắn sẽ quay lại!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/customer1.jpg" alt="Customer">
+                        <div class="author-info">
+                            <h4>Nguyễn Văn A</h4>
+                            <span>Đã tham gia 3 tour</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Thêm các testimonial-card khác -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Du lịch trong nước -->
+            <div class="footer-column">
+                <h3>Du lịch trong nước</h3>
+                <div class="two-columns">
+                    <ul>
+                        <li><a href="#">Hà Nội</a></li>
+                        <li><a href="#">Hải Phòng</a></li>
+                        <li><a href="#">Hạ Long</a></li>
+                        <li><a href="#">Huế</a></li>
+                        <li><a href="#">Quảng Bình</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">Đà Lạt</a></li>
+                        <li><a href="#">Phan Thiết</a></li>
+                        <li><a href="#">Bà Rịa - Vũng Tàu</a></li>
+                        <li><a href="#">Phú Quốc</a></li>
+                        <li><a href="#">Cần Thơ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Du lịch nước ngoài -->
+            <div class="footer-column">
+                <h3>Du lịch nước ngoài</h3>
+                <div class="two-columns">
+                    <ul>
+                        <li><a href="#">Trung Quốc</a></li>
+                        <li><a href="#">Thái Lan</a></li>
+                        <li><a href="#">Malaysia</a></li>
+                        <li><a href="#">Singapore</a></li>
+                        <li><a href="#">Hàn Quốc</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">Ấn Độ</a></li>
+                        <li><a href="#">Philippines</a></li>
+                        <li><a href="#">Maldives</a></li>
+                        <li><a href="#">Na Uy</a></li>
+                        <li><a href="#">Tây Ban Nha</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Dòng tour -->
+            <div class="footer-column">
+                <h3>Dòng tour</h3>
+                <ul>
+                    <li><a href="#">Cao cấp</a></li>
+                    <li><a href="#">Tiêu chuẩn</a></li>
+                    <li><a href="#">Tiết kiệm</a></li>
+                    <li><a href="#">Giá tốt</a></li>
+                </ul>
+            </div>
+
+            <!-- Ứng dụng di động -->
+            <div class="footer-column">
+                <h3>Ứng dụng di động</h3>
+                <div class="app-downloads">
+                    <div class="app-platforms">
+                        <div>
+                            <img src="images/google-play.png" alt="Google Play">
+                            <span>Android</span>
+                        </div>
+                        <div>
+                            <img src="images/app-store.png" alt="App Store">
+                            <span>iOS</span>
+                        </div>
+                    </div>
+                    <div class="qr-codes">
+                        <img src="images/qr-android.png" alt="QR Android">
+                        <img src="images/qr-ios.png" alt="QR iOS">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-container">
+                <!-- Liên hệ -->
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <p>175 Tây Sơn, Phường Trung Liệt, Quận Đống Đa, TP Hà Nội</p>
+                    <p>(+84 36) 949 1473</p>
+                    <p>(+84 39) 216 1703</p>
+                    <p>langthangtravel@gmail.com</p>
+                    <div class="social-media">
+                        <h4>Mạng xã hội</h4>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-viber"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="hotline">
+                            <a href="tel:0369491473">036 949 1473</a>
+                            <p>Từ 8:00 - 22:00 hàng ngày</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin -->
+                <div class="footer-column">
+                    <h3>Thông tin</h3>
+                    <ul>
+                        <li><a href="#">Tạp chí du lịch</a></li>
+                        <li><a href="#">Cẩm nang du lịch</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Chính sách riêng tư</a></li>
+                        <li><a href="#">Thỏa thuận sử dụng</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Email của Quý khách">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <div class="search-box">
+                        <h4>Tìm kiếm thông tin</h4>
+                        <div class="search-form">
+                            <input type="text" placeholder="Tour du lịch, điểm đến..">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="certificates">
+                        <h4>Chứng nhận</h4>
+                        <img src="images/dmca.png" alt="DMCA Protected">
+                        <img src="images/bo-cong-thuong.png" alt="Đã thông báo Bộ Công Thương">
+                    </div>
+                    <div class="payment-methods">
+                        <h4>Chấp nhận thanh toán</h4>
+                        <div class="payment-icons">
+                            <img src="images/visa.png" alt="Visa">
+                            <img src="images/mastercard.png" alt="Mastercard">
+                            <img src="images/jcb.png" alt="JCB">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
