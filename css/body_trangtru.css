@@ -3,9 +3,17 @@
     padding: 20px;
     border-radius: 8px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color: #fbfbfb;
 }
-
+.title-header{
+    display:flex;
+    flex-direction: row;
+    gap:5px;
+}
+.image_plan{
+    height:45px;
+    width:45px;
+}
 .title {
     color: #30c5f7; 
     font-size: 28px; 
@@ -40,7 +48,6 @@
 }
 
 .display {
-    margin:10px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
@@ -55,7 +62,6 @@
     padding: 10px;
     text-align: center;
     transition: transform 0.3s;
-    margin:5px;
 }
 
 .item_display .image {
@@ -86,16 +92,18 @@
     color: #777;
 }
 
+
 .feature-container {
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
-    
 }
+
 .feature-container .title{
     color: black; 
     font-size: 28px; 
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 
 }
 .feature-container .feature{
@@ -103,7 +111,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 .feature-box {
     background-color: #fff;
@@ -137,5 +145,68 @@
     font-size: 14px;
     color: #777;
 }
+
+.camNangDuLich{
+    margin-top: 30px;
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+}
+.camNangDuLich .title{
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+}
+.camNangDuLich .title .title-image{
+    height:45px;
+    width:45px;
+}
+.camNangDuLich .title .title-text{
+    font-size: 28px; 
+    font-weight: bold;
+    color: #2f2e2e;
+}
+.camNangDuLich .display-location{
+    display:flex;
+    flex-direction: row;
+    gap:5px;
+}
+.camNangDuLich .display-location .image-location{
+    height:300px;
+    width:25%;
+    position: relative; 
+    color: white;
+    cursor:pointer;
+}
+#location1{
+    background-image: url(https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRRZW5wnfrqLQLZwrND84dT7FgE75BsY_xDWwfRA3IWiHov2mB8Frky9_CLSPHgf2Vj3QAfeM30yv4-y3_Df0TCKzhJl7RFy-8yihDmxQ);
+}
+#location2{
+    background-image: url(https://lh5.googleusercontent.com/p/AF1QipNh9bSCHxdKKu-nU_xMEpMYj0cAJBbooicnAQ2s=w567-h328-n-k-no);
+}
+#location3{
+    background-image:url(https://lh5.googleusercontent.com/p/AF1QipOCqKsAzu4VnPyD2b_hSvOwKQAcpz25pdRXOY1w=w567-h328-n-k-no);
+}
+#location4{
+    background-image: url(https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSwikQGfJrA5nCusZcf7Cj-zyfnsoJ9YXO06xQ7gjsGON0r89P_C2Wkrk_7zMAPeDWJQHSe59dWMk05HbeoFG86j-otajPVO31kk8xKqA);
+}
+.content{
+    margin-top: 99%;
+    margin-left: 10%;
+    font-weight: bold;
+    align-items: center;
+}
+.camNangDuLich .button-add{
+    margin-top: 10px;
+    background-color: white;
+    color:#30c5f7;
+    padding:10px;
+    font-size: 20px;
+    text-align: right;
+    border:none;
+    width:100%;
+    cursor:pointer;
+}
+
 
 

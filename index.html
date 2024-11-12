@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./css/body_trangtru.css">
+    <link rel="stylesheet" href="./css/camNang.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -53,17 +54,48 @@
 
 <!-- Body  -->
 <div class="body_trangtru">
-    <div class="title">Top Địa điểm được yêu thích nhất</div>
-    <div class="location">
-        <button class="item" data-location="Vietnam">Việt Nam</button>
-        <button class="item" data-location="Thailand">Thái Lan</button>
-        <button class="item" data-location="Singapore">SingaPo</button>
-        <button class="item" data-location="Malaysia">Malaysia</button>
-        <button class="item" data-location="Korea">Hàn Quốc</button>
+    <div>
+        <div class="title-header">
+            <img class="image_plan" src=https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24""></img>
+            <div class="title">Top Địa điểm được yêu thích nhất</div>
+        </div>
+        
+        <div class="location">
+            <button class="item" data-location="Vietnam">Việt Nam</button>
+            <button class="item" data-location="Thailand">Thái Lan</button>
+            <button class="item" data-location="Singapore">Singapore</button>
+            <button class="item" data-location="Korea">Hàn Quốc</button>
+        </div>
+        <div class="display-container">
+            <div class="display"></div>
+        </div>
     </div>
-    <div class="display-container">
-        <div class="display"></div>
+
+
+    <div class="camNangDuLich">
+        <div class="title">
+            <image class="title-image" src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/01/1685632370538-63ea09621bb19474f36a8e6a994f4ab9.png?_src=imagekit&tr=q-40,h-24"></image>
+            <div class="title-text">Cẩm nang du lịch</div>
+        </div>
+        <div class="display-location">
+            <div class="image-location" id="location1">
+                <div class="content">Việt Nam</div>
+            </div>
+            <div class="image-location" id="location2">
+                <div class="content">ThaiLand</div>
+            </div>
+            <div class="image-location" id="location3">
+                <div class="content">Hàn Quốc</div>
+            </div>
+            <div class="image-location" id="location4">
+                <div class="content">Singapore</div>
+            </div>
+        </div>
+        <div>
+            <button class="button-add"> Xem thêm > </button>
+        </div>
     </div>
+        
     <div class="feature-container">
         <div class="title">Lý do nên đặt chỗ với Prestige Travels</div>
         <div class="feature">
@@ -89,17 +121,35 @@
                 </p>
             </div>
         </div>
-        
     </div>
-    
+    <div class="introduce">
+        <div class="header-camnang">
+            <div class="image1"></div>
+            <div class="image2"></div>
+            <div class="image3"></div>
+        </div>
+        <div class="body-camnang">
+            <div style="font-weight: bold; font-size: 30px; "> Việt Nam</div>
+            <div style="text-align: left; margin-left: 20px;" >Việt Nam được biết đến là một điểm đến du lịch hấp dẫn với nhiều danh lam thắng cảnh nổi tiếng như Hạ Long, Sapa, Phú Quốc, Đà Nẵng và thành phố cổ Hội An. Ngoài ra, Việt Nam còn có nhiều di sản văn hóa được UNESCO công nhận như Huế, Hội An, Mỹ Sơn và Phong Nha - Kẻ Bàng. Với sự phát triển của ngành du lịch, nhiều khu du lịch mới đã được xây dựng và mở rộng, mang lại nhiều lựa chọn cho du khách khi đến Việt Nam.</div>
+            <div class="timhieu">
+                <div class="icon"></div>
+                <div class="text">Tìm hiểu Việt Nam</div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
 </div>
 
     
 
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
+    <footer class="footer" style="border:1px solid black ; margin-top:20px ">
+        <div class="footer-container" >
             <!-- Du lịch trong nước -->
             <div class="footer-column">
                 <h3>Du lịch trong nước</h3>
@@ -245,7 +295,8 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
-    <script src="js/body_trangtru.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/body_trangtru.js"></script>
+    <script src="./js/camNang.js"></script>
 </body>
 </html>
