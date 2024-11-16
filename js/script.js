@@ -138,3 +138,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 }); 
+
+// Xử lý Hiển thị/ Ẩn mk
+document.querySelectorAll('.toggle-password').forEach(item => {
+    item.addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            this.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
+});
+
+// Xử lý gửi dữ liệu đăng nhập
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Ngăn chặn reload trang
+    
+    const email = document.querySelector('input[placeholder="Email"]').value;
+    const password = document.querySelector('input[placeholder="Mật khẩu"]').value;
+
+    // Kiểm tra email và mật khẩu
+    if (email === 'test@example.com' && password === 'password123') {
+        alert('Đăng nhập thành công!');
+        window.location.href = '../index.html'; // Điều hướng về trang chính
+    } else {
+        alert('Email hoặc mật khẩu không đúng!');
+    }
+});
