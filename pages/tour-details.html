@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi Tiết Tour | Prestige Travels</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/tour-details.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -13,10 +13,10 @@
     <header class="header">
         <nav class="navbar">
             <div class="logo">
-                <a href="index.html">Prestige <span>Travels</span></a>
+                <a href="../index.html">Prestige <span>Travels</span></a>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="../index.html">Trang Chủ</a></li>
                 <li><a href="#contact">Liên Hệ</a></li>
             </ul>
         </nav>
@@ -25,52 +25,37 @@
     <!-- Tour Details Section -->
     <section class="tour-details">
         <div class="tour-header">
-            <h1>Du Lịch Việt Nam</h1>
-            <p>Khám phá vẻ đẹp kỳ thú của thiên nhiên và văn hóa Việt Nam.</p>
-            <div class="tour-meta">
-                <span><i class="fa fa-calendar-alt"></i> Thời gian: 5 ngày 4 đêm</span>
-                <span><i class="fa fa-map-marker-alt"></i> Điểm khởi hành: Hà Nội</span>
-                <span><i class="fa fa-dollar-sign"></i> Giá: <strong>5,500,000 VNĐ</strong></span>
-            </div>
+            <h1>Tour Chi Tiết</h1>
+            <p>Thông tin sẽ được tải...</p>
+            <div class="tour-meta"></div>
         </div>
+        <h3>Ngày Có Thể Đặt</h3>
+<ul class="available-dates">
+    <!-- Các ngày khả dụng sẽ được thêm vào đây thông qua JavaScript -->
+</ul>
 
-        <!-- Image -->
+<div>
+    <label for="tour-date">Chọn Ngày Đặt Tour:</label>
+    <select id="tour-date" name="tour-date">
+        <!-- Các ngày có thể chọn sẽ được thêm vào đây -->
+    </select>
+</div>
         <div class="tour-image">
-            <img src="images/tour-vietnam-detail.jpg" alt="Chi tiết tour Việt Nam">
+            <img src="" alt="Chi tiết tour">
         </div>
 
-        <!-- Tour Information -->
         <div class="tour-info-container">
             <h2>Thông Tin Chi Tiết</h2>
-            <p>Tour Du Lịch Việt Nam là hành trình khám phá vẻ đẹp thiên nhiên và văn hóa đặc sắc của Việt Nam, đưa bạn đến những địa điểm nổi tiếng như Hạ Long, Sa Pa, Ninh Bình và Đà Nẵng.</p>
+            <p>...</p>
 
             <h3>Lịch Trình</h3>
-            <ul class="itinerary">
-                <li><strong>Ngày 1:</strong> Đón khách tại Hà Nội, tham quan Hồ Gươm, phố cổ.</li>
-                <li><strong>Ngày 2:</strong> Di chuyển đến Hạ Long, trải nghiệm vịnh Hạ Long bằng du thuyền.</li>
-                <li><strong>Ngày 3:</strong> Tham quan Sa Pa, chinh phục Fansipan.</li>
-                <li><strong>Ngày 4:</strong> Tham quan Ninh Bình, khám phá Tràng An.</li>
-                <li><strong>Ngày 5:</strong> Tự do mua sắm, tiễn khách ra sân bay.</li>
-            </ul>
+            <ul class="itinerary"></ul>
 
             <h3>Dịch Vụ Bao Gồm</h3>
-            <ul class="services">
-                <li>Xe đưa đón chất lượng cao.</li>
-                <li>Khách sạn 4 sao tiện nghi.</li>
-                <li>Hướng dẫn viên chuyên nghiệp.</li>
-                <li>Vé tham quan các địa điểm trong chương trình.</li>
-                <li>Bữa ăn đầy đủ (sáng, trưa, tối).</li>
-            </ul>
+            <ul class="services"></ul>
 
             <h3>Đánh Giá Từ Khách Hàng</h3>
-            <div class="reviews">
-                <div class="review">
-                    <p><strong>Nguyễn Văn A:</strong> "Tour rất tuyệt vời! Dịch vụ chuyên nghiệp, hướng dẫn viên nhiệt tình."</p>
-                </div>
-                <div class="review">
-                    <p><strong>Trần Thị B:</strong> "Chuyến đi đáng nhớ, gia đình mình rất hài lòng. Sẽ ủng hộ lần sau!"</p>
-                </div>
-            </div>
+            <div class="reviews"></div>
 
             <a href="booking.html" class="btn-primary">Đặt Ngay</a>
         </div>
@@ -90,5 +75,8 @@
         </div>
         <p>Bản quyền © 2024 - Prestige Travels</p>
     </footer>
+
+    <script src="../js/tourData.js"></script>
+    <script src="../js/tourDetails.js"></script>
 </body>
 </html>

@@ -1,95 +1,78 @@
-.tour-details {
-    padding: 50px 20px;
-    background: #f9f9f9;
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.tour-header {
-    text-align: center;
-    margin-bottom: 20px;
+.header {
+    background-color: #0078d7;
+    color: white;
+    padding: 1rem 2rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.tour-details {
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
 }
 
 .tour-header h1 {
-    font-size: 2.5rem;
-    color: #0d6efd;
-}
-
-.tour-header p {
-    font-size: 1.2rem;
-    margin: 10px 0;
-}
-
-.tour-meta {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    font-size: 2rem;
+    color: #0078d7;
 }
 
 .tour-meta span {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    color: #555;
-}
-
-.tour-meta i {
-    margin-right: 5px;
-    color: #0d6efd;
-}
-
-.tour-image {
-    margin: 30px auto;
-    max-width: 800px;
-    text-align: center;
+    display: block;
+    margin: 0.5rem 0;
 }
 
 .tour-image img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 8px;
+    margin-top: 1rem;
 }
 
-.tour-info-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.tour-info-container h2,
-.tour-info-container h3 {
-    color: #0d6efd;
-}
-
-.itinerary li, 
-.services li {
-    margin: 10px 0;
-}
-
-.reviews {
-    margin: 20px 0;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-}
-
-.review p {
-    margin: 10px 0;
-    font-style: italic;
+.tour-info-container h2, .tour-info-container h3 {
+    margin-top: 1.5rem;
+    color: #0078d7;
 }
 
 .btn-primary {
     display: inline-block;
-    margin-top: 20px;
-    background: #ffca2c;
-    color: #000;
-    padding: 10px 20px;
+    padding: 0.5rem 1rem;
+    background-color: #0078d7;
+    color: white;
+    text-decoration: none;
     border-radius: 5px;
-    font-weight: 700;
-    transition: 0.3s;
+    margin-top: 1.5rem;
 }
 
-.btn-primary:hover {
-    background: #ffb000;
+.footer-content {
+    text-align: center;
+    padding: 1rem;
+    background-color: #0078d7;
+    color: white;
+}
+
+.socials li {
+    display: inline-block;
+    margin: 0 0.5rem;
 }
