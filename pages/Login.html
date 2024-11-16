@@ -29,8 +29,8 @@
             <form class="login-form" id="loginForm">
                 <div class="form-group">
                     <div class="input-icon">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="Email" required>
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Email hoặc Tên tài khoản" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -42,6 +42,23 @@
                 </div>
                 <button type="submit" class="login-btn">Đăng nhập</button>
                 <p class="register-link">Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+            </form>
+
+            <!-- Liên kết cấp lại mật khẩu -->
+            <p class="forgot-password-link"><a href="javascript:void(0);" onclick="openModal()">Quên mật khẩu?</a></p>
+        </div>
+    </div>
+
+    <!-- Thêm Modal cho "Quên mật khẩu?" -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Quên mật khẩu</h2>
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <input type="email" placeholder="Nhập email của bạn" required>
+                </div>
+                <button type="submit" class="login-btn">Gửi yêu cầu</button>
             </form>
         </div>
     </div>
