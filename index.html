@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./css/body_trangtru.css">
     <link rel="stylesheet" href="./css/camNang.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -44,6 +46,8 @@
                 </div>
                 <ul class="nav-links">
                     <li><a href="pages/register.html">Đăng ký</a></li>
+                    <li><a href="pages/login.html">Đăng nhập</a></li>
+
                 </ul>
             </div>
             <div class="menu-toggle">
@@ -56,7 +60,7 @@
 <div class="body_trangtru">
     <div>
         <div class="title-header">
-            <img class="image_plan" src=https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24""></img>
+            <img class="image_plan" src="https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24"></img>
             <div class="title">Top Địa điểm được yêu thích nhất</div>
         </div>
         
@@ -136,7 +140,20 @@
                 <div class="text">Tìm hiểu Việt Nam</div>
             </div>
         </div>
-
+        
+        <div id="forgotPasswordModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h2>Quên mật khẩu</h2>
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <input type="email" placeholder="Nhập email của bạn" required>
+                    </div>
+                    <button type="submit" class="login-btn">Gửi yêu cầu</button>
+                </form>
+            </div>
+        </div>
+        
 
 
 
@@ -230,10 +247,10 @@
                 <!-- Liên hệ -->
                 <div class="footer-column">
                     <h3>Liên hệ</h3>
-                    <p>175 Tây Sơn, Phường Trung Liệt, Quận Đống Đa, TP Hà Nội</p>
-                    <p>(+84 36) 949 1473</p>
-                    <p>(+84 39) 216 1703</p>
-                    <p>langthangtravel@gmail.com</p>
+                    <p>Trường Đại Học Khoa Học Tự Nhiên TP.HCM - Thủ Đức - Dĩ An</p>
+                    <p>(+84 12) 345 6789</p>
+                    <p>(+84 98) 765 4321</p>
+                    <p>PrestigeTravels@gmail.com</p>
                     <div class="social-media">
                         <h4>Mạng xã hội</h4>
                         <div class="social-icons">
@@ -244,8 +261,8 @@
                             <a href="#"><i class="fab fa-youtube"></i></a>
                         </div>
                         <div class="hotline">
-                            <a href="tel:0369491473">036 949 1473</a>
-                            <p>Từ 8:00 - 22:00 hàng ngày</p>
+                            <a href="tel:0123456789">012 345 6789</a>
+                            <p>Thời gian làm việc từ 8:00 - 22:00 hàng ngày</p>
                         </div>
                     </div>
                 </div>

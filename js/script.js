@@ -138,3 +138,111 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 }); 
+
+// Xử lý Hiển thị/ Ẩn mk
+document.querySelectorAll('.toggle-password').forEach(item => {
+    item.addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            this.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
+});
+
+//
+document.addEventListener('DOMContentLoaded', function () {
+    // Xử lý menu mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    }
+
+    // Xử lý đăng nhập
+    document.getElementById('loginForm')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const identifier = document.querySelector('input[placeholder="Email hoặc Tên tài khoản"]').value.trim();
+        const password = document.querySelector('input[placeholder="Mật khẩu"]').value.trim();
+
+        if (!identifier || !password) {
+            alert('Vui lòng nhập đầy đủ thông tin.');
+            return;
+        }
+
+        const mockUsers = [
+            { username: 'user1', email: 'user1@example.com', password: 'password123' },
+            { username: 'testuser', email: 'test@example.com', password: 'password123' },
+        ];
+
+        const user = mockUsers.find(
+            u => (u.username === identifier || u.email === identifier) && u.password === password
+        );
+
+        if (user) {
+            alert('Đăng nhập thành công!');
+            window.location.href = '../index.html';
+        } else {
+            alert('Email, tên tài khoản hoặc mật khẩu không đúng!');
+        }
+    });
+
+    // Xử lý quên mật khẩu
+    document.getElementById('forgotPasswordForm')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const email = document.querySelector('input[placeholder="Email"]').value.trim();
+
+        if (!email) {
+            alert('Vui lòng nhập email của bạn.');
+            return;
+        }
+
+        const mockEmails = ['user1@example.com', 'test@example.com'];
+
+        if (mockEmails.includes(email)) {
+            alert('Liên kết khôi phục mật khẩu đã được gửi tới email của bạn.');
+        } else {
+            alert('Không tìm thấy tài khoản nào với email này.');
+        }
+    });
+
+    // Hiển thị/Ẩn mật khẩu
+    document.querySelectorAll('.toggle-password').forEach(item => {
+        item.addEventListener('click', function () {
+            const input = this.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                this.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+    });
+});
+
+// JavaScript để mở và đóng modal
+function openModal() {
+    document.getElementById("forgotPasswordModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("forgotPasswordModal").style.display = "none";
+}
+
+// Đóng modal khi nhấn ra ngoài
+window.onclick = function(event) {
+    const modal = document.getElementById("forgotPasswordModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
