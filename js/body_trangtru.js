@@ -25,6 +25,7 @@ $(document).ready(function() {
                             <div class="title">Đà Nẵng</div>
                             <div class="date">26 Tháng 11 2024</div>
                             <div class="price">885.550 VND</div>
+                            <a href="pages/tour-details.html?tour=danang-tour" class="btn-secondary">Xem Chi Tiết</a>
                         </div>
                     </div>
                     <div class="item_display">
@@ -33,6 +34,7 @@ $(document).ready(function() {
                             <div class="title">Phú Quốc</div>
                             <div class="date">28 Tháng 11 2024</div>
                             <div class="price">750.000 VND</div>
+                            <a href="pages/tour-details.html?tour=hanoi-tour" class="btn-secondary">Xem Chi Tiết</a>
                         </div>
                     </div>
                     <div class="item_display">
