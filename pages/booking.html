@@ -21,64 +21,69 @@
             </ul>
         </nav>
     </header>
+      <!-- Booking Section -->
+      <section class="booking-section">
+          <div class="booking-container">
+              <div class="booking-header">
+                  <h1>Đặt Tour</h1>
+                  <p>Hoàn tất thông tin đặt tour của bạn</p>
+              </div>
+            
+              <form id="booking-form" class="booking-form">
+                  <div class="form-grid">
+                      <div class="form-group">
+                          <label for="name"><i class="fas fa-user"></i> Họ và Tên</label>
+                          <input type="text" id="name" name="name" required>
+                      </div>
+                    
+                      <div class="form-group">
+                          <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                          <input type="email" id="email" name="email" required>
+                      </div>
+                    
+                      <div class="form-group">
+                          <label for="phone"><i class="fas fa-phone"></i> Số Điện Thoại</label>
+                          <input type="tel" id="phone" name="phone" required>
+                      </div>
+                    
+                      <div class="form-group">
+                          <label for="tour-date"><i class="fas fa-calendar"></i> Ngày Khởi Hành</label>
+                          <select id="tour-date" name="tour-date" required>
+                              <!-- Dates will be populated by JavaScript -->
+                          </select>
+                      </div>
+                    
+                      <div class="form-group">
+                          <label for="guests"><i class="fas fa-users"></i> Số Lượng Khách</label>
+                          <div class="number-input">
+                              <button type="button" onclick="decrementGuests()">-</button>
+                              <input type="number" id="guests" name="guests" min="1" value="1" required>
+                              <button type="button" onclick="incrementGuests()">+</button>
+                          </div>
+                      </div>
+                    
+                      <div class="form-group full-width">
+                          <label for="special-requests"><i class="fas fa-comment"></i> Yêu Cầu Đặc Biệt</label>
+                          <textarea id="special-requests" name="special-requests" rows="4"></textarea>
+                      </div>
+                  </div>
 
-    <!-- Booking Section -->
-    <section class="booking-section">
-        <div class="booking-header">
-            <h1>Đặt Tour</h1>
-            <p>Vui lòng điền thông tin để hoàn tất việc đặt tour.</p>
-        </div>
+                  <div class="booking-summary">
+                      <h3>Tóm Tắt Đặt Tour</h3>
+                      <div class="summary-details">
+                          <p><span>Tour:</span> <span id="tour-name">Tour Name</span></p>
+                          <p><span>Ngày:</span> <span id="selected-date">Selected Date</span></p>
+                          <p><span>Số khách:</span> <span id="guest-count">1</span></p>
+                          <p><span>Tổng tiền:</span> <span id="total-price">Price</span></p>
+                      </div>
+                  </div>
 
-        <div class="booking-form">
-            <form id="booking-form">
-                <div class="form-group">
-                    <label for="name">Họ và Tên</label>
-                    <input type="text" id="name" name="name" placeholder="Nhập họ và tên của bạn" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Số Điện Thoại</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
-                </div>
-                <div>
-                    <p id="selected-tour-date"></p> <!-- Hiển thị ngày đã chọn -->
-                
-                    <label for="tour-date">Chọn Ngày Đặt Tour:</label>
-                    <select id="tour-date" name="tour-date">
-                        <!-- Các ngày khả dụng sẽ được thêm vào đây thông qua JavaScript -->
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="guests">Số Lượng Khách</label>
-                    <input type="number" id="guests" name="guests" min="1" max="10" placeholder="Nhập số lượng khách" required>
-                </div>
-                <div class="form-group">
-                    <label for="special-requests">Yêu Cầu Đặc Biệt</label>
-                    <textarea id="special-requests" name="special-requests" rows="4" placeholder="Nếu có yêu cầu đặc biệt, vui lòng ghi rõ"></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn-primary">Đặt Ngay</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Confirmation Section -->
-        <div id="confirmation" class="confirmation" style="display: none;">
-            <h2>Thông Tin Đặt Tour</h2>
-            <p id="confirmation-name"></p>
-            <p id="confirmation-email"></p>
-            <p id="confirmation-phone"></p>
-            <p id="confirmation-tour-date"></p>
-            <p id="confirmation-guests"></p>
-            <p id="confirmation-special-requests"></p>
-            <button id="go-back" class="btn-secondary">Quay Lại</button>
-        </div>
-    </section>
-
+                  <button type="submit" class="submit-btn">
+                      <i class="fas fa-check"></i> Xác Nhận Đặt Tour
+                  </button>
+              </form>
+          </div>
+      </section>
     <!-- Footer -->
     <footer id="contact">
         <div class="footer-content">

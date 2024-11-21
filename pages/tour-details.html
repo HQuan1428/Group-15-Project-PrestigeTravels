@@ -29,17 +29,22 @@
             <p>Thông tin sẽ được tải...</p>
             <div class="tour-meta"></div>
         </div>
-        <h3>Ngày Có Thể Đặt</h3>
-<ul class="available-dates">
-    <!-- Các ngày khả dụng sẽ được thêm vào đây thông qua JavaScript -->
-</ul>
-
-<div>
-    <label for="tour-date">Chọn Ngày Đặt Tour:</label>
-    <select id="tour-date" name="tour-date">
-        <!-- Các ngày có thể chọn sẽ được thêm vào đây -->
-    </select>
-</div>
+        <!-- Update the date selection section -->
+        <div class="date-selection-container">
+            <h3>Ngày Khởi Hành</h3>
+            <div class="date-options">
+                <div class="available-dates-wrapper">
+                    <h4>Các ngày có thể đặt:</h4>
+                    <ul class="available-dates"></ul>
+                </div>
+                <div class="date-picker-wrapper">
+                    <label for="tour-date">Chọn ngày khởi hành:</label>
+                    <select id="tour-date" name="tour-date" required>
+                        <option value="">-- Chọn ngày --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="tour-image">
             <img src="" alt="Chi tiết tour">
         </div>
@@ -50,10 +55,39 @@
 
             <h3>Lịch Trình</h3>
             <ul class="itinerary"></ul>
-
+                      <section class="services-section">
             <h3>Dịch Vụ Bao Gồm</h3>
-            <ul class="services"></ul>
-
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-hotel"></i>
+                    <div class="service-content">
+                        <h4>Khách Sạn</h4>
+                        <p>Khách sạn 4 sao với đầy đủ tiện nghi</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-utensils"></i>
+                    <div class="service-content">
+                        <h4>Ẩm Thực</h4>
+                        <p>Bữa sáng buffet, trưa và tối theo menu</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bus"></i>
+                    <div class="service-content">
+                        <h4>Di Chuyển</h4>
+                        <p>Xe đưa đón cao cấp suốt hành trình</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="service-content">
+                        <h4>Hướng Dẫn Viên</h4>
+                        <p>HDV chuyên nghiệp, nhiệt tình</p>
+                    </div>
+                </div>
+            </div>
+</section>
             <h3>Đánh Giá Từ Khách Hàng</h3>
             <div class="reviews"></div>
 

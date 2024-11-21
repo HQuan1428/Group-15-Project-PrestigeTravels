@@ -43,27 +43,37 @@ if (tour) {
         <a href="index.html" class="btn-primary">Quay lại</a>
     `;
 }
-// Hàm để hiển thị các ngày có thể đặt trong phần chi tiết tour
-function displayAvailableDates() {
-    const datesContainer = document.querySelector('.available-dates');
-    const dateSelect = document.querySelector('#tour-date');
-    
-    // Lặp qua mảng ngày tháng và tạo các phần tử <li> để hiển thị
-    tour.availableDates.forEach(date => {
-        // Hiển thị các ngày có thể đặt trong danh sách
-        const dateItem = document.createElement('li');
-        dateItem.textContent = formatDate(date);
-        datesContainer.appendChild(dateItem);
-        
-        // Thêm các ngày vào dropdown chọn ngày
-        const option = document.createElement('option');
-        option.value = date;
-        option.textContent = formatDate(date);
-        dateSelect.appendChild(option);
-    });
-}
+// Update the date handling code
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const tourId = params.get('tour');
+    const tour = toursData[tourId];
 
-// Hàm để định dạng lại ngày tháng theo kiểu dễ đọc (Ví dụ: 20/11/2024)
+    if (tour && tour.availableDates) {
+        const dateSelect = document.getElementById('tour-date');
+        const datesList = document.querySelector('.available-dates');
+
+        // Clear existing options
+        dateSelect.innerHTML = '<option value="">-- Chọn ngày --</option>';
+        datesList.innerHTML = '';
+
+        // Add available dates
+        tour.availableDates.forEach(date => {
+            // Add to dropdown
+            const option = document.createElement('option');
+            option.value = date;
+            option.textContent = formatDate(date);
+            dateSelect.appendChild(option);
+
+            // Add to list
+            const li = document.createElement('li');
+            li.textContent = formatDate(date);
+            datesList.appendChild(li);
+        });
+    }
+});
+
+// Format date helper
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
@@ -72,15 +82,40 @@ function formatDate(dateString) {
     return `${day}/${month}/${year}`;
 }
 
+// Add CSS styles for better date display
+const style = document.createElement('style');
+style.textContent = `
+    .available-dates {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+    .date-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px;
+        margin: 5px 0;
+        background: #f5f5f5;
+        border-radius: 5px;
+    }
+    .date-icon {
+        color: #0078d7;
+    }
+`;
+document.head.appendChild(style);
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    displayAvailableDates();
+});
+
 // Lắng nghe sự kiện thay đổi ngày chọn từ dropdown
 document.querySelector('#tour-date').addEventListener('change', function() {
     const selectedDate = this.value;
     console.log(`Người dùng đã chọn ngày: ${formatDate(selectedDate)}`);
     // Bạn có thể lưu giá trị này hoặc gửi nó khi thực hiện đặt tour
 });
-
-// Gọi hàm khi trang được tải
-document.addEventListener('DOMContentLoaded', displayAvailableDates);
 // Lắng nghe sự kiện thay đổi ngày chọn từ dropdown
 document.querySelector('#tour-date').addEventListener('change', function() {
     const selectedDate = this.value;

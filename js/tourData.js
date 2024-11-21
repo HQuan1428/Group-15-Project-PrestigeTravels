@@ -20,8 +20,13 @@ const toursData = {
             { name: "Nguyễn Văn A", comment: "Tour rất tuyệt vời!" },
             { name: "Trần Thị B", comment: "Dịch vụ chu đáo và giá hợp lý." },
         ],
-    },
-    "danang-tour": {
+        availableDates: [
+            "2024-11-20",
+            "2024-11-25", 
+            "2024-11-30",
+            "2024-12-05"
+        ],
+    },    "danang-tour": {
         title: "Du Lịch Đà Nẵng",
         description: "Tận hưởng bãi biển và các khu du lịch nổi tiếng tại Đà Nẵng.",
         duration: "4 ngày 3 đêm",
