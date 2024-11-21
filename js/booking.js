@@ -3,33 +3,29 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSummary();
 });
 
-function incrementGuests() {
-    const input = document.getElementById('guests');
+function incrementGuests(type) {
+    const input = document.getElementById(type);
     input.value = parseInt(input.value) + 1;
     updateSummary();
 }
 
-function decrementGuests() {
-    const input = document.getElementById('guests');
-    if (parseInt(input.value) > 1) {
+function decrementGuests(type) {
+    const input = document.getElementById(type);
+    const minValue = type === 'adults' ? 1 : 0;
+    if (parseInt(input.value) > minValue) {
         input.value = parseInt(input.value) - 1;
         updateSummary();
     }
 }
 
 function updateSummary() {
-    const tourName = document.getElementById('tour-name');
-    const selectedDate = document.getElementById('selected-date');
+    const adults = parseInt(document.getElementById('adults').value);
+    const children = parseInt(document.getElementById('children').value);
     const guestCount = document.getElementById('guest-count');
-    const totalPrice = document.getElementById('total-price');
+    guestCount.textContent = `${adults} người lớn, ${children} trẻ em`;
     
-    // Update with actual tour data
-    const guests = document.getElementById('guests').value;
-    const date = document.getElementById('tour-date').value;
-    
-    guestCount.textContent = guests;
-    selectedDate.textContent = formatDate(date);
-    // Calculate and update total price based on your pricing logic
+    // Cập nhật tổng tiền
+    calculateTotal();
 }
 
 document.getElementById('booking-form').addEventListener('submit', function(e) {
@@ -64,3 +60,43 @@ function formatDate(dateString) {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
+
+// Xử lý sự kiện chọn phương thức thanh toán
+document.querySelectorAll('.payment-option').forEach(option => {
+    option.addEventListener('click', function() {
+        // Bỏ chọn tất cả các options
+        document.querySelectorAll('.payment-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        
+        // Chọn option hiện tại
+        this.classList.add('selected');
+        
+        // Chọn radio button
+        const radio = this.querySelector('input[type="radio"]');
+        radio.checked = true;
+        
+        // Cập nhật tóm tắt đặt tour
+        updateSummary();
+    });
+});
+
+function showCoupons() {
+    const couponsList = document.getElementById('coupons-list');
+    couponsList.style.display = couponsList.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectCoupon(code) {
+    document.getElementById('coupon-code').value = code;
+    document.getElementById('coupons-list').style.display = 'none';
+    applyCoupon();
+}
+
+function applyCoupon() {
+    const code = document.getElementById('coupon-code').value;
+    // Thêm logic kiểm tra mã giảm giá và tính toán
+    calculateTotal();
+}
+
+// Thêm event listener cho nút hiển thị phiếu giảm giá
+document.getElementById('showCoupons').addEventListener('click', showCoupons);
