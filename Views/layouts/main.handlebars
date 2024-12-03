@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản trị hệ thống</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        main {
+            display: flex;
+            height: 100vh;
+        }
+
+        .menu {
+            min-width: 250px;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            padding: 1rem;
+        }
+
+        .menu .nav-link {
+            color: #333;
+        }
+
+        .menu .nav-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .footer-column ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            border-top: 1px solid #dee2e6;
+            padding-top: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Prestige Travels</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tour">Tour</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm tour..."
+                            aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Tìm kiếm</button>
+                    </form>
+                    <ul class="navbar-nav ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Đăng ký</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Đăng nhập</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {{#if query.successMessage}}
+    <script>
+        console.log("Message: {{query.successMessage}}");  // Kiểm tra xem message có được truyền vào hay không
+        alert("{{query.successMessage}}");
+    </script>
+    {{/if}}
+
+
+    <main>
+        {{{body}}}
+    </main>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 footer-column">
+                    <h3>Du lịch trong nước</h3>
+                    <ul>
+                        <li><a href="#">Hà Nội</a></li>
+                        <li><a href="#">Hạ Long</a></li>
+                        <li><a href="#">Đà Lạt</a></li>
+                        <li><a href="#">Phú Quốc</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-column">
+                    <h3>Du lịch nước ngoài</h3>
+                    <ul>
+                        <li><a href="#">Trung Quốc</a></li>
+                        <li><a href="#">Thái Lan</a></li>
+                        <li><a href="#">Hàn Quốc</a></li>
+                        <li><a href="#">Singapore</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-column">
+                    <h3>Dòng tour</h3>
+                    <ul>
+                        <li><a href="#">Cao cấp</a></li>
+                        <li><a href="#">Tiết kiệm</a></li>
+                        <li><a href="#">Tiêu chuẩn</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-column">
+                    <h3>Liên hệ</h3>
+                    <p>Trường ĐH KHTN</p>
+                    <p>(+84 12) 345 6789</p>
+                    <p>PrestigeTravels@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom text-center mt-3">
+                &copy; 2024 Prestige Travels. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Link CSS và JS của Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</body>
+
+</html>
+
