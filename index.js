@@ -25,7 +25,12 @@ initializePassport(passport)
 // Template engine
 app.engine('handlebars', engine({
   defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, 'views', 'layouts')
+  layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  helpers: {
+    json: function(context) {
+      return JSON.stringify(context);
+    }
+  }
 
 }))
 app.set('view engine', 'handlebars')

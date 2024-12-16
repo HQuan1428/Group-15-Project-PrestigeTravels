@@ -1,13 +1,4 @@
 const { db } = require('../../Connect_Server/db');
-db.connect()
-    .then(obj => {
-       
-        console.log('Kết nối thành công!');
-        obj.done(); // đóng kết nối
-    })
-    .catch(error => {
-        console.error('Lỗi kết nối:', error);
-    });
 const checkAccountExists = async (email) => { 
     try {
         const result = await db.oneOrNone('SELECT * FROM "users" WHERE "email" = $1', [email])

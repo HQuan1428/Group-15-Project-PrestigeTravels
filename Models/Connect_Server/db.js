@@ -12,4 +12,13 @@ database: 'CNPM',
 
 
 const db = pgp(dbConfig)
+db.connect()
+    .then(obj => {
+       
+        console.log('Kết nối thành công!');
+        obj.done(); // đóng kết nối
+    })
+    .catch(error => {
+        console.error('Lỗi kết nối:', error);
+    });
 module.exports = { db };
