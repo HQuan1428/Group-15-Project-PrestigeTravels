@@ -11,32 +11,32 @@ const showAccounts = (req, res) => {
   ]
 
   // Render giao diện admin/accounts và truyền dữ liệu accounts
-  res.render('admin/accounts', { accounts})
+  res.render('adminViews/accounts', { accounts})
 }
 
 // Hiển thị giao diện xét duyệt dịch vụ
 const showApprovalPage = (req, res) => {
-  res.render('admin/approvals'); // Render view 'approval'
+  res.render('adminViews/approvals'); // Render view 'approval'
 }
 
 // Hiển thị hoạt động hệ thống
 const showSystemLogs = (req, res) => {
-  res.render('admin/systems'); // Render view 'system'
+  res.render('adminViews/systems'); // Render view 'system'
 }
 
 // Hiển thị báo cáo và phân tích
 const showReports = (req, res) => {
-  res.render('admin/reports'); // Render view 'reports'
+  res.render('adminViews/reports'); // Render view 'reports'
 }
 
 // Hiển thị lỗi hệ thống
 const showErrorLogs = (req, res) => {
-  res.render('admin/errors'); // Render view 'errors'
+  res.render('adminViews/errors'); // Render view 'errors'
 }
 
 // Hiển thị quản lý bài viết
 const showPosts = (req, res) => {
-  res.render('admin/posts'); // Render view 'posts'
+  res.render('adminViews/posts'); // Render view 'posts'
 }
 
 // Xuất các hàm để sử dụng trong routes

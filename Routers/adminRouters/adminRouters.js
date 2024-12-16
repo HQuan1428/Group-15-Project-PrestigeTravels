@@ -9,25 +9,25 @@ router.get('/admin', (req, res) => {
     return res.redirect('/login');  // Nếu chưa đăng nhập, chuyển đến trang login
   }
 
-  res.render('adminViews/admin', { user: req.user });
+  res.render('adminViews/adminViews', { user: req.user });
 })
 
 // Route: Hiển thị danh sách tài khoản
-router.get('/accounts', showAccounts)
+router.get('admin/accounts', showAccounts)
 
 // Route: Hiển thị giao diện xét duyệt dịch vụ
-router.get('/approvals', showApprovalPage)
+router.get('admin/approvals', showApprovalPage)
 
 // Route: Hiển thị hoạt động hệ thống
-router.get('/systems', showSystemLogs)
+router.get('admin/systems', showSystemLogs)
 
 // Route: Hiển thị báo cáo và phân tích
-router.get('/reports', showReports)
+router.get('admin/reports', showReports)
 
 // Route: Hiển thị lỗi hệ thống
-router.get('/errors', showErrorLogs)
+router.get('admin/errors', showErrorLogs)
 
 // Route: Hiển thị quản lý bài viết
-router.get('/posts', showPosts)
+router.get('admin/posts', showPosts)
 
 module.exports = router
