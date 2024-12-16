@@ -16,17 +16,17 @@ const showAccounts = (req, res) => {
 
 // Hiển thị giao diện xét duyệt dịch vụ
 const showApprovalPage = (req, res) => {
-  res.render('approvals'); // Render view 'approval'
+  res.render('admin/approvals'); // Render view 'approval'
 }
 
 // Hiển thị hoạt động hệ thống
 const showSystemLogs = (req, res) => {
-  res.render('systems'); // Render view 'system'
+  res.render('admin/systems'); // Render view 'system'
 }
 
 // Hiển thị báo cáo và phân tích
 const showReports = (req, res) => {
-  res.render('reports'); // Render view 'reports'
+  res.render('admin/reports'); // Render view 'reports'
 }
 
 // Hiển thị lỗi hệ thống

@@ -1,7 +1,5 @@
 {{#if errorMessage}}
-<script>
-    alert("{{errorMessage}}")
-</script>
+<div class="error">{{errorMessage}}</div>
 {{/if}}
 <!-- Register Section -->
 <div class="container d-flex justify-content-center align-items-center vh-100">
@@ -56,14 +54,6 @@
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                         <input type="password" class="form-control" id="password" name="password"
                             placeholder="Nhập mật khẩu" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                            placeholder="Nhập lại mật khẩu" required>
                     </div>
                 </div>
                 <div class="mb-3 form-check">

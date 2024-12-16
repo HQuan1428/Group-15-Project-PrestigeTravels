@@ -4,7 +4,12 @@ const { showAccounts, showApprovalPage, showSystemLogs, showReports, showErrorLo
 
 // Route Admin: Trang quản trị admin
 router.get('/admin', (req, res) => {
-  res.render('adminViews/adminViews')
+  // Kiểm tra nếu người dùng là admin
+  if (!req.isAuthenticated()) {
+    return res.redirect('/login');  // Nếu chưa đăng nhập, chuyển đến trang login
+  }
+
+  res.render('adminViews/admin', { user: req.user });
 })
 
 // Route: Hiển thị danh sách tài khoản

@@ -1,14 +1,27 @@
 const path = require('path')
 const express = require('express')
 const session = require('express-session')
-const {engine } = require('express-handlebars')
+const { engine } = require('express-handlebars')
+const passport = require('passport')
+const MyError = require('./error')
+const { initializePassport } = require('./config/passport'); // Cấu hình Passport với chiến lược tự xây dựng
 
 const port = 4000
 const app = express()
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
+// Cấu hình session
+app.use(session({
+  secret: 'secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false,httpOnly: true,  maxAge: 1000 * 60 * 60 * 24 * 7 }
+}))
+// Khởi tạo passport
+app.use(passport.initialize())
+app.use(passport.session())
+initializePassport(passport)
 // Template engine
 app.engine('handlebars', engine({
   defaultLayout: 'main',
@@ -25,10 +38,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // trang chủ user
 app.get('/', (req, res) => {
+  const welcomeMessage = req.query.message; // Lấy thông báo từ query string
   res.render('userViews/home', {
-    query: req.query,currentPage: 'home'
+    welcomeMessage, // Truyền thông báo vào view
+    query: req.query,
+    currentPage: 'home'
   })
 })
+
+const userRouter = require('./Routers/userRouters/userRouter')
+app.use(userRouter);
 // Register Routers
 const registerRouter = require('./Routers/registerRouter')
 app.use(registerRouter)

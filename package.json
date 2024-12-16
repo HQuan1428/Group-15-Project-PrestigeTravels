@@ -1,12 +1,15 @@
 {
   "dependencies": {
     "admin_cnpm": "file:",
+    "bcrypt": "^5.1.1",
     "express": "^4.21.1",
     "express-handlebars": "^8.0.1",
     "express-session": "^1.18.1",
     "mssql": "^11.0.1",
     "mysql": "^2.18.1",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "passport": "^0.7.0",
+    "pg-promise": "^11.10.2"
   },
   "name": "admin_cnpm",
   "version": "1.0.0",

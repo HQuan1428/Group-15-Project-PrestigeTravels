@@ -102,13 +102,9 @@
             </div>
         </nav>
     </header>
-    {{#if query.successMessage}}
-    <script>
-        console.log("Message: {{query.successMessage}}");  // Kiểm tra xem message có được truyền vào hay không
-        alert("{{query.successMessage}}");
-    </script>
+    {{#if errorMessage}}
+    <div class="error">{{errorMessage}}</div>
     {{/if}}
-
 
     <main>
         {{{body}}}
