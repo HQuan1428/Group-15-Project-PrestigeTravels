@@ -10,7 +10,6 @@ port: '5432',
 database: 'CNPM',
 };
 
-
 const db = pgp(dbConfig)
 db.connect()
     .then(obj => {

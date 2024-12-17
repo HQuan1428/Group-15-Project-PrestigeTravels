@@ -19,6 +19,11 @@ router.get('/admin', (req, res) => {
 
 // Route: Hiển thị danh sách tài khoản
 router.get('/admin/accounts', showAccounts)
+//Search
+const {Search}=require('../../Controllers/adminControllers/AccountsControllers/searchControllers')
+router.post('/admin/search',Search);
+
+
 
 // Route: Hiển thị giao diện xét duyệt dịch vụ
 router.get('/admin/approvals', showApprovalPage)
