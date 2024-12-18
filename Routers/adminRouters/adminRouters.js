@@ -1,29 +1,33 @@
 const express = require('express')
 const router = express.Router()
-const{showAccounts}=require('../../Controllers/adminControllers/AccountsControllers/AccountsControllers')
-const {showApprovalPage}=require('../../Controllers/adminControllers/ApprovalsControllers/ApprovalsControllers')
-const {showSystemLogs}=require('../../Controllers/adminControllers/SystemsControllers/SystemsControllers')
-const {showReports}=require('../../Controllers/adminControllers/ReportsControllers/ReportsControllers')
-const {showErrorLogs}=require('../../Controllers/adminControllers/ErrorsControllers/ErrorsControllers')
-const {showPosts}=require('../../Controllers/adminControllers/PostsControllers/PostsControllers')
+const {showAccounts} = require('../../Controllers/adminControllers/AccountsControllers/AccountsControllers')
+const {showApprovalPage} = require('../../Controllers/adminControllers/ApprovalsControllers/ApprovalsControllers')
+const {showSystemLogs} = require('../../Controllers/adminControllers/SystemsControllers/SystemsControllers')
+const {showReports} = require('../../Controllers/adminControllers/ReportsControllers/ReportsControllers')
+const {showErrorLogs} = require('../../Controllers/adminControllers/ErrorsControllers/ErrorsControllers')
+const {showPosts} = require('../../Controllers/adminControllers/PostsControllers/PostsControllers')
 
 // Route Admin: Trang quản trị admin
 router.get('/admin', (req, res) => {
   // Kiểm tra nếu người dùng là admin
   if (!req.isAuthenticated()) {
-    return res.redirect('/login');  // Nếu chưa đăng nhập, chuyển đến trang login
+    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
   }
 
-  res.render('adminViews/adminViews');
+  res.render('adminViews/adminViews')
 })
 
 // Route: Hiển thị danh sách tài khoản
 router.get('/admin/accounts', showAccounts)
-//Search
-const {Search}=require('../../Controllers/adminControllers/AccountsControllers/searchControllers')
-router.post('/admin/search',Search);
-
-
+// Search
+const {Search} = require('../../Controllers/adminControllers/AccountsControllers/searchControllers')
+router.post('/admin/search', Search)
+// addUser
+const {addUserController} = require('../../Controllers/adminControllers/AccountsControllers/addUserControllers')
+router.post('/admin/adduser', addUserController)
+// delete user
+const {deleteUser} = require('../../Controllers/adminControllers/AccountsControllers/deleteUserControllers')
+router.post('/admin/delete/:id', deleteUser)
 
 // Route: Hiển thị giao diện xét duyệt dịch vụ
 router.get('/admin/approvals', showApprovalPage)
