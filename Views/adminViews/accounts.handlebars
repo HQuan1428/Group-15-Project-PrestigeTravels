@@ -113,64 +113,86 @@
     // Đảm bảo rằng mã JavaScript chỉ chạy sau khi DOM đã tải xong
     document.addEventListener('DOMContentLoaded', () => {
         // Dữ liệu người dùng
-        const accounts = {{{json accounts}}};
-        const accountsPerPage = 10;
-        let currentPage = 1;
-        // Hàm hiển thị người dùng trên mỗi trang
-        function displayAccounts(page) {
-            const start = (page - 1) * accountsPerPage;
-            const end = start + accountsPerPage;
-            const accountsToDisplay = accounts.slice(start, end);
-            // Clear bảng hiện tại
-            const tableBody = document.getElementById('accountTable');
-            tableBody.innerHTML = '';
-            // Hiển thị các tài khoản trên bảng
-            accountsToDisplay.forEach(account => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${account.fullname}</td>
-                    <td>${account.email}</td>
-                    <td>${account.phone}</td>
-                    <td>${account.role}</td>
-                    <td>${account.created_at}</td>
-                    <td>
-                        <form action="/admin/delete/${account.id}" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
-                        </form>
-                    </td>
+        const accounts = {{{ json accounts }}};
+            const accountsPerPage = 10;
+            let currentPage = 1;
 
-                `;
-                tableBody.appendChild(row);
-            });
-            // Hiển thị phân trang
-            displayPagination(page);
-        }
-        // Hàm hiển thị các nút phân trang
-        function displayPagination(page) {
-            const totalPages = Math.ceil(accounts.length / accountsPerPage);
-            const pagination = document.getElementById('pagination');
-            pagination.innerHTML = '';
-            // Previous page
-            if (page > 1) {
-                pagination.innerHTML +=
-                    `<li class="page-item"><a class="page-link" href="#" onclick="goToPage(${page - 1})"><<</a></li>`;
+            function displayAccounts(page) {
+                console.log("Chuyển đến trang:", page);
+
+                // Kiểm tra nếu không có tài khoản
+                if (accounts.length === 0) {
+                    document.getElementById('accountTable').innerHTML = '<tr><td colspan="6">Không có tài khoản nào!</td></tr>';
+                    document.getElementById('pagination').innerHTML = '';
+                    return;
+                }
+
+                // Tính toán chỉ số bắt đầu và kết thúc
+                const start = (page - 1) * accountsPerPage;
+                const end = start + accountsPerPage;
+                const accountsToDisplay = accounts.slice(start, end);
+
+                // Cập nhật bảng
+                const tableBody = document.getElementById('accountTable');
+                tableBody.innerHTML = ''; // Xóa nội dung bảng cũ
+
+                accountsToDisplay.forEach(account => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                <td>${account.fullname}</td>
+                <td>${account.email}</td>
+                <td>${account.phone}</td>
+                <td>${account.role}</td>
+                <td>${account.created_at}</td>
+                <td>
+                <form action="/admin/delete/${account.id}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                </form>
+            </td>
+        `;
+                    tableBody.appendChild(row);
+                });
+
+                // Hiển thị phân trang
+                displayPagination(page);
             }
-            // Current page
-            pagination.innerHTML +=
-                `<li class="page-item active"><a class="page-link" href="#">${page}</a></li>`;
-            // Next page
-            if (page < totalPages) {
-                pagination.innerHTML +=
-                    `<li class="page-item"><a class="page-link" href="#" onclick="goToPage(${page + 1})">>></a></li>`;
+
+            function displayPagination(page) {
+                const totalPages = Math.ceil(accounts.length / accountsPerPage);
+                const pagination = document.getElementById('pagination');
+                pagination.innerHTML = ''; // Xóa nội dung phân trang cũ
+
+                // Nút Previous
+                if (page > 1) {
+                    pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="goToPage(${page - 1})"><<</a></li>`;
+                }
+
+                // Các nút số trang
+                for (let i = 1; i <= totalPages; i++) {
+                    pagination.innerHTML += `
+            <li class="page-item ${i === page ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>
+            </li>
+        `;
+                }
+
+                // Nút Next
+                if (page < totalPages) {
+                    pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="goToPage(${page + 1})">>></a></li>`;
+                }
             }
-        }
-        // Hàm chuyển sang trang khác
-        function goToPage(page) {
-            currentPage = page;
-            displayAccounts(page);
-        }
-        // Khởi tạo trang đầu tiên
-        displayAccounts(currentPage);
+
+            function goToPage(page) {
+                console.log("Chuyển đến trang:", page);
+                currentPage = page;
+                displayAccounts(page);
+            }
+            window.goToPage = goToPage;
+
+            // Hiển thị trang đầu tiên
+            displayAccounts(currentPage);
+
+
         // AddUser form toggle
         const toggleFormButton = document.getElementById('toggleFormButton');
         const addUserForm = document.getElementById('addUserForm');

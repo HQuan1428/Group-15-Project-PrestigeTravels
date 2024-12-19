@@ -1,26 +1,158 @@
-<a href="/admin" class="btn btn-outline-primary mb-3">← Quay lại</a>
+{{#if successMessage}}
+<div id="successMessage" class="alert alert-success">
+    {{successMessage}}
+</div>
+{{/if}}
 
-<h2 class="mt-4">Xét duyệt dịch vụ</h2>
-<table class="table table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Người yêu cầu</th>
-            <th>Dịch vụ</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Nguyễn Văn A</td>
-            <td>Dịch vụ 1</td>
-            <td>Chờ xét duyệt</td>
-            <td>
-                <button class="btn btn-success btn-sm">Duyệt</button>
-                <button class="btn btn-danger btn-sm">Từ chối</button>
+{{#if errorMessage}}
+<div id="errorMessage" class="alert alert-danger">
+    {{errorMessage}}
+</div>
+{{/if}}
+<div class="d-flex align-items-start">
+    <div class="me-3">
+        <a href="/admin" class="btn btn-outline-primary" style="margin-top: 20px;">Home</a>
+    </div>
+    <div class="flex-grow-1">
+        <h2 class="my-4">Quản lý tài khoản</h2>
+        <div class="input-group rounded" style="gap: 10px; margin-top: 20px;">
+            <!-- Form tìm kiếm -->
+            <form action="/admin/approvals/search" method="POST" class="d-flex align-items-center w-100">
+                <input type="search" name="name" class="form-control rounded shadow-sm border-primary"
+                    placeholder="Search name user" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-primary ms-2 px-3 shadow-sm"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <table class="table table-striped table-bordered table-hover" style="margin-top:10px; margin-bottom:10px ">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Loại tài khoản</th>
+                    <th scope="col">Ngày đăng kí</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody id="accountTable">
+                <!-- Hiển thị tài khoản -->
+            </tbody>
+        </table>
+        <!-- Phân trang -->
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-end" id="pagination">
+            </ul>
+        </nav>
+
+    </div>
+</div>
+<style>
+    .form-control:hover,
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.5);
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+        transform: scale(1.05);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-success:hover {
+        background-color: #157347;
+        border-color: #146c43;
+        transform: scale(1.05);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .hover-add-btn i {
+        margin-right: 5px;
+    }
+</style>
+<script>
+    // Đảm bảo rằng mã JavaScript chỉ chạy sau khi DOM đã tải xong
+    document.addEventListener('DOMContentLoaded', () => {
+        // Dữ liệu người dùng
+        const accounts = {{{ json approvals }}};
+    const accountsPerPage = 10;
+    let currentPage = 1;
+
+    function displayAccounts(page) {
+        console.log("Chuyển đến trang:", page);
+
+        // Kiểm tra nếu không có tài khoản
+        if (accounts.length === 0) {
+            document.getElementById('accountTable').innerHTML = '<tr><td colspan="6">Không có tài khoản nào!</td></tr>';
+            document.getElementById('pagination').innerHTML = '';
+            return;
+        }
+
+        // Tính toán chỉ số bắt đầu và kết thúc
+        const start = (page - 1) * accountsPerPage;
+        const end = start + accountsPerPage;
+        const accountsToDisplay = accounts.slice(start, end);
+
+        // Cập nhật bảng
+        const tableBody = document.getElementById('accountTable');
+        tableBody.innerHTML = ''; // Xóa nội dung bảng cũ
+
+        accountsToDisplay.forEach(account => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${account.fullname}</td>
+                <td>${account.email}</td>
+                <td>${account.phone}</td>
+                <td>${account.role}</td>
+                <td>${account.created_at}</td>
+                <td>
+                <form action="/admin/delete/${account.id}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                </form>
             </td>
-        </tr>
-    </tbody>
-</table>
+        `;
+            tableBody.appendChild(row);
+        });
+
+        // Hiển thị phân trang
+        displayPagination(page);
+    }
+
+    function displayPagination(page) {
+        const totalPages = Math.ceil(accounts.length / accountsPerPage);
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = ''; // Xóa nội dung phân trang cũ
+
+        // Nút Previous
+        if (page > 1) {
+            pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="goToPage(${page - 1})"><<</a></li>`;
+        }
+
+        // Các nút số trang
+        for (let i = 1; i <= totalPages; i++) {
+            pagination.innerHTML += `
+            <li class="page-item ${i === page ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>
+            </li>
+        `;
+        }
+
+        // Nút Next
+        if (page < totalPages) {
+            pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="goToPage(${page + 1})">>></a></li>`;
+        }
+    }
+
+    function goToPage(page) {
+        console.log("Chuyển đến trang:", page);
+        currentPage = page;
+        displayAccounts(page);
+    }
+    window.goToPage = goToPage;
+
+    // Hiển thị trang đầu tiên
+    displayAccounts(currentPage);
+
+    });
+</script>
