@@ -1,7 +1,7 @@
 const { GetApprovals } = require('../../../Models/adminModels/Approvals/GetApprovals')
 const showApprovalPage =async (req, res) => {
   try {
-        const approvals  = await GetApprovals(); 
+    const approvals = await GetApprovals(); 
         res.render('adminViews/approvals', {
             approvals,
             successMessage: req.query.successMessage || '',
