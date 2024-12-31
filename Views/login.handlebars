@@ -8,14 +8,14 @@
     alert(" {{errorMessage}}")
     {{/if}}
     <form method="POST" action="/login" class="mt-4">
-        <div class="mb-3">
+        {{!-- <div class="mb-3">
             <label for="userType" class="form-label">Loại người dùng</label>
                 <select class="form-control" id="userType" name="userType" required>
                     <option value="customer">User</option>
                     <option value="admin">Quản trị viên</option>
                     <option value="partner">Nhà cung cấp</option>
                 </select>
-        </div>
+        </div> --}}
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required>
