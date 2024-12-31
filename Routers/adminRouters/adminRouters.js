@@ -13,8 +13,9 @@ router.get('/admin', (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
   }
+  const role = req.session.userType
 
-  res.render('adminViews/adminViews')
+  res.render('adminViews/adminViews',{role})
 })
 
 // Route: Hiển thị danh sách tài khoản
@@ -31,6 +32,13 @@ router.post('/admin/delete/:id', deleteUser)
 
 // Route: Hiển thị giao diện xét duyệt dịch vụ
 router.get('/admin/approvals', showApprovalPage)
+// Detail approvals 
+const {Detail } = require('../../Controllers/adminControllers/ApprovalsControllers/detailApprovalControllers')
+router.get('/admin/approvals/detail/:id', Detail)
+
+// Delete approvals
+const {deleteApproval } = require('../../Controllers/adminControllers/ApprovalsControllers/deleteApprovalControllers')
+router.post('/admin/approvals/delete/:id', deleteApproval)
 
 // Route: Hiển thị hoạt động hệ thống
 router.get('/admin/systems', showSystemLogs)

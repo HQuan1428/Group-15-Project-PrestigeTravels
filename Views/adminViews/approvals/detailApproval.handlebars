@@ -1,0 +1,30 @@
+<div class="me-3">
+        <a href="/admin/approvals" class="btn btn-outline-primary" style="margin-top: 20px;">Home</a>
+    </div>
+<div class="container mt-5">
+    
+    <div class="card shadow-sm">
+        {{!-- <img src="/images/{{detail.image}}" class="card-img-top" alt="{{detail.title}}"> --}}
+        <div class="card-body">
+            <h2 class="card-title text-primary">{{detail.title}}</h2>
+            <p class="card-text text-muted">{{detail.description}}</p>
+
+            <ul class="list-group list-group-flush mt-4">
+                <li class="list-group-item"><strong>Giá:</strong> {{detail.price}} VND</li>
+                <li class="list-group-item"><strong>Thời lượng:</strong> {{detail.duration}}</li>
+                <li class="list-group-item"><strong>Điểm khởi hành:</strong> {{detail.starting_point}}</li>
+                <li class="list-group-item">
+                    <strong>Trạng thái:</strong>{{detail.status}}
+                </li>
+                <li class="list-group-item"><strong>Mức độ khó:</strong> {{detail.difficulty_level}}</li>
+                {{#if detail.average_rating}}
+                <li class="list-group-item"><strong>Đánh giá trung bình:</strong> {{detail.average_rating}} / 5</li>
+                {{/if}}
+                {{#if detail.max_participants}}
+                <li class="list-group-item"><strong>Số lượng tham gia tối đa:</strong> {{detail.max_participants}} người
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+    </div>
+</div>
