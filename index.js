@@ -27,8 +27,8 @@ app.engine('handlebars', engine({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views', 'layouts'),
   helpers: {
-    json: function(context) {
-      return JSON.stringify(context);
+    json: function (context) {
+      return JSON.stringify(context)
     }
   }
 
@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
 })
 
 const userRouter = require('./Routers/userRouters/userRouter')
-app.use(userRouter);
+app.use(userRouter)
 // Register Routers
 const registerRouter = require('./Routers/registerRouter')
 app.use(registerRouter)
@@ -60,6 +60,9 @@ app.use(registerRouter)
 // Login Router
 const loginRouters = require('./Routers/loginRouter')
 app.use(loginRouters)
+
+const logoutRoutes = require('./Routers/logoutRouter')
+app.use(logoutRoutes)
 
 // Admin
 const adminRouters = require('./Routers/adminRouters/adminRouters')

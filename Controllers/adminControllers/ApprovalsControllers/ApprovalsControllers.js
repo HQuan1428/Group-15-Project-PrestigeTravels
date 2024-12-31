@@ -2,6 +2,9 @@ const { GetApprovals } = require('../../../Models/adminModels/Approvals/GetAppro
 const showApprovalPage =async (req, res) => {
   try {
     const approvals = await GetApprovals(); 
+    if (!req.isAuthenticated()) {
+    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
+  }
         res.render('adminViews/approvals', {
             approvals,
             successMessage: req.query.successMessage || '',

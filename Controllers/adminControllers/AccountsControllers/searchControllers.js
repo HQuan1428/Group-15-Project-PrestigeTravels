@@ -3,6 +3,9 @@ const Search=async(req,res)=>{
     const { name } = req.body;
     try {
         const users = await getUsersByName(name);
+        if (!req.isAuthenticated()) {
+    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
+  }
         res.render('adminViews/accounts', { accounts:users });
         
     } catch (err) {

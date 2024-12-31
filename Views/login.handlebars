@@ -1,6 +1,11 @@
 {{#if errorMessage}}
    alert(" {{errorMessage}}")
 {{/if}}
+{{#if message}}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{{/if}}
 
 <div class="container">
     <h2 class="mt-5 text-center">Đăng Nhập</h2>
