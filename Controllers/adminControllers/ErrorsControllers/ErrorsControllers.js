@@ -1,5 +1,5 @@
-
 const showErrorLogs = (req, res) => {
-    res.render('adminViews/errors'); // Render view 'errors' với layout 'adminViews'
+  const role = req.session.userType
+  res.render('adminViews/errors', {role}); // Render view 'errors' với layout 'adminViews'
 }
-  module.exports={showErrorLogs};
+module.exports = {showErrorLogs}

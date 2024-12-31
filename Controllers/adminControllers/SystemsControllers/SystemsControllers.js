@@ -1,4 +1,5 @@
 const showSystemLogs = (req, res) => {
-    res.render('adminViews/systems'); // Render view 'system' với layout 'adminViews'
-  }
-  module.exports={showSystemLogs}
+  const role = req.session.userType
+  res.render('adminViews/systems', {role}); // Render view 'system' với layout 'adminViews'
+}
+module.exports = {showSystemLogs}

@@ -4,12 +4,14 @@ const showAccounts = async (req, res) => {
     try {
         const accounts = await GetAllUser(); 
         if (!req.isAuthenticated()) {
-    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
-  }
+          return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
+        }
+         const role = req.session.userType;
         res.render('adminViews/accounts', {
             accounts,
             successMessage: req.query.successMessage || '',
-            errorMessage: req.query.errorMessage || ''
+            errorMessage: req.query.errorMessage || '',
+            role 
             
          });
     } catch (error) {
