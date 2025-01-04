@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
       // Kiểm tra loại người dùng và chuyển hướng đến trang thích hợp
       if (user.userType === 'admin') {
         return res.redirect('/admin');  // Trang quản trị viên
-      } else if (user.userType === 'provider') {
+      } else if (user.userType === 'partner') {
         return res.redirect('/provider');  // Trang của nhà cung cấp
       } else {
         return res.redirect('/user');  // Trang của người dùng thông thường
