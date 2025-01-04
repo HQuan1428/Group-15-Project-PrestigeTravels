@@ -1,72 +1,36 @@
-<div class="d-flex align-items-start">
-    <div class="flex-grow-1">
-        <h2 class="my-4">Hoạt động hệ thống </h2>
-        <div class="input-group rounded" style="gap: 10px; margin-top: 20px;">
-            <!-- Form tìm kiếm -->
-            <form action="/admin/search" method="POST" class="d-flex align-items-center w-100">
-                <input type="search" name="name" class="form-control rounded shadow-sm border-primary"
-                    placeholder="Search name user" aria-label="Search" aria-describedby="search-addon" />
-                <button type="submit" class="btn btn-primary ms-2 px-3 shadow-sm"><i class="fas fa-search"></i></button>
-            </form>
-            <!-- Nút thêm tài khoản -->
-            <button id="toggleFormButton" class="btn btn-success shadow-sm px-3 py-2">
-                <i class="fas fa-user-plus"></i> Add account
-            </button>
-        </div>
-        <!-- Form thêm tài khoản (ẩn ban đầu) -->
-        <form id="addUserForm" method="POST" action="/admin/adduser" class="p-4 shadow rounded bg-light mt-4"
-            style="max-width: 500px; margin: auto; display: none;">
-            <h3 class="text-center mb-4">Thêm người dùng</h3>
-            <div class="mb-3">
-                <label for="name" class="form-label">Tên</label>
-                <input type="text" id="name" name="fullname" class="form-control" placeholder="Nhập tên" required />
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" required />
-            </div>
-            <div class="mb-3">
-                <label for="phone" class="form-label">Số điện thoại</label>
-                <input type="text" id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại"
-                    required />
-            </div>
-            <div class="mb-3">
-                <label for="role" class="form-label">Vai trò</label>
-                <select id="role" name="role" class="form-select" required>
-                    <option value="customer">Customer</option>
-                    <option value="partner">Partner</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Mật khẩu</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"
-                    required />
-            </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-success">Thêm người dùng</button>
-            </div>
-        </form>
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">System Status</h1>
 
-        <table class="table table-striped table-bordered table-hover" style="margin-top:10px; margin-bottom:10px ">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Số điện thoại</th>
-                    <th scope="col">Loại tài khoản</th>
-                    <th scope="col">Ngày đăng kí</th>
-                    <th scope="col">Delete</th>
-                </tr>
-            </thead>
-            <tbody id="accountTable">
-                <!-- Hiển thị tài khoản -->
-            </tbody>
-        </table>
-        <!-- Phân trang -->
-        <nav aria-label="Pagination">
-            <ul class="pagination justify-content-end" id="pagination">
-            </ul>
-        </nav>
-
-    </div>
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Component</th>
+                <th>Status</th>
+                <th>Last Check Time</th>
+                <th>Error Message</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each system}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.component}}</td>
+                <td>
+                    <!-- Đổi màu trạng thái theo giá trị -->
+                    <span class="badge 
+                            {{#if (eq this.status 'active')}}bg-success
+                            {{else if (eq this.status 'degraded')}}bg-warning
+                            {{else}}bg-danger{{/if}}">
+                        {{this.status}}
+                    </span>
+                </td>
+                <td>{{this.last_check_time}}</td>
+                <td>{{this.error_message}}</td>
+                <td>{{this.created_at}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </div>
