@@ -29,7 +29,7 @@ const login = async (req, res, next) => {
         return res.redirect('/customer');  // Trang của người dùng thông thường
       }
     });
-  })(req, res, next); // Gọi hàm authenticate đúng cách
+  })(req, res, next);
 }
 
 module.exports = {

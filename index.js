@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // trang chủ user
 app.get('/', (req, res) => {
   const welcomeMessage = req.query.message; // Lấy thông báo từ query string
-  res.render('userViews/home', {
+  res.render('register', {
     welcomeMessage, // Truyền thông báo vào view
     query: req.query,
     currentPage: 'home'
