@@ -79,12 +79,52 @@
                 </div>
             </nav>
         </header>
-
-        <!-- Main Content -->
+        {{#if (eq role 'admin')}}
+        <div class="container-fluid">
+            <div class="row">
+            <!-- Menu bên trái -->
+            <div class="col-md-3 bg-light vh-100">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/accounts">Quản lý tài
+                            khoản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/approvals">Xét duyệt dịch
+                            vụ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/systems">Hoạt động hệ
+                            thống</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/reports">Phân tích và báo
+                            cáo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/errors">Quản lý lỗi hệ
+                            thống</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/posts">Quản lý bài viết</a>
+                    </li>
+            
+            
+                </ul>
+            </div>
+                <!-- Nội dung bên phải -->
+                <div class="col-md-9">
+                    <div class="p-4">
+                        {{{body}}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{else}}
         <main class="flex-grow-1 py-3">
             {{{body}}}
         </main>
-
+        {{/if}}
         <!-- Footer -->
         <footer class="bg-light border-top py-4">
             <div class="container">
