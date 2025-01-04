@@ -26,7 +26,7 @@ const login = async (req, res, next) => {
       } else if (user.userType === 'partner') {
         return res.redirect('/partner');  // Trang của nhà cung cấp
       } else {
-        return res.redirect('/user');  // Trang của người dùng thông thường
+        return res.redirect('/customer');  // Trang của người dùng thông thường
       }
     });
   })(req, res, next); // Gọi hàm authenticate đúng cách
