@@ -1,5 +1,5 @@
-const {getApprovalByName}=require('../../../Models/adminModels/Accounts/searchUser')
-const Search=async(req,res)=>{
+const {getApprovalByName}=require('../../../Models/adminModels/Approvals/SearchApproval')
+const SearchApprovalByName=async(req,res)=>{
     const { name } = req.body;
     try {
         const approvalByName = await getApprovalByName(name);
@@ -7,11 +7,11 @@ const Search=async(req,res)=>{
     return res.redirect('/login'); 
         }
          const role = req.session.userType;
-        res.render('adminViews/accounts', { accounts:approvalByName,role });
+        res.render('adminViews/approvals', { approvals:approvalByName,role });
         
     } catch (err) {
         console.error(err);
         res.status(500).send('Lỗi hệ thống');
     }
 }
-module.exports={Search};
+module.exports={SearchApprovalByName};

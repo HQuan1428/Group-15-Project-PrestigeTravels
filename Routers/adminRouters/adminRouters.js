@@ -15,7 +15,7 @@ router.get('/admin', (req, res) => {
   }
   const role = req.session.userType
 
-  res.render('adminViews/adminViews',{role})
+  res.render('adminViews/adminViews', {role})
 })
 
 // Route: Hiển thị danh sách tài khoản
@@ -39,7 +39,9 @@ router.get('/admin/approvals/detail/:id', Detail)
 // Delete approvals
 const {deleteApproval } = require('../../Controllers/adminControllers/ApprovalsControllers/deleteApprovalControllers')
 router.post('/admin/approvals/delete/:id', deleteApproval)
-
+// search approvals
+const { SearchApprovalByName} = require('../../Controllers/adminControllers/ApprovalsControllers/searchApprovalsControllers')
+router.post('/admin/approvals/search', SearchApprovalByName)
 // Route: Hiển thị hoạt động hệ thống
 router.get('/admin/systems', showSystemLogs)
 
