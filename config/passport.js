@@ -67,15 +67,17 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await getUserById(id);
+    
     if (!user) {
       return done(new Error('Không tìm thấy người dùng'));
     }
-    done(null, { id: user.id, fullname: user.fullname, userType: user.role }); // Phải trả về `userType`
+
+    // Thêm userType để kiểm tra trong middleware
+    done(null, { id: user.id, fullname: user.fullname, userType: user.role });
   } catch (err) {
     done(err);
   }
 });
-
 // Khởi tạo passport với chiến lược tùy chỉnh
 function initializePassport(passport) {
   passport.use(new CustomStrategy({}, verify));

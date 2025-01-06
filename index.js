@@ -16,12 +16,13 @@ app.use(session({
   secret: 'secret_key',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false,httpOnly: true,  maxAge: 1000 * 60 * 60 * 24 * 7 }
+  cookie: { secure: false, httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }
 }))
 // Khởi tạo passport
 app.use(passport.initialize())
 app.use(passport.session())
 initializePassport(passport)
+
 // Template engine
 app.engine('handlebars', engine({
   defaultLayout: 'main',
@@ -34,7 +35,6 @@ app.engine('handlebars', engine({
       return a === b
     }
   }
-
 }))
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'views'))
@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Routers
 
-// trang chủ user
+// Trang chủ user
 app.get('/', (req, res) => {
   const welcomeMessage = req.query.message; // Lấy thông báo từ query string
   res.render('register', {
@@ -56,6 +56,7 @@ app.get('/', (req, res) => {
 
 const userRouter = require('./Routers/userRouters/userRouter')
 app.use(userRouter)
+
 // Register Routers
 const registerRouter = require('./Routers/registerRouter')
 app.use(registerRouter)
@@ -73,8 +74,15 @@ app.use(adminRouters)
 
 // Nhà cung cấp
 const providerRouters = require('./Routers/providerRouters/providerRouter')
-app.use(providerRouters)
+app.use('/partner', (req, res, next) => {
+  console.log('Middleware for /partner');
+  if (req.isAuthenticated() && req.user.userType === 'partner') {
+    return next();
+  }
+  res.redirect('/login');
+}, providerRouters)
 
+// Khởi động server
 app.listen(port, () => {
-  console.log(`Exaxmple app listening at http://localhost:${port}`)
+  console.log(`Example app listening at http://localhost:${port}`)
 })

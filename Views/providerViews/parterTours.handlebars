@@ -1,0 +1,18 @@
+<h1>Danh sách tour</h1>
+<table>
+    <tr>
+        <th>Tên tour</th>
+        <th>Giá</th>
+        <th>Hành động</th>
+    </tr>
+    {{#each tours}}
+    <tr>
+        <td>{{this.title}}</td>
+        <td>{{this.price}}</td>
+        <td>
+            <a href="/partner/tours/{{this.id}}/edit">Sửa</a>
+            <a href="/partner/tours/{{this.id}}/delete">Xóa</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>

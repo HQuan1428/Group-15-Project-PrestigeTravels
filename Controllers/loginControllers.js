@@ -17,18 +17,23 @@ const login = async (req, res, next) => {
 
     req.logIn(user, (err) => {
       if (err) return next(err); // Lỗi khi lưu thông tin user vào session
+      
+
       req.session.username = user.fullname;
       req.session.userType = user.userType;
-
+    
       // Kiểm tra loại người dùng và chuyển hướng đến trang thích hợp
       if (user.userType === 'admin') {
-        return res.redirect('/admin');  // Trang quản trị viên
+        return res.redirect('/admin'); // Trang quản trị viên
       } else if (user.userType === 'partner') {
-        return res.redirect('/partner');  // Trang của nhà cung cấp
+        return res.redirect('/partner'); // Trang của nhà cung cấp
+      } else if (user.userType === 'customer') {
+        return res.redirect('/customer'); // Trang người dùng thông thường
       } else {
-        return res.redirect('/customer');  // Trang của người dùng thông thường
+        return res.status(403).json({ message: 'Loại người dùng không xác định!' });
       }
     });
+    
   })(req, res, next);
 }
 
