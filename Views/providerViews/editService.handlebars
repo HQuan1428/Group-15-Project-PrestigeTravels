@@ -1,0 +1,10 @@
+<h1>{{#if service}}Chỉnh sửa dịch vụ{{else}}Thêm dịch vụ{{/if}}</h1>
+<form action="{{#if service}}/partner/services/{{service.id}}/edit{{else}}/partner/services/add{{/if}}" method="POST">
+  <label for="name">Tên dịch vụ:</label>
+  <input type="text" id="name" name="name" value="{{service.name}}" required>
+
+  <label for="description">Mô tả:</label>
+  <textarea id="description" name="description" required>{{service.description}}</textarea>
+
+  <button type="submit">{{#if service}}Cập nhật{{else}}Thêm{{/if}}</button>
+</form>

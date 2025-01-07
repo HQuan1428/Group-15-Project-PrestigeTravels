@@ -1,0 +1,24 @@
+<h1>Chỉnh sửa Tour</h1>
+<form method="POST" action="/partner/tours/{{tour.id}}/edit">
+  <div class="mb-3">
+    <label for="title" class="form-label">Tiêu đề</label>
+    <input type="text" class="form-control" id="title" name="title" value="{{tour.title}}" required />
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Mô tả</label>
+    <textarea class="form-control" id="description" name="description">{{tour.description}}</textarea>
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Giá</label>
+    <input type="number" class="form-control" id="price" name="price" value="{{tour.price}}" step="0.01" required />
+  </div>
+  <div class="mb-3">
+    <label for="duration" class="form-label">Thời gian</label>
+    <input type="text" class="form-control" id="duration" name="duration" value="{{tour.duration}}" />
+  </div>
+  <div class="mb-3">
+    <label for="starting_point" class="form-label">Điểm bắt đầu</label>
+    <input type="text" class="form-control" id="starting_point" name="starting_point" value="{{tour.starting_point}}" />
+  </div>
+  <button type="submit" class="btn btn-primary">Cập nhật Tour</button>
+</form>
