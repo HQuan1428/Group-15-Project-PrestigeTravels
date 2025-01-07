@@ -20,7 +20,19 @@ const {
   deleteTour,
 } = require('../../Controllers/providerController/toursController');
 
+const { 
+  renderOrders, 
+  renderOrderDetails, 
+  updateOrder 
+} = require('../../Controllers/providerController/ordersController');
 
+const { getRevenueByDate } = require('../../Models/providerModels/revenueStatisticsModel');
+
+const {
+  getDailyRevenue,
+  getMonthlyRevenue,
+  getYearlyRevenue,
+} = require('../../Controllers/providerController/revenueStatisticsController');
 const router = express.Router();
 
 // Route trang dashboard
@@ -70,5 +82,49 @@ router.post('/tours/add', ensureAuthenticated, createNewTour);
 router.get('/tours/:id/edit', ensureAuthenticated, renderEditTourForm);
 router.post('/tours/:id/edit', ensureAuthenticated, updateTour);
 router.post('/tours/:id/delete', ensureAuthenticated, deleteTour);
+
+
+// Danh sách đơn hàng
+router.get('/orders', ensureAuthenticated, renderOrders);
+
+// Chi tiết đơn hàng
+router.get('/orders/:id', ensureAuthenticated, renderOrderDetails);
+
+// Cập nhật trạng thái đơn hàng
+router.post('/orders/:id/update', ensureAuthenticated, updateOrder);
+
+// Route lấy doanh thu theo ngày
+router.get('/revenue', ensureAuthenticated, async (req, res) => {
+    try {
+        const { fromDate, toDate, serviceCode } = req.query;
+        const partnerId = req.user.id;
+
+        console.log('Filter params:', { fromDate, toDate, serviceCode, partnerId }); // Debug log
+
+        const revenue = await getRevenueByDate(partnerId, fromDate, toDate, serviceCode);
+
+        res.render('providerViews/revenueStatistics', {
+            layout: 'main',
+            role: 'partner',
+            revenue: revenue || [],
+            fromDate,
+            toDate,
+            serviceCode
+        });
+    } catch (error) {
+        console.error('Route error:', error);
+        res.status(500).send('Không thể tải trang thống kê doanh thu: ' + error.message);
+    }
+});
+
+// API routes
+router.get('/revenue/api/daily', ensureAuthenticated, getDailyRevenue);
+router.get('/revenue/api/monthly', ensureAuthenticated, getMonthlyRevenue);
+router.get('/revenue/api/yearly', ensureAuthenticated, getYearlyRevenue);
+
+// Route cho trang thống kê
+router.get('/statistics', (req, res) => {
+    res.render('provider/statistics'); // Render view statistics
+});
 
 module.exports = router;
