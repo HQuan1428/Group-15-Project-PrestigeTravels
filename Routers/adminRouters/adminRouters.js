@@ -42,7 +42,9 @@ router.post('/admin/approvals/delete/:id', deleteApproval)
 // search approvals
 const { SearchApprovalByName} = require('../../Controllers/adminControllers/ApprovalsControllers/searchApprovalsControllers')
 router.post('/admin/approvals/search', SearchApprovalByName)
-
+// reject  approval
+const {reject } = require('../../Controllers/adminControllers/ApprovalsControllers/rejectApprovalControllers')
+router.post('/admin/approvals/reject/:id', reject)
 
 // Route: Hiển thị hoạt động hệ thống
 router.get('/admin/systems', showSystemLogs)

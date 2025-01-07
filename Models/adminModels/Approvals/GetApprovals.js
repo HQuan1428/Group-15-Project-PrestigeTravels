@@ -4,11 +4,12 @@ async function GetApprovals() {
     try {
         // Thêm câu lệnh ORDER BY để sắp xếp status = 'inactive' lên trên
         const res = await db.query(`
-            SELECT tours.*, partners.*,tours.id
+            SELECT tours.*, partners.*,tours.id,tours.status as tour_status
             FROM "tours" AS tours
             JOIN "partners" AS partners ON tours.partner_id = partners.id
             ORDER BY tours.status = 'inactive' DESC
         `);
+        //console.log(res);
         return res; // Trả về res.rows để lấy dữ liệu kết quả từ truy vấn
     } catch (error) {
         console.error('Lỗi truy vấn:', error);
