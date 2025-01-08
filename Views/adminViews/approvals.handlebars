@@ -96,24 +96,26 @@
             approvalsToDisplay.forEach(approval => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td>${approval.title}</td>
-                <td>${approval.company_name}</td>
-                <td>${approval.duration}</td>
-                <td>${approval.created_at}</td>
-                <td>${approval.tour_status}</td>
-                <td> <a href="/admin/approvals/detail/${approval.id}">xem thêm </a></td>
-                <td>
-                    <form action="/admin/approvals/delete/${approval.id}" method="POST" style="display:inline;">
-                        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
-                    </form>
-                    <form action="/admin/approvals/reject/${approval.id}" method="POST" style="display:inline;">
-                        <button type="submit" class="btn btn-sm btn-danger">Từ chối</button>
-                    </form>
-
-                </td>
-            `;
+                    <td>${approval.title}</td>
+                    <td>${approval.company_name}</td>
+                    <td>${approval.duration}</td>
+                    <td>${approval.created_at}</td>
+                    <td>${approval.tour_status}</td>
+                    <td> <a href="/admin/approvals/detail/${approval.id}">xem thêm </a></td>
+                    <td>
+                        ${approval.tour_status === 'inactive' ? `
+                        <form action="/admin/approvals/accept/${approval.id}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-success">Chấp nhận</button>
+                        </form>
+                        ` : ''}
+                        <form action="/admin/approvals/reject/${approval.id}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">Từ chối</button>
+                        </form>
+                    </td>
+                    `;
                 tableBody.appendChild(row);
             });
+
 
             // Hiển thị phân trang
             displayPagination(page);

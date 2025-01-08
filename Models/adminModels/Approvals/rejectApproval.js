@@ -2,18 +2,16 @@ const { db } = require('../../Connect_Server/db');
 
 async function rejectApprovals(id) {
     try {
-        // Thêm câu lệnh ORDER BY để sắp xếp status = 'inactive' lên trên
-        const res = await db.query(`
-            UPDATE tours
-            SET status = 'active'
-            WHERE id = $1
-            RETURNING *`, [id]);
-        
-        return res.rows; // Returning the updated rows
+       
+        // Xóa trong bảng tours
+        const res = await db.query('DELETE FROM "tours" WHERE id = $1 RETURNING *', [id]);
+
+        return res.rows;
     } catch (error) {
         console.error('Lỗi truy vấn:', error);
-        throw error; 
+        throw error;
     }
 }
+
 
 module.exports = { rejectApprovals };
