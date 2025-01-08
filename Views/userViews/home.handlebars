@@ -1,4 +1,4 @@
-{{#if welcomeMessage}}
+{{!-- {{#if welcomeMessage}}
 <div class="welcome-message">{{welcomeMessage}}</div>
 {{/if}}
 
@@ -6,4 +6,134 @@
     <h2>Welcome to our website!</h2>
     <p>This is a basic template for a static website.</p>
     <h1>Hello</h1>
-</div>
+</div> --}}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Travels</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/body_trangtru.css">
+    <link rel="stylesheet" href="./css/camNang.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Prestige Travels</a>
+            </div>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="#tours">Tour</a></li>
+                    <li><a href="pages/become-partner.html">Trở thành đối tác</a></li>
+                </ul>
+                <div class="nav-search">
+                    <form class="header-search-form">
+                        <div class="search-input-group">
+                            <input type="text" placeholder="Tìm kiếm tour...">
+                            <select class="search-select">
+                                <option value="">Tất cả địa điểm</option>
+                                <option value="hanoi">Hà Nội</option>
+                                <option value="halong">Hạ Long</option>
+                                <option value="danang">Đà Nẵng</option>
+                                <option value="hoian">Hội An</option>
+                                <option value="nhatrang">Nha Trang</option>
+                                <option value="dalat">Đà Lạt</option>
+                                <option value="phuquoc">Phú Quốc</option>
+                            </select>
+                            <button type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="pages/register.html">Đăng ký</a></li>
+                    <li><a href="pages/login.html">Đăng nhập</a></li>
+                </ul>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Body -->
+    <div class="body_trangtru">
+        <div class="background"></div>
+        <div>
+            <div class="title-header">
+                <img class="image_plan" src="https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24" alt="Top địa điểm">
+                <div class="title">Top Địa điểm được yêu thích nhất</div>
+            </div>
+
+            <div class="location">
+                <button class="item" data-location="Vietnam">Việt Nam</button>
+                <button class="item" data-location="Thailand">Thái Lan</button>
+                <button class="item" data-location="Singapore">Singapore</button>
+                <button class="item" data-location="Korea">Hàn Quốc</button>
+            </div>
+            <div class="display-container">
+                <div class="display"></div>
+            </div>
+        </div>
+            
+        <div class="feature-container">
+            <div class="title">Lý do nên đặt chỗ với Prestige Travels</div>
+            <div class="feature">
+                <div class="feature-box">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718236517-bf9a3e5ffd872b781ba2e56e93fe8840.webp?tr=h-64,q-75,w-64" alt="Icon 1" class="feature-icon">
+                    <div class="feature-title">Đáp ứng mọi nhu cầu của bạn</div>
+                    <p class="feature-description">
+                        Từ chuyến bay, lưu trú, đến điểm tham quan, bạn có thể tin chọn sản phẩm hoàn chỉnh và Hướng Dẫn Du Lịch của chúng tôi.
+                    </p>
+                </div>
+                <div class="feature-box">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718238370-9ef6b6e0701e9074614951c0bd49930c.webp?tr=h-64,q-75,w-64" alt="Icon 2" class="feature-icon">
+                    <div class="feature-title">Tùy chọn đặt chỗ linh hoạt</div>
+                    <p class="feature-description">
+                        Kế hoạch thay đổi bất ngờ? Đừng lo! Đổi lịch hoặc Hoàn tiền dễ dàng.
+                    </p>
+                </div>
+                <div class="feature-box">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718240417-96131eb957c39a098a12d2d7926e3342.webp?tr=h-64,q-75,w-64" alt="Icon 3" class="feature-icon">
+                    <div class="feature-title">Thanh toán an toàn và thuận tiện</div>
+                    <p class="feature-description">
+                        Tận hưởng nhiều cách thanh toán an toàn, bằng loại tiền thuận tiện nhất cho bạn.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Quên mật khẩu</h2>
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <input type="email" placeholder="Nhập email của bạn" required>
+                </div>
+                <button type="submit" class="login-btn">Gửi yêu cầu</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Nội dung footer -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 Prestige Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
