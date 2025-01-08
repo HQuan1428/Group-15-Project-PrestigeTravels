@@ -1,139 +1,172 @@
-{{!-- {{#if welcomeMessage}}
-<div class="welcome-message">{{welcomeMessage}}</div>
-{{/if}}
-
-<div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
-    <h2>Welcome to our website!</h2>
-    <p>This is a basic template for a static website.</p>
-    <h1>Hello</h1>
-</div> --}}
-
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prestige Travels</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/body_trangtru.css">
-    <link rel="stylesheet" href="./css/camNang.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <a href="index.html">Prestige Travels</a>
-            </div>
-            <div class="nav-container">
-                <ul class="nav-links">
-                    <li><a href="index.html">Trang chủ</a></li>
-                    <li><a href="#tours">Tour</a></li>
-                    <li><a href="pages/become-partner.html">Trở thành đối tác</a></li>
-                </ul>
-                <div class="nav-search">
-                    <form class="header-search-form">
-                        <div class="search-input-group">
-                            <input type="text" placeholder="Tìm kiếm tour...">
-                            <select class="search-select">
-                                <option value="">Tất cả địa điểm</option>
-                                <option value="hanoi">Hà Nội</option>
-                                <option value="halong">Hạ Long</option>
-                                <option value="danang">Đà Nẵng</option>
-                                <option value="hoian">Hội An</option>
-                                <option value="nhatrang">Nha Trang</option>
-                                <option value="dalat">Đà Lạt</option>
-                                <option value="phuquoc">Phú Quốc</option>
-                            </select>
-                            <button type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="pages/register.html">Đăng ký</a></li>
-                    <li><a href="pages/login.html">Đăng nhập</a></li>
-                </ul>
-            </div>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Body -->
-    <div class="body_trangtru">
-        <div class="background"></div>
-        <div>
-            <div class="title-header">
-                <img class="image_plan" src="https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24" alt="Top địa điểm">
-                <div class="title">Top Địa điểm được yêu thích nhất</div>
-            </div>
-
-            <div class="location">
-                <button class="item" data-location="Vietnam">Việt Nam</button>
-                <button class="item" data-location="Thailand">Thái Lan</button>
-                <button class="item" data-location="Singapore">Singapore</button>
-                <button class="item" data-location="Korea">Hàn Quốc</button>
-            </div>
-            <div class="display-container">
-                <div class="display"></div>
-            </div>
+<!-- Body -->
+<div class="container-fluid p-0">
+    <!-- Image Banner and Title on the Same Row -->
+    <div class="row align-items-center">
+        <div class="col-12 col-md-2">
+            <img class="img-fluid"
+                src="https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24"
+                alt="Top địa điểm">
         </div>
-            
-        <div class="feature-container">
-            <div class="title">Lý do nên đặt chỗ với Prestige Travels</div>
-            <div class="feature">
-                <div class="feature-box">
-                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718236517-bf9a3e5ffd872b781ba2e56e93fe8840.webp?tr=h-64,q-75,w-64" alt="Icon 1" class="feature-icon">
-                    <div class="feature-title">Đáp ứng mọi nhu cầu của bạn</div>
-                    <p class="feature-description">
-                        Từ chuyến bay, lưu trú, đến điểm tham quan, bạn có thể tin chọn sản phẩm hoàn chỉnh và Hướng Dẫn Du Lịch của chúng tôi.
-                    </p>
+        <div class="col-12 col-md-10 text-center text-md-left">
+            <div class="title display-4 text-white">Top Địa điểm được yêu thích nhất</div>
+        </div>
+    </div>
+
+    <!-- Location Buttons -->
+<!-- Location Buttons -->
+<div class="row justify-content-center mb-4" id="location-buttons">
+    {{#each location}}
+    <div class="col-md-2 mb-2">
+        <button class="btn btn-primary w-100" data-location-id="{{this.id}}">{{this.name}}</button>
+    </div>
+    {{/each}}
+</div>
+
+<!-- Khu vực hiển thị các tour -->
+<div id="tour-list" class="row">
+    <!-- Các tour sẽ được hiển thị ở đây -->
+</div>
+
+
+    <!-- Display Section -->
+    <div class="row">
+        <div class="col-12 display-container">
+            <div class="display"></div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h2>Lý do nên đặt chỗ với Prestige Travels</h2>
+        </div>
+        <div class="row text-center">
+            <!-- Feature 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718236517-bf9a3e5ffd872b781ba2e56e93fe8840.webp?tr=h-64,q-75,w-64"
+                        alt="Icon 1" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Đáp ứng mọi nhu cầu của bạn</h5>
+                        <p class="card-text">Từ chuyến bay, lưu trú, đến điểm tham quan, bạn có thể tin chọn sản phẩm
+                            hoàn chỉnh và Hướng Dẫn Du Lịch của chúng tôi.</p>
+                    </div>
                 </div>
-                <div class="feature-box">
-                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718238370-9ef6b6e0701e9074614951c0bd49930c.webp?tr=h-64,q-75,w-64" alt="Icon 2" class="feature-icon">
-                    <div class="feature-title">Tùy chọn đặt chỗ linh hoạt</div>
-                    <p class="feature-description">
-                        Kế hoạch thay đổi bất ngờ? Đừng lo! Đổi lịch hoặc Hoàn tiền dễ dàng.
-                    </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718238370-9ef6b6e0701e9074614951c0bd49930c.webp?tr=h-64,q-75,w-64"
+                        alt="Icon 2" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Tùy chọn đặt chỗ linh hoạt</h5>
+                        <p class="card-text">Kế hoạch thay đổi bất ngờ? Đừng lo! Đổi lịch hoặc Hoàn tiền dễ dàng.</p>
+                    </div>
                 </div>
-                <div class="feature-box">
-                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718240417-96131eb957c39a098a12d2d7926e3342.webp?tr=h-64,q-75,w-64" alt="Icon 3" class="feature-icon">
-                    <div class="feature-title">Thanh toán an toàn và thuận tiện</div>
-                    <p class="feature-description">
-                        Tận hưởng nhiều cách thanh toán an toàn, bằng loại tiền thuận tiện nhất cho bạn.
-                    </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718240417-96131eb957c39a098a12d2d7926e3342.webp?tr=h-64,q-75,w-64"
+                        alt="Icon 3" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Thanh toán an toàn và thuận tiện</h5>
+                        <p class="card-text">Tận hưởng nhiều cách thanh toán an toàn, bằng loại tiền thuận tiện nhất cho
+                            bạn.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<script>
+    // Giả sử bạn đã truyền dữ liệu location từ server hoặc từ bên ngoài
+    const location11 = {{{json location}}}; // Lưu ý: Cần chuyển location thành dữ liệu hợp lệ từ phía server
+    console.log(location11);
 
-    <!-- Modal -->
-    <div id="forgotPasswordModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Quên mật khẩu</h2>
-            <form id="forgotPasswordForm">
-                <div class="form-group">
-                    <input type="email" placeholder="Nhập email của bạn" required>
+   document.querySelectorAll('[data-location-id]').forEach(button => {
+        button.addEventListener('click', function () {
+            const locationId = this.getAttribute('data-location-id');
+            const location = location11.find(loc => loc.id === parseInt(locationId));
+
+            if (location) {
+                displayTours(location);
+            } else {
+                console.log('No location found for this ID');
+            }
+        });
+    });
+
+    // Hàm để hiển thị các tour của địa điểm
+    function displayTours(location) {
+        const tourListContainer = document.getElementById('tour-list');
+        tourListContainer.innerHTML = '';  // Xóa các tour cũ
+
+        if (location && location.tours && location.tours.length > 0) {
+            // Hiển thị các tour của địa điểm
+            location.tours.forEach(tour => {
+                const tourCard = document.createElement('div');
+                tourCard.classList.add('col-md-4', 'mb-4');
+
+                tourCard.innerHTML = `
+                <div class="card">
+                    <img src="${tour.image}" class="card-img-top" alt="${tour.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${tour.title}</h5>
+                        <p class="card-text">${tour.description}</p>
+                        <a href="#" class="btn btn-primary">Chi tiết</a>
+                    </div>
                 </div>
-                <button type="submit" class="login-btn">Gửi yêu cầu</button>
-            </form>
-        </div>
-    </div>
+            `;
+                tourListContainer.appendChild(tourCard);
+            });
+        } else {
+            // Nếu không có tour, hiển thị thông báo
+            tourListContainer.innerHTML = '<p>No tours available for this location.</p>';
+        }
+    }
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <!-- Nội dung footer -->
-            <div class="footer-bottom">
-                <p>&copy; 2025 Prestige Travels. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+
+</script>
+
+<style>
+    /* Title Section */
+.title-header .title {
+    color: #fff;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+/* Location Buttons */
+.location {
+    padding: 20px 0;
+}
+
+/* Feature Section */
+.card-body {
+    text-align: left;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+</style>
