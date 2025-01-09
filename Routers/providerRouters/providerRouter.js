@@ -27,7 +27,8 @@ const {
 const { 
   renderOrders, 
   renderOrderDetails, 
-  updateOrder 
+  updateOrder ,
+  acceptOrder
 } = require('../../Controllers/providerController/ordersController');
 
 const { getRevenueByDate } = require('../../Models/providerModels/revenueStatisticsModel');
@@ -99,6 +100,8 @@ router.get('/orders', ensureAuthenticated, renderOrders);
 
 // Chi tiết đơn hàng
 router.get('/orders/:id', ensureAuthenticated, renderOrderDetails);
+// Route chấp nhận đơn hàng
+router.post('/orders/:id/accept', ensureAuthenticated, acceptOrder);
 
 // Cập nhật trạng thái đơn hàng
 router.post('/orders/:id/update', ensureAuthenticated, updateOrder);
