@@ -1,0 +1,47 @@
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">{{tour.title}}</h3>
+    </div>
+    <div class="card-body">
+      <!-- Ảnh chính -->
+      <div class="text-center mb-4">
+        <img 
+          src="{{tour.main_image}}" 
+          class="img-fluid rounded" 
+          alt="Ảnh chính của tour" 
+          style="max-height: 300px;"
+        />
+      </div>
+
+      <!-- Ảnh phụ -->
+      {{#if tour.sub_images}}
+      <div class="mb-4">
+        
+        <div class="row">
+          {{#each tour.sub_images}}
+          <div class="col-md-3">
+            <img 
+              src="{{this}}" 
+              class="img-thumbnail" 
+              alt="Ảnh phụ của tour" 
+              style="max-height: 150px;"
+            />
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- Thông tin tour -->
+      <h5>Thông tin tour:</h5>
+      <p><strong>Giá:</strong> {{tour.price}} VND</p>
+      <p><strong>Thời lượng:</strong> {{tour.duration}}</p>
+      <p><strong>Điểm khởi hành:</strong> {{tour.starting_point}}</p>
+      <p><strong>Số lượng tối đa:</strong> {{tour.max_participants}}</p>
+      <p><strong>Địa điểm:</strong> {{tour.location_name}}</p>
+      <p><strong>Mô tả:</strong></p>
+      <p>{{tour.description}}</p>
+    </div>
+  </div>
+</div>

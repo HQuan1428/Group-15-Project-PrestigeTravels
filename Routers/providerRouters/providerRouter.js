@@ -21,6 +21,7 @@ const {
   renderEditTourForm,
   updateTour,
   deleteTour,
+  renderTourDetails,
 } = require('../../Controllers/providerController/toursController');
 
 const { 
@@ -85,7 +86,8 @@ router.post('/services/:id/delete', ensureAuthenticated, deleteService);
 router.get('/tours', ensureAuthenticated, renderTours);
 router.get('/tours/add', ensureAuthenticated, renderAddTourForm);
 router.post('/tours/add', uploadFields, addTour);
-
+// Route hiển thị chi tiết tour
+router.get('/tours/:id', renderTourDetails);
 router.get('/tours/:id/edit', ensureAuthenticated, renderEditTourForm);
 router.post('/tours/:id/edit', ensureAuthenticated, updateTour);
 router.post('/tours/:id/delete', ensureAuthenticated, deleteTour);

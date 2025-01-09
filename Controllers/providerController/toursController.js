@@ -4,6 +4,7 @@ const {
   createTour,
   updateTourById,
   deleteTourById,
+  getTourDetails,
 } = require('../../Models/providerModels/tourModel');
 const { db } = require('../../Models/Connect_Server/db');
 const { v4: uuidv4 } = require('uuid');
@@ -46,7 +47,8 @@ const addTour = async (req, res) => {
       services,       // Dịch vụ
       newService,     // Dịch vụ mới
       itinerary,      // Hành trình
-      locations       // Vị trí
+      locationName, // Lấy từ form
+      
     } = req.body;
 
     if (!partnerId || !title || !price) {
@@ -86,6 +88,7 @@ const addTour = async (req, res) => {
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
         [tourId, partnerId, title, description, price, duration, startingPoint, maxParticipants]
       );
+      
 
       // Thêm ngày
       if (parsedAvailableDates.length > 0) {
@@ -160,20 +163,22 @@ if (Array.isArray(services) && services.length > 0) {
         }
       }
 
-      // Thêm vị trí
-      if (locations) {
-        const parsedLocations = Array.isArray(locations) ? locations : JSON.parse(locations);
-        if (parsedLocations.length > 0) {
-          const locationQueries = parsedLocations.map((location) =>
-            t.none(
-              `INSERT INTO tour_locations (tour_id, location_id, is_main, visit_order) VALUES ($1, $2, $3, $4)`,
-              [tourId, location.id, location.isMain, location.order]
-            )
-          );
-          await t.batch(locationQueries);
-        }
+      const location = await t.oneOrNone(
+        `SELECT id FROM locations WHERE name = $1`,
+        [locationName]
+      );
+
+      if (!location) {
+        throw new Error('Địa điểm không hợp lệ.');
       }
+
+      await t.none(
+        `INSERT INTO tour_locations (tour_id, location_id)
+         VALUES ($1, $2)`,
+        [tourId, location.id]
+      );
     });
+
 
     res.redirect('/partner/tours');
   } catch (error) {
@@ -199,8 +204,14 @@ const renderTours = async (req, res) => {
 };
 
 // Hiển thị form thêm tour
-const renderAddTourForm = (req, res) => {
-  res.render('providerViews/addTour');
+const renderAddTourForm = async (req, res) => {
+  try {
+      const locations = await db.any('SELECT name FROM locations');
+      res.render('providerViews/addTour', { locations });
+  } catch (error) {
+      console.error('Error fetching locations:', error.message);
+      res.status(500).send('Lỗi lấy danh sách địa điểm');
+  }
 };
 
 // Hiển thị form chỉnh sửa tour
@@ -236,7 +247,22 @@ const deleteTour = async (req, res) => {
     res.status(500).send('Lỗi xóa tour');
   }
 };
+// Hiển thị chi tiết tour
+const renderTourDetails = async (req, res) => {
+  try {
+    const tourId = req.params.id;
+    const tour = await getTourDetails(tourId);
 
+    if (!tour) {
+      return res.status(404).send('Tour không tồn tại');
+    }
+
+    res.render('providerViews/tourDetails', { tour });
+  } catch (err) {
+    console.error('Error rendering tour details:', err);
+    res.status(500).send('Lỗi hiển thị chi tiết tour');
+  }
+};
 module.exports = {
   uploadFields,
   addTour,
@@ -245,4 +271,5 @@ module.exports = {
   renderEditTourForm,
   updateTour,
   deleteTour,
+  renderTourDetails,
 };

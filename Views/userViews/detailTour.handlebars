@@ -1,0 +1,76 @@
+<div class="me-3">
+    <h3>Chi tiết dịch vụ</h3>
+</div>
+<div class="container mt-5">
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title text-primary">{{detail.title}}</h2>
+            <p class="card-text text-muted">{{detail.description}}</p>
+
+            <ul class="list-group list-group-flush mt-4">
+                <li class="list-group-item"><strong>Giá:</strong> {{detail.price}} VND</li>
+                <li class="list-group-item"><strong>Thời lượng:</strong> {{detail.duration}}</li>
+                <li class="list-group-item"><strong>Điểm khởi hành:</strong> {{detail.starting_point}}</li>
+                <li class="list-group-item">
+                    <strong>Trạng thái:</strong> {{detail.status}}
+                </li>
+                <li class="list-group-item"><strong>Mức độ khó:</strong> {{detail.difficulty_level}}</li>
+                {{#if detail.average_rating}}
+                <li class="list-group-item"><strong>Đánh giá trung bình:</strong> {{detail.average_rating}} / 5</li>
+                {{/if}}
+                {{#if detail.max_participants}}
+                <li class="list-group-item"><strong>Số lượng tham gia tối đa:</strong> {{detail.max_participants}} người
+                </li>
+                {{/if}}
+                <li class="list-group-item"><strong>Ngày hết hạn:</strong> {{detail.available_date}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Nút Booking -->
+    <div class="mt-4">
+        <a href="/customer/booking/{{detail.id}}" id="booking-button" class="btn btn-primary" disabled>Booking</a>
+    </div>
+    <a href="/customer">Quay lại</a>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Lấy giá trị ngày từ back-end
+        const rawEndDate = '{{detail.available_date}}';
+        const endDate = new Date(rawEndDate); // Chuyển thành đối tượng Date
+        const now = new Date(); // Thời gian hiện tại
+
+        // Định dạng ngày, tháng, năm (chỉ hiển thị ngày dạng dd/mm/yyyy)
+        const formattedEndDate = `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`;
+        console.log('Ngày hết hạn:', formattedEndDate);
+
+        // Gắn ngày đã định dạng vào nơi hiển thị (nếu cần, bạn có thể thêm phần tử để hiển thị)
+        const bookingButton = document.getElementById('booking-button');
+
+        // Kiểm tra thời gian và cập nhật nút booking
+        if (now < endDate) {
+            bookingButton.disabled = false; // Cho phép booking
+        } else {
+            bookingButton.disabled = true; // Không cho phép booking
+        }
+
+        // Xử lý sự kiện click vào nút booking
+        bookingButton.addEventListener('click', () => {
+            if (now >= endDate) {
+                alert('Dịch vụ tour này đã hết hạn!'); // Thông báo quá hạn
+            } else {
+                alert('Bạn đã đặt tour thành công!'); // Thông báo thành công
+                // Bạn có thể thêm logic để xử lý booking tại đây (gửi request tới server chẳng hạn)
+            }
+        });
+    });
+</script>
+
+
+<style>
+    #booking-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+</style>

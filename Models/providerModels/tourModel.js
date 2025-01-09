@@ -56,6 +56,40 @@ const updateTourById = (tourId, tourData) => {
 const deleteTourById = (tourId) => {
   return db.none('DELETE FROM tours WHERE id = $1', [tourId]);
 };
+const getTourDetails = (tourId) => {
+  return db.oneOrNone(
+    `
+    SELECT 
+      t.id, 
+      t.title, 
+      t.description, 
+      t.price, 
+      t.duration, 
+      t.starting_point, 
+      t.max_participants,
+      t.created_at,
+      l.name AS location_name,
+      (
+        SELECT ti.image_url 
+        FROM tour_images ti 
+        WHERE ti.tour_id = t.id AND ti.is_main = true
+        LIMIT 1
+      ) AS main_image,
+      (
+        SELECT json_agg(image_url) 
+        FROM tour_images 
+        WHERE tour_id = t.id AND is_main = false
+      ) AS sub_images
+    FROM tours t
+    LEFT JOIN tour_locations tl ON t.id = tl.tour_id
+    LEFT JOIN locations l ON tl.location_id = l.id
+    WHERE t.id = $1
+    `,
+    [tourId]
+  );
+};
+
+
 
 module.exports = {
   getToursByPartner,
@@ -63,4 +97,5 @@ module.exports = {
   createTour,
   updateTourById,
   deleteTourById,
+  getTourDetails,
 };
