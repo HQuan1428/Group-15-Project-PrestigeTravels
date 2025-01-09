@@ -126,17 +126,19 @@
         tourListContainer.innerHTML = '';  // Xóa các tour cũ
 
         if (location && location.tours && location.tours.length > 0) {
-            // Hiển thị các tour của địa điểm
             location.tours.forEach(tour => {
                 const tourCard = document.createElement('div');
                 tourCard.classList.add('col-md-4', 'mb-4');
 
+                // Sử dụng trường `image` từ server
+                const imageUrl = tour.image || '/default-image.jpg';
+
                 tourCard.innerHTML = `
                 <div class="card">
-                    <img src="${tour.image}" class="card-img-top" alt="${tour.title}">
+                    <img src="${imageUrl}" class="card-img-top" alt="${tour.title}">
                     <div class="card-body">
                         <h5 class="card-title">${tour.title}</h5>
-                        <p class="card-text">${tour.description}</p>
+                        
                         <a href="/customer/tours/${tour.id}" class="btn btn-primary">Chi tiết</a>
                     </div>
                 </div>
@@ -144,7 +146,6 @@
                 tourListContainer.appendChild(tourCard);
             });
         } else {
-            // Nếu không có tour, hiển thị thông báo
             tourListContainer.innerHTML = '<p>No tours available for this location.</p>';
         }
     }
