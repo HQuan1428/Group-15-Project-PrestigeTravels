@@ -36,6 +36,9 @@ const {
   getMonthlyRevenue,
   getYearlyRevenue,
 } = require('../../Controllers/providerController/revenueStatisticsController');
+
+const PromotionsController = require('../../Controllers/providerController/promotionsController');
+
 const router = express.Router();
 
 // Route trang dashboard
@@ -130,5 +133,31 @@ router.get('/revenue/api/yearly', ensureAuthenticated, getYearlyRevenue);
 router.get('/statistics', (req, res) => {
     res.render('provider/statistics'); // Render view statistics
 });
+
+// Thêm routes cho khuyến mãi
+// Hiển thị trang khuyến mãi
+router.get('/promotions', ensureAuthenticated, PromotionsController.renderPromotions);
+
+// Thêm khuyến mãi mới
+router.post('/promotions/add', ensureAuthenticated, (req, res, next) => {
+    console.log('Middleware - User check:', req.user);
+    if (!req.user) {
+        return res.status(401).json({
+            success: false,
+            message: 'Unauthorized: User not found'
+        });
+    }
+    next();
+}, PromotionsController.addPromotion);
+
+// Xóa khuyến mãi
+router.post('/promotions/:id/delete', ensureAuthenticated, PromotionsController.deletePromotion);
+
+// Cập nhật khuyến mãi
+router.post('/promotions/:id/update', ensureAuthenticated, PromotionsController.updatePromotion);
+
+router.get('/promotions/:id', PromotionsController.getPromotionById);
+router.put('/promotions/:id', PromotionsController.updatePromotion);
+router.delete('/promotions/:id', PromotionsController.deletePromotion);
 
 module.exports = router;
