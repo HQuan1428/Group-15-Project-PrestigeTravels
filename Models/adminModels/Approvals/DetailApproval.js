@@ -2,21 +2,33 @@ const { db } = require('../../Connect_Server/db');
 
 async function DetailApproval(id) {
     try {
-        // Truy vấn với tham số truyền vào
         const res = await db.query(
             `
-            SELECT *
-            FROM "tours" 
-            WHERE "id" = $1
-            `, 
-            [id] 
+            SELECT DISTINCT ON (td.available_date) t.*, td.*
+            FROM "tours" t
+            LEFT JOIN "tour_dates" td ON t.id = td.tour_id
+            WHERE t.id = $1
+            ORDER BY td.available_date ASC
+            `,
+            [id]
         );
-        
-        return res[0]; 
+        if (res.length > 0) {
+            const detail = res[0];
+            // Định dạng ngày dd/mm/yyyy
+            if (detail.available_date) {
+                const date = new Date(detail.available_date);
+                detail.available_date = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+            }
+
+            return detail;
+        }
+        //console.log(res[0]);
+        return res[0]; // Trả về danh sách các tour không bị trùng
     } catch (error) {
         console.error('Lỗi truy vấn:', error);
-        throw error; 
+        throw error;
     }
 }
+
 
 module.exports = { DetailApproval };

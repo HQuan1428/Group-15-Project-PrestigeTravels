@@ -83,16 +83,37 @@
 </div>
 <script>
     // Giả sử bạn đã truyền dữ liệu location từ server hoặc từ bên ngoài
-    const location11 = {{{json location}}}; // Lưu ý: Cần chuyển location thành dữ liệu hợp lệ từ phía server
+    const location11 = {{{ json location }}}; // Lưu ý: Cần chuyển location thành dữ liệu hợp lệ từ phía server
     console.log(location11);
 
-   document.querySelectorAll('[data-location-id]').forEach(button => {
+    // Hiển thị mặc định tour của địa điểm đầu tiên
+    document.addEventListener('DOMContentLoaded', () => {
+        if (location11 && location11.length > 0) {
+            const firstLocation = location11[0]; // Lấy location đầu tiên
+            displayTours(firstLocation); // Hiển thị tour của location đầu tiên
+
+            // Đánh dấu nút của location đầu tiên
+            const firstButton = document.querySelector(`[data-location-id="${firstLocation.id}"]`);
+            if (firstButton) {
+                firstButton.classList.add('active'); // Thêm class 'active' cho nút
+            }
+        }
+    });
+
+    // Xử lý sự kiện khi nhấn vào các nút location
+    document.querySelectorAll('[data-location-id]').forEach(button => {
         button.addEventListener('click', function () {
             const locationId = this.getAttribute('data-location-id');
             const location = location11.find(loc => loc.id === parseInt(locationId));
 
             if (location) {
                 displayTours(location);
+
+                // Xóa class 'active' khỏi tất cả các nút
+                document.querySelectorAll('[data-location-id]').forEach(btn => btn.classList.remove('active'));
+
+                // Thêm class 'active' cho nút được nhấn
+                this.classList.add('active');
             } else {
                 console.log('No location found for this ID');
             }
@@ -116,7 +137,7 @@
                     <div class="card-body">
                         <h5 class="card-title">${tour.title}</h5>
                         <p class="card-text">${tour.description}</p>
-                        <a href="#" class="btn btn-primary">Chi tiết</a>
+                        <a href="/customer/tours/${tour.id}" class="btn btn-primary">Chi tiết</a>
                     </div>
                 </div>
             `;
@@ -127,9 +148,8 @@
             tourListContainer.innerHTML = '<p>No tours available for this location.</p>';
         }
     }
-
-
 </script>
+
 
 <style>
     /* Title Section */
@@ -137,6 +157,13 @@
     color: #fff;
     font-weight: bold;
     font-size: 2.5rem;
+}
+/* Nút active */
+#location-buttons .btn.active {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #0056b3;
 }
 
 /* Location Buttons */
