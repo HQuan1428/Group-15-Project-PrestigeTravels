@@ -4,6 +4,7 @@ const {
   createTour,
   updateTourById,
   deleteTourById,
+  getTourDetails,
 } = require('../../Models/providerModels/tourModel');
 const { db } = require('../../Models/Connect_Server/db');
 const { v4: uuidv4 } = require('uuid');
@@ -246,7 +247,22 @@ const deleteTour = async (req, res) => {
     res.status(500).send('Lỗi xóa tour');
   }
 };
+// Hiển thị chi tiết tour
+const renderTourDetails = async (req, res) => {
+  try {
+    const tourId = req.params.id;
+    const tour = await getTourDetails(tourId);
 
+    if (!tour) {
+      return res.status(404).send('Tour không tồn tại');
+    }
+
+    res.render('providerViews/tourDetails', { tour });
+  } catch (err) {
+    console.error('Error rendering tour details:', err);
+    res.status(500).send('Lỗi hiển thị chi tiết tour');
+  }
+};
 module.exports = {
   uploadFields,
   addTour,
@@ -255,4 +271,5 @@ module.exports = {
   renderEditTourForm,
   updateTour,
   deleteTour,
+  renderTourDetails,
 };
