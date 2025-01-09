@@ -31,7 +31,37 @@ async function GetLocation() {
         return []; // Trả về mảng rỗng nếu có lỗi
     }
 }
+async function createBooking(userId, tourId, tourDateId, adults, children, totalPrice) {
+    try {
+        const result = await db.query(
+            `INSERT INTO "bookings" ("user_id", "tour_id", "tour_date_id", "adults", "children", "total_price", "status")
+             VALUES ($1, $2, $3, $4, $5, $6, 'pending') RETURNING *`,
+            [userId, tourId, tourDateId, adults, children, totalPrice]
+        );
+        return result[0];
+    } catch (error) {
+        console.error('Error creating booking:', error);
+        throw error;
+    }
+}
+async function getTourPrice(tourId) {
+    //console.log(tourId);
+    try {
+        const result = await db.query(
+            `SELECT "price" FROM "tours" WHERE "id" = $1`,
+            [tourId]
+        );
+        if (result.length > 0) {
+            return result[0].price; // Trả về giá của tour
+        } else {
+            throw new Error('Tour not found');
+        }
+    } catch (error) {
+        console.error('Error getting tour price:', error);
+        throw error;
+    }
+}
 
 
 
-module.exports={GetLocation}
+module.exports={GetLocation,createBooking,getTourPrice}
