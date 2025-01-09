@@ -44,13 +44,23 @@ const createTour = (partnerId, tourData) => {
 // Cập nhật tour
 const updateTourById = (tourId, tourData) => {
   const { title, description, price, duration, starting_point } = tourData;
+
+  // Kiểm tra dữ liệu đầu vào
+  if (!title || title.trim() === "") {
+    throw new Error("Tiêu đề không được bỏ trống");
+  }
+  if (!price || isNaN(price)) {
+    throw new Error("Giá không hợp lệ");
+  }
+
   return db.none(
     `UPDATE tours
      SET title = $1, description = $2, price = $3, duration = $4, starting_point = $5
      WHERE id = $6`,
-    [title, description, price, duration, starting_point, tourId]
+    [title, description || null, price, duration || null, starting_point || null, tourId]
   );
 };
+
 
 // Xóa tour
 const deleteTourById = (tourId) => {
