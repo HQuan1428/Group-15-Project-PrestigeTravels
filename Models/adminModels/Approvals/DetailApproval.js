@@ -22,7 +22,7 @@ async function DetailApproval(id) {
 
             return detail;
         }
-        //console.log(res[0]);
+        console.log(detail);
         return res[0]; // Trả về danh sách các tour không bị trùng
     } catch (error) {
         console.error('Lỗi truy vấn:', error);

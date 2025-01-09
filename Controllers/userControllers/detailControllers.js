@@ -3,6 +3,7 @@ const DetailTour=async(req,res)=>{
     const { id } = req.params;
     try {
         const detail = await DetailApproval(id);
+        console.log(detail);
         if (!req.isAuthenticated()) {
            return res.redirect('/login'); 
         }
