@@ -1,9 +1,172 @@
-{{#if welcomeMessage}}
-<div class="welcome-message">{{welcomeMessage}}</div>
-{{/if}}
+<!-- Body -->
+<div class="container-fluid p-0">
+    <!-- Image Banner and Title on the Same Row -->
+    <div class="row align-items-center">
+        <div class="col-12 col-md-2">
+            <img class="img-fluid"
+                src="https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24"
+                alt="Top địa điểm">
+        </div>
+        <div class="col-12 col-md-10 text-center text-md-left">
+            <div class="title display-4 text-white">Top Địa điểm được yêu thích nhất</div>
+        </div>
+    </div>
 
-<div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
-    <h2>Welcome to our website!</h2>
-    <p>This is a basic template for a static website.</p>
-    <h1>Hello</h1>
+    <!-- Location Buttons -->
+<!-- Location Buttons -->
+<div class="row justify-content-center mb-4" id="location-buttons">
+    {{#each location}}
+    <div class="col-md-2 mb-2">
+        <button class="btn btn-primary w-100" data-location-id="{{this.id}}">{{this.name}}</button>
+    </div>
+    {{/each}}
 </div>
+
+<!-- Khu vực hiển thị các tour -->
+<div id="tour-list" class="row">
+    <!-- Các tour sẽ được hiển thị ở đây -->
+</div>
+
+
+    <!-- Display Section -->
+    <div class="row">
+        <div class="col-12 display-container">
+            <div class="display"></div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h2>Lý do nên đặt chỗ với Prestige Travels</h2>
+        </div>
+        <div class="row text-center">
+            <!-- Feature 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718236517-bf9a3e5ffd872b781ba2e56e93fe8840.webp?tr=h-64,q-75,w-64"
+                        alt="Icon 1" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Đáp ứng mọi nhu cầu của bạn</h5>
+                        <p class="card-text">Từ chuyến bay, lưu trú, đến điểm tham quan, bạn có thể tin chọn sản phẩm
+                            hoàn chỉnh và Hướng Dẫn Du Lịch của chúng tôi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718238370-9ef6b6e0701e9074614951c0bd49930c.webp?tr=h-64,q-75,w-64"
+                        alt="Icon 2" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Tùy chọn đặt chỗ linh hoạt</h5>
+                        <p class="card-text">Kế hoạch thay đổi bất ngờ? Đừng lo! Đổi lịch hoặc Hoàn tiền dễ dàng.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718240417-96131eb957c39a098a12d2d7926e3342.webp?tr=h-64,q-75,w-64"
+                        alt="Icon 3" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Thanh toán an toàn và thuận tiện</h5>
+                        <p class="card-text">Tận hưởng nhiều cách thanh toán an toàn, bằng loại tiền thuận tiện nhất cho
+                            bạn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Giả sử bạn đã truyền dữ liệu location từ server hoặc từ bên ngoài
+    const location11 = {{{json location}}}; // Lưu ý: Cần chuyển location thành dữ liệu hợp lệ từ phía server
+    console.log(location11);
+
+   document.querySelectorAll('[data-location-id]').forEach(button => {
+        button.addEventListener('click', function () {
+            const locationId = this.getAttribute('data-location-id');
+            const location = location11.find(loc => loc.id === parseInt(locationId));
+
+            if (location) {
+                displayTours(location);
+            } else {
+                console.log('No location found for this ID');
+            }
+        });
+    });
+
+    // Hàm để hiển thị các tour của địa điểm
+    function displayTours(location) {
+        const tourListContainer = document.getElementById('tour-list');
+        tourListContainer.innerHTML = '';  // Xóa các tour cũ
+
+        if (location && location.tours && location.tours.length > 0) {
+            // Hiển thị các tour của địa điểm
+            location.tours.forEach(tour => {
+                const tourCard = document.createElement('div');
+                tourCard.classList.add('col-md-4', 'mb-4');
+
+                tourCard.innerHTML = `
+                <div class="card">
+                    <img src="${tour.image}" class="card-img-top" alt="${tour.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${tour.title}</h5>
+                        <p class="card-text">${tour.description}</p>
+                        <a href="#" class="btn btn-primary">Chi tiết</a>
+                    </div>
+                </div>
+            `;
+                tourListContainer.appendChild(tourCard);
+            });
+        } else {
+            // Nếu không có tour, hiển thị thông báo
+            tourListContainer.innerHTML = '<p>No tours available for this location.</p>';
+        }
+    }
+
+
+</script>
+
+<style>
+    /* Title Section */
+.title-header .title {
+    color: #fff;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+/* Location Buttons */
+.location {
+    padding: 20px 0;
+}
+
+/* Feature Section */
+.card-body {
+    text-align: left;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+</style>

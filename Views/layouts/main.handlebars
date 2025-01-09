@@ -91,10 +91,26 @@
                                 <a class="nav-link" href="/tour">Tour</a>
                             </li>
                         </ul>
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm tour..." aria-label="Search">
-                            <button class="btn btn-outline-primary" type="submit">Tìm kiếm</button>
-                        </form>
+                        <div class="nav-search">
+                            <form class="header-search-form">
+                                <div class="search-input-group">
+                                    <input type="text" placeholder="Tìm kiếm tour...">
+                                    <select class="search-select">
+                                        <option value="">Tất cả địa điểm</option>
+                                        <option value="hanoi">Hà Nội</option>
+                                        <option value="halong">Hạ Long</option>
+                                        <option value="danang">Đà Nẵng</option>
+                                        <option value="hoian">Hội An</option>
+                                        <option value="nhatrang">Nha Trang</option>
+                                        <option value="dalat">Đà Lạt</option>
+                                        <option value="phuquoc">Phú Quốc</option>
+                                    </select>
+                                    <button type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                         <ul class="navbar-nav ms-3">
                             <li class="nav-item">
                                 <a class="nav-link" href="/register">Đăng ký</a>

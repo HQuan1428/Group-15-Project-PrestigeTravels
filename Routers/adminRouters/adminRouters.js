@@ -36,9 +36,9 @@ router.get('/admin/approvals', showApprovalPage)
 const {Detail } = require('../../Controllers/adminControllers/ApprovalsControllers/detailApprovalControllers')
 router.get('/admin/approvals/detail/:id', Detail)
 
-// Delete approvals
-const {deleteApproval } = require('../../Controllers/adminControllers/ApprovalsControllers/deleteApprovalControllers')
-router.post('/admin/approvals/delete/:id', deleteApproval)
+// accept approvals
+const {acceptApproval } = require('../../Controllers/adminControllers/ApprovalsControllers/acceptApprovalControllers')
+router.post('/admin/approvals/accept/:id', acceptApproval)
 // search approvals
 const { SearchApprovalByName} = require('../../Controllers/adminControllers/ApprovalsControllers/searchApprovalsControllers')
 router.post('/admin/approvals/search', SearchApprovalByName)
