@@ -8,8 +8,8 @@ async function bookTour(req, res) {
         const { adults, children } = req.body;
         //console.log(adults, children )
 
-        const userId = req.session.id; 
-        console.log(userId);
+        const userId = req.session.user_id; 
+        //console.log(userId);
 
         // Lấy giá tour từ hàm getTourPrice
         const tourPrice = await getTourPrice(tour_id); // Lấy giá từ tourId
@@ -22,10 +22,10 @@ async function bookTour(req, res) {
         const totalPrice = (adults * tourPrice) + (children * (tourPrice * 0.5)); // Giả sử trẻ em có giá bằng 50% giá người lớn
 
         // Tạo booking
-        const booking = await createBooking(userId, tour_id, tourDateId, adults, children, totalPrice);
+        const booking = await createBooking(userId, tour_id, adults, children, totalPrice);
 
         // Chuyển hướng hoặc trả về thông báo thành công
-        res.redirect(`/customer/bookings/${booking.id}`); // Chuyển đến trang chi tiết booking
+        res.redirect(`/customer`); // Chuyển đến trang chi tiết booking
     } catch (error) {
         console.error('Error booking tour:', error);
         res.status(500).send('Đặt tour thất bại!');

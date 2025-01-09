@@ -31,12 +31,12 @@ async function GetLocation() {
         return []; // Trả về mảng rỗng nếu có lỗi
     }
 }
-async function createBooking(userId, tourId, tourDateId, adults, children, totalPrice) {
+async function createBooking(userId, tourId, adults, children, totalPrice) {
     try {
         const result = await db.query(
-            `INSERT INTO "bookings" ("user_id", "tour_id", "tour_date_id", "adults", "children", "total_price", "status")
-             VALUES ($1, $2, $3, $4, $5, $6, 'pending') RETURNING *`,
-            [userId, tourId, tourDateId, adults, children, totalPrice]
+            `INSERT INTO "bookings" ("user_id", "tour_id", "adults", "children", "total_price", "status")
+             VALUES ($1, $2, $3, $4, $5, 'pending') RETURNING *`,
+            [userId, tourId, adults, children, totalPrice]
         );
         return result[0];
     } catch (error) {

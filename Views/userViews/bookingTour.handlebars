@@ -1,19 +1,21 @@
 <div class="container mt-5">
     <h3 class="mb-4">Đặt Tour</h3>
-    <form action="/customer/booking/order/{{tour_id}}" method="POST">
-     <h1>Tour id :  {{tour_id}}</h1>
-        <!-- Adults -->
+    <form action="/customer/bookings/order/{{tour_id}}" method="POST">
+        <h1>Tour id : {{tour_id}}</h1>
+
+        <!-- Số Người Lớn -->
         <div class="mb-3">
             <label for="adults" class="form-label">Số Người Lớn</label>
             <input type="number" class="form-control" id="adults" name="adults" value="1" min="1" required>
         </div>
 
-        <!-- Children -->
+        <!-- Số Trẻ Em -->
         <div class="mb-3">
             <label for="children" class="form-label">Số Trẻ Em</label>
             <input type="number" class="form-control" id="children" name="children" value="0" min="0">
         </div>
-        <!-- Submit Button -->
+
+        <!-- Nút Đặt Tour -->
         <button type="submit" class="btn btn-primary">Đặt Tour</button>
     </form>
 </div>

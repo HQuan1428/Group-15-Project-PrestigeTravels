@@ -21,6 +21,7 @@ const login = async (req, res, next) => {
 
       req.session.username = user.fullname;
       req.session.userType = user.userType;
+      req.session.user_id = user.id;
     
       // Kiểm tra loại người dùng và chuyển hướng đến trang thích hợp
       if (user.userType === 'admin') {
