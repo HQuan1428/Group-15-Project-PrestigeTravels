@@ -27,6 +27,10 @@ initializePassport(passport)
 app.engine('handlebars', engine({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  partialsDir: [
+    path.join(__dirname, 'views', 'partials'),
+    path.join(__dirname, 'views', 'providerViews')
+  ],
   helpers: {
     json: function (context) {
       return JSON.stringify(context)
@@ -34,8 +38,22 @@ app.engine('handlebars', engine({
     eq: function (a, b) {
       return a === b
     },
-    
-    
+    formatDate: function(date) {
+      if (!date) return '';
+      const d = new Date(date);
+      return d.toLocaleDateString('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+    },
+    formatMoney: function(amount) {
+      if (!amount) return '0 ₫';
+      return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+      }).format(amount);
+    }
   }
 }))
 app.set('view engine', 'handlebars')

@@ -1,77 +1,86 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div class="container mt-4">
-    <h2 class="mb-4">Thống Kê Doanh Thu</h2>
-    
-    <!-- Bộ lọc thời gian -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <form id="filter-form" class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label">Từ:</label>
-                    <input type="date" id="fromDate" name="fromDate" class="form-control">
+<div class="container-fluid">
+    <div class="row">
+        {{> partnerSidebar}}
+        
+        <!-- Nội dung chính -->
+        <div class="col-md-9">
+            <div class="container mt-4">
+                <h2 class="mb-4">Thống Kê Doanh Thu</h2>
+                
+                <!-- Bộ lọc thời gian -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form id="filter-form" class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Từ:</label>
+                                <input type="date" id="fromDate" name="fromDate" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Đến:</label>
+                                <input type="date" id="toDate" name="toDate" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Mã dịch vụ:</label>
+                                <input type="text" id="serviceCode" name="serviceCode" class="form-control" placeholder="VD: DV123">
+                            </div>
+                            <div class="col-md-1 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">Lọc</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label">Đến:</label>
-                    <input type="date" id="toDate" name="toDate" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Mã dịch vụ:</label>
-                    <input type="text" id="serviceCode" name="serviceCode" class="form-control" placeholder="VD: DV123">
-                </div>
-                <div class="col-md-1 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100">Lọc</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- Bảng kết quả -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Mã dịch vụ</th>
-                            <th>Từ ngày</th>
-                            <th>Đến ngày</th>
-                            <th>Doanh thu</th>
-                            <th>Tải xuống</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#if revenue.length}}
-                            {{#each revenue}}
-                            <tr>
-                                <td>{{this.service_code}}</td>
-                                <td>{{formatDate this.from_date}}</td>
-                                <td>{{formatDate this.to_date}}</td>
-                                <td>{{formatMoney this.total_revenue}}$</td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-secondary">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            {{/each}}
-                        {{else}}
-                            <tr>
-                                <td colspan="5" class="text-center">Không có dữ liệu</td>
-                            </tr>
-                        {{/if}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                <!-- Bảng kết quả -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Mã dịch vụ</th>
+                                        <th>Từ ngày</th>
+                                        <th>Đến ngày</th>
+                                        <th>Doanh thu</th>
+                                        <th>Tải xuống</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#if revenue.length}}
+                                        {{#each revenue}}
+                                        <tr>
+                                            <td>{{this.service_code}}</td>
+                                            <td>{{formatDate this.from_date}}</td>
+                                            <td>{{formatDate this.to_date}}</td>
+                                            <td>{{formatMoney this.total_revenue}}$</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-secondary">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    {{else}}
+                                        <tr>
+                                            <td colspan="5" class="text-center">Không có dữ liệu</td>
+                                        </tr>
+                                    {{/if}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Biểu đồ -->
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Doanh thu từng năm</h5>
-            <div class="chart-container" style="height: 300px;">
-                <canvas id="revenueChart"></canvas>
+                <!-- Biểu đồ -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Doanh thu từng năm</h5>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
