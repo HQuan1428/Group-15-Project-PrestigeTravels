@@ -1,33 +1,38 @@
-<h1>Quản lý Tour</h1>
+<h1 class="my-4">Quản lý Tour</h1>
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <!-- Nút thêm tour -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
     <a href="/partner/tours/add" class="btn btn-primary">+ Thêm tour</a>
   </div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Mã tour</th>
-        <th>Tiêu đề</th>
-        <th>Giá</th>
-        <th>Điểm bắt đầu</th>
-        <th>Hành động</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each tours}}
-      <tr>
-        <td>{{this.id}}</td>
-        <td>{{this.title}}</td>
-        <td>{{this.price}}</td>
-        <td>{{this.starting_point}}</td>
-        <td>
-          <a href="/partner/tours/{{this.id}}/edit" class="btn btn-warning">Sửa</a>
-          <form action="/partner/tours/{{this.id}}/delete" method="POST" style="display: inline;">
-            <button type="submit" class="btn btn-danger">Xóa</button>
-          </form>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+
+  <!-- Hiển thị danh sách tour -->
+  <div class="row">
+    {{#each tours}}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow">
+        <!-- Hiển thị ảnh tour -->
+        <img 
+          src="{{this.main_image}}" 
+          class="card-img-top" 
+          alt="{{this.title}}" 
+          style="height: 200px; object-fit: cover;"
+        >
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <p class="card-text text-muted">
+            <strong>Giá:</strong> {{this.price}} VND<br>
+            <strong>Điểm bắt đầu:</strong> {{this.starting_point}}
+          </p>
+          <!-- Hành động -->
+          <div class="d-flex justify-content-between">
+            <a href="/partner/tours/{{this.id}}/edit" class="btn btn-warning btn-sm">Sửa</a>
+            <form action="/partner/tours/{{this.id}}/delete" method="POST" style="display: inline;">
+              <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>

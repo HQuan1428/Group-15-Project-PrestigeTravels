@@ -2,9 +2,23 @@ const { db } = require('../../Models/Connect_Server/db');
 
 // Lấy danh sách tour của đối tác
 const getToursByPartner = (partnerId) => {
-  return db.any('SELECT * FROM tours WHERE partner_id = $1', [partnerId]);
+  return db.any(
+    `SELECT 
+      t.id, 
+      t.title, 
+      t.price, 
+      t.starting_point, 
+      (
+        SELECT ti.image_url 
+        FROM tour_images ti 
+        WHERE ti.tour_id = t.id AND ti.is_main = true
+        LIMIT 1
+      ) AS main_image
+     FROM tours t
+     WHERE t.partner_id = $1`,
+    [partnerId]
+  );
 };
-
 // Lấy thông tin tour theo ID
 const getTourById = (tourId) => {
   return db.oneOrNone('SELECT * FROM tours WHERE id = $1', [tourId]);

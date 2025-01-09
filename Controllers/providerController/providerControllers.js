@@ -3,7 +3,11 @@ const { getPartnerByUserId, getToursByPartner } = require('../../Models/provider
 // Trang dashboard nhà cung cấp
 async function renderPartnerDashboard(req, res) {
     try {
-        const userId = req.user.id; // Lấy user_id từ session
+        const userId = req.user?.id; // Lấy user_id từ session
+        if (!userId) {
+            return res.redirect('/login');
+        }
+
         const partner = await getPartnerByUserId(userId);
 
         if (!partner) {
@@ -14,7 +18,13 @@ async function renderPartnerDashboard(req, res) {
         req.session.partner_id = partner.id;
 
         const tours = await getToursByPartner(partner.id);
-        res.render('providerViews/partnerDashboard', { partner, tours });
+
+        // Render partnerDashboard với thông tin cần thiết
+        res.render('providerViews/partnerDashboard', {
+            partner,
+            tours,
+            role: 'partner', // Đảm bảo `role` được truyền vào để hiển thị menu
+        });
     } catch (err) {
         console.error('Error rendering dashboard:', err);
         res.status(500).send('Lỗi hiển thị dashboard.');

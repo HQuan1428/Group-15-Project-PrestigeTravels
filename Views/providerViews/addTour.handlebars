@@ -1,27 +1,194 @@
-<form method="POST" action="/partner/tours/add">
-    <div class="mb-3">
-        <label for="title" class="form-label">Tiêu đề</label>
-        <input type="text" class="form-control" id="title" name="title" required />
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Thêm Tour Mới</h3>
+        </div>
+        <div class="card-body">
+            <form id="add-tour-form" method="POST" action="/partner/tours/add" enctype="multipart/form-data">
+                <!-- Thông tin cơ bản -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Tên Tour</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tên tour" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả tour"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" name="price" step="0.01" placeholder="Nhập giá tour" required>
+                    </div>
+                    
+                </div>
+                <div class="mb-3">
+                    <label for="starting_point" class="form-label">Điểm khởi hành</label>
+                    <input type="text" class="form-control" id="starting_point" name="starting_point" placeholder="Nhập điểm bắt đầu">
+                </div>
+                
+
+                <!-- Chọn ngày -->
+                <div class="mb-3">
+                    <label for="available-dates" class="form-label">Chọn ngày</label>
+                    <input type="text" id="available-dates" class="form-control" placeholder="Chọn các ngày" readonly>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Số slot</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="date-table"></tbody>
+                    </table>
+                    <small class="text-muted">Chọn các ngày và số slot.</small>
+                </div>
+                <div class="mb-3">
+                    <label for="slots" class="form-label">Số slot</label>
+                    <input type="number" id="slots" class="form-control" placeholder="Nhập số slot">
+                </div>
+                <button type="button" id="add-date-btn" class="btn btn-secondary">Thêm ngày</button>
+
+                <!-- Input ẩn để lưu danh sách ngày -->
+                <input type="hidden" id="availableDates" name="availableDates">
+
+                <!-- Chọn ảnh chính -->
+                <div class="mb-3">
+                    <label for="mainImage" class="form-label">Chọn ảnh chính</label>
+                    <input type="file" id="mainImage" name="mainImage" class="form-control" accept="image/*" required>
+                    <small class="text-muted">Đây là ảnh chính sẽ được hiển thị đầu tiên.</small>
+                </div>
+
+                <!-- Chọn ảnh phụ -->
+                <div id="subImagesSection">
+                    <label class="form-label">Chọn ảnh phụ</label>
+                    <div class="mb-3">
+                        <input type="file" name="subImages[]" class="form-control sub-image-input" accept="image/*">
+                    </div>
+                </div>
+                <button type="button" id="addSubImageBtn" class="btn btn-secondary">Thêm ảnh phụ</button>
+
+               <!-- Thêm dịch vụ -->
+<div class="mb-3">
+    <label for="services" class="form-label">Thêm dịch vụ</label>
+    <div id="servicesSection">
+        <div class="input-group mb-3 service-input-group">
+            <input type="text" name="services[]" class="form-control" placeholder="Nhập tên dịch vụ">
+            <button type="button" class="btn btn-danger remove-service-btn">Xóa</button>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Mô tả</label>
-        <textarea class="form-control" id="description" name="description" required></textarea>
+    <button type="button" id="addServiceBtn" class="btn btn-secondary">Thêm dịch vụ</button>
+    <small class="text-muted">Bạn có thể thêm nhiều dịch vụ.</small>
+</div>
+
+
+
+
+
+
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-primary">Thêm Tour</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="price" class="form-label">Giá</label>
-        <input type="number" class="form-control" id="price" name="price" required />
-    </div>
-    <div class="mb-3">
-        <label for="duration" class="form-label">Thời gian</label>
-        <input type="text" class="form-control" id="duration" name="duration" required />
-    </div>
-    <div class="mb-3">
-        <label for="starting_point" class="form-label">Điểm bắt đầu</label>
-        <input type="text" class="form-control" id="starting_point" name="starting_point" required />
-    </div>
-    <div class="mb-3">
-        <label for="max_participants" class="form-label">Số lượng tối đa</label>
-        <input type="number" class="form-control" id="max_participants" name="max_participants" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Thêm Tour</button>
-</form>
+</div>
+
+<!-- Flatpickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    const availableDatesInput = document.getElementById('availableDates');
+    const datePicker = flatpickr('#available-dates', {
+        mode: 'multiple',
+        dateFormat: 'Y-m-d',
+        onChange: function(selectedDates, dateStr, instance) {
+            console.log('Selected dates:', dateStr);
+        }
+    });
+
+    const dateTable = document.getElementById('date-table');
+    const slotsInput = document.getElementById('slots');
+    const addDateBtn = document.getElementById('add-date-btn');
+
+    let dates = [];
+
+    addDateBtn.addEventListener('click', () => {
+        const selectedDates = datePicker.selectedDates;
+        const slots = slotsInput.value;
+
+        if (selectedDates.length === 0 || !slots || slots <= 0) {
+            alert('Vui lòng chọn ngày và nhập số slot hợp lệ!');
+            return;
+        }
+
+        selectedDates.forEach(date => {
+            const dateString = date.toISOString().split('T')[0];
+            if (!dates.find(d => d.date === dateString)) {
+                dates.push({ date: dateString, slots });
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${dateString}</td>
+                    <td>${slots}</td>
+                    <td><button type="button" class="btn btn-danger btn-sm remove-date-btn">Xóa</button></td>
+                `;
+                dateTable.appendChild(row);
+            }
+        });
+
+        slotsInput.value = '';
+        datePicker.clear();
+        updateHiddenInput();
+    });
+
+    dateTable.addEventListener('click', (event) => {
+        if (event.target.classList.contains('remove-date-btn')) {
+            const row = event.target.closest('tr');
+            const date = row.cells[0].textContent;
+
+            dates = dates.filter(d => d.date !== date);
+            row.remove();
+            updateHiddenInput();
+        }
+    });
+
+    function updateHiddenInput() {
+        availableDatesInput.value = JSON.stringify(dates);
+    }
+
+    // Thêm chức năng thêm ảnh phụ
+    const subImagesSection = document.getElementById('subImagesSection');
+    const addSubImageBtn = document.getElementById('addSubImageBtn');
+
+    addSubImageBtn.addEventListener('click', () => {
+        const newSubImageInput = document.createElement('div');
+        newSubImageInput.classList.add('mb-3');
+        newSubImageInput.innerHTML = `
+            <input type="file" name="subImages[]" class="form-control sub-image-input" accept="image/*">
+        `;
+        subImagesSection.appendChild(newSubImageInput);
+    });
+    const servicesSection = document.getElementById('servicesSection');
+const addServiceBtn = document.getElementById('addServiceBtn');
+
+// Thêm dịch vụ mới
+addServiceBtn.addEventListener('click', () => {
+    const newServiceInputGroup = document.createElement('div');
+    newServiceInputGroup.classList.add('input-group', 'mb-3', 'service-input-group');
+
+    newServiceInputGroup.innerHTML = `
+        <input type="text" name="services[]" class="form-control" placeholder="Nhập tên dịch vụ">
+        <button type="button" class="btn btn-danger remove-service-btn">Xóa</button>
+    `;
+    servicesSection.appendChild(newServiceInputGroup);
+});
+
+// Xóa dịch vụ
+servicesSection.addEventListener('click', (event) => {
+    if (event.target.classList.contains('remove-service-btn')) {
+        const serviceInputGroup = event.target.closest('.service-input-group');
+        serviceInputGroup.remove();
+    }
+});
+
+</script>

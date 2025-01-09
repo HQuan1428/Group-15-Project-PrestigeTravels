@@ -12,6 +12,9 @@ const {
 } = require('../../Controllers/providerController/servicesController');
 
 const {
+  uploadFields,
+  upload,
+  addTour,
   renderTours,
   renderAddTourForm,
   createNewTour,
@@ -78,7 +81,8 @@ router.post('/services/:id/delete', ensureAuthenticated, deleteService);
 // Route quản lý tour
 router.get('/tours', ensureAuthenticated, renderTours);
 router.get('/tours/add', ensureAuthenticated, renderAddTourForm);
-router.post('/tours/add', ensureAuthenticated, createNewTour);
+router.post('/tours/add', uploadFields, addTour);
+
 router.get('/tours/:id/edit', ensureAuthenticated, renderEditTourForm);
 router.post('/tours/:id/edit', ensureAuthenticated, updateTour);
 router.post('/tours/:id/delete', ensureAuthenticated, deleteTour);

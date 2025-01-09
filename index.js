@@ -8,7 +8,7 @@ const { initializePassport } = require('./config/passport'); // Cấu hình Pass
 
 const port = 4000
 const app = express()
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // Cấu hình session
@@ -33,7 +33,9 @@ app.engine('handlebars', engine({
     },
     eq: function (a, b) {
       return a === b
-    }
+    },
+    
+    
   }
 }))
 app.set('view engine', 'handlebars')
