@@ -3,7 +3,7 @@ const { db } = require('../../Models/Connect_Server/db')
 async function GetLocation() {
     try {
         // Truy vấn để lấy tất cả các địa điểm
-        const locationResult = await db.query('SELECT * FROM "locations"');
+        const locationResult = await db.query('SELECT * FROM "locations" LIMIT 5');
         //console.log(locationResult);
         // Lấy danh sách các địa điểm từ kết quả truy vấn
         const locations = locationResult;
