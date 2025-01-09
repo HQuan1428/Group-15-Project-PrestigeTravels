@@ -39,7 +39,7 @@ router.get('/customer/payment', async (req, res) => {
   const total_price = await getTourPrice(tour_id);
 
 
-  res.render('userViews/payment', {methods: methods, detatl: detail, total_price: total_price})
+  res.render('userViews/payment', {methods: methods, detail: detail, total_price: total_price})
 })
 
 //profile 
