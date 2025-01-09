@@ -72,8 +72,8 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span>Tổng giá tiền</span>
                 <div>
-                    <span class="old-price">1.300.000 VNĐ</span>
-                    <span class="final-price">1.170.000 VNĐ</span>
+                    {{!-- <span class="old-price">1.300.000 VNĐ</span> --}}
+                    <span class="final-price">{{total_price}}</span>
                 </div>
             </div>
             <button class="btn btn-primary w-100 py-3">Thanh toán và hiển thị mã QR</button>
@@ -82,15 +82,15 @@
         <!-- Right Column -->
         <div class="col-lg-4">
             <div class="summary-box">
-                <h5 class="mb-3">Tóm tắt Xperience</h5>
-                <p><strong>Mã đặt chỗ:</strong> 1242342</p>
+                <h5 class="mb-3">{{detail.title}}</h5>
+                {{!-- <p><strong>Mã đặt chỗ:</strong> 1242342</p> --}}
                 <hr>
                 <h6>Chi tiết đặt chỗ</h6>
                 <p>
-                    Two Islands Excursion, Sun World Hon Thom & Lunch Buffet in Phu Quoc by Rooty Trip - Day Tour
+                    {{detail.description}}
                 </p>
-                <p><strong>Ngày tham quan:</strong> Th 7, 23 thg 11, 2024</p>
-                <p><strong>Áp dụng cho:</strong> Người lớn: 1</p>
+                <p><strong>Ngày tham quan:</strong> {{detail.Date}} </p>
+                {{!-- <p><strong>Áp dụng cho:</strong> {{detail.}} </p> --}}
             </div>
         </div>
     </div>
