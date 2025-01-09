@@ -1,53 +1,44 @@
 <!-- Body -->
-<div class="container-fluid p-0">
-    <!-- Image Banner and Title on the Same Row -->
-    <div class="row align-items-center">
-        <div class="col-12 col-md-2">
+<div class="container-fluid px-3 py-4">
+    <!-- Image Banner and Title Section -->
+    <div class="row align-items-center mb-4">
+        <div class="col-12 col-md-2 text-center text-md-left">
             <img class="img-fluid"
                 src="https://ik.imagekit.io/tvlk/image/imageResource/2024/09/11/1726052438498-19ccbda89dcc327a785f197276581f2a.png?_src=imagekit&tr=q-40,h-24"
                 alt="Top địa điểm">
         </div>
         <div class="col-12 col-md-10 text-center text-md-left">
-            <div class="title display-4 text-white">Top Địa điểm được yêu thích nhất</div>
+            <div class="title display-5 text-primary font-weight-bold">Top Địa điểm được yêu thích nhất</div>
         </div>
     </div>
 
     <!-- Location Buttons -->
-<!-- Location Buttons -->
-<div class="row justify-content-center mb-4" id="location-buttons">
-    {{#each location}}
-    <div class="col-md-2 mb-2">
-        <button class="btn btn-primary w-100" data-location-id="{{this.id}}">{{this.name}}</button>
-    </div>
-    {{/each}}
-</div>
-
-<!-- Khu vực hiển thị các tour -->
-<div id="tour-list" class="row">
-    <!-- Các tour sẽ được hiển thị ở đây -->
-</div>
-
-
-    <!-- Display Section -->
-    <div class="row">
-        <div class="col-12 display-container">
-            <div class="display"></div>
+    <div class="row justify-content-center mb-4" id="location-buttons">
+        {{#each location}}
+        <div class="col-6 col-sm-4 col-md-2 mb-2 text-center">
+            <button class="btn btn-outline-primary w-100" data-location-id="{{this.id}}">{{this.name}}</button>
         </div>
+        {{/each}}
+    </div>
+
+    <!-- Tour List Section -->
+    <div id="tour-list" class="row">
+        <!-- Các tour sẽ được hiển thị ở đây -->
     </div>
 
     <!-- Features Section -->
     <div class="container my-5">
         <div class="text-center mb-4">
-            <h2>Lý do nên đặt chỗ với Prestige Travels</h2>
+            <h2 class="text-primary">Lý do nên đặt chỗ với Prestige Travels</h2>
         </div>
         <div class="row text-center">
             <!-- Feature 1 -->
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
+                <div class="card shadow border-0">
                     <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718236517-bf9a3e5ffd872b781ba2e56e93fe8840.webp?tr=h-64,q-75,w-64"
-                        alt="Icon 1" class="card-img-top">
+                        alt="Icon 1" class="card-img-top mx-auto mt-3" style="width: 64px; height: 64px;">
                     <div class="card-body">
-                        <h5 class="card-title">Đáp ứng mọi nhu cầu của bạn</h5>
+                        <h5 class="card-title text-primary">Đáp ứng mọi nhu cầu của bạn</h5>
                         <p class="card-text">Từ chuyến bay, lưu trú, đến điểm tham quan, bạn có thể tin chọn sản phẩm
                             hoàn chỉnh và Hướng Dẫn Du Lịch của chúng tôi.</p>
                     </div>
@@ -56,11 +47,11 @@
 
             <!-- Feature 2 -->
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
+                <div class="card shadow border-0">
                     <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718238370-9ef6b6e0701e9074614951c0bd49930c.webp?tr=h-64,q-75,w-64"
-                        alt="Icon 2" class="card-img-top">
+                        alt="Icon 2" class="card-img-top mx-auto mt-3" style="width: 64px; height: 64px;">
                     <div class="card-body">
-                        <h5 class="card-title">Tùy chọn đặt chỗ linh hoạt</h5>
+                        <h5 class="card-title text-primary">Tùy chọn đặt chỗ linh hoạt</h5>
                         <p class="card-text">Kế hoạch thay đổi bất ngờ? Đừng lo! Đổi lịch hoặc Hoàn tiền dễ dàng.</p>
                     </div>
                 </div>
@@ -68,11 +59,11 @@
 
             <!-- Feature 3 -->
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
+                <div class="card shadow border-0">
                     <img src="https://ik.imagekit.io/tvlk/image/imageResource/2023/06/14/1686718240417-96131eb957c39a098a12d2d7926e3342.webp?tr=h-64,q-75,w-64"
-                        alt="Icon 3" class="card-img-top">
+                        alt="Icon 3" class="card-img-top mx-auto mt-3" style="width: 64px; height: 64px;">
                     <div class="card-body">
-                        <h5 class="card-title">Thanh toán an toàn và thuận tiện</h5>
+                        <h5 class="card-title text-primary">Thanh toán an toàn và thuận tiện</h5>
                         <p class="card-text">Tận hưởng nhiều cách thanh toán an toàn, bằng loại tiền thuận tiện nhất cho
                             bạn.</p>
                     </div>
@@ -81,6 +72,55 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* General Styling */
+    .container-fluid {
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    /* Location Buttons */
+    #location-buttons .btn {
+        border: 2px solid #007bff;
+        transition: 0.3s;
+    }
+
+    #location-buttons .btn:hover,
+    #location-buttons .btn.active {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Card Styling */
+    .card {
+        border-radius: 12px;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+    .card-img-top {
+        border-radius: 50%;
+    }
+</style>
+
 <script>
     // Giả sử bạn đã truyền dữ liệu location từ server hoặc từ bên ngoài
     const location11 = {{{ json location }}}; // Lưu ý: Cần chuyển location thành dữ liệu hợp lệ từ phía server
@@ -151,50 +191,3 @@
     }
 </script>
 
-
-<style>
-    /* Title Section */
-.title-header .title {
-    color: #fff;
-    font-weight: bold;
-    font-size: 2.5rem;
-}
-/* Nút active */
-#location-buttons .btn.active {
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-    border: 2px solid #0056b3;
-}
-
-/* Location Buttons */
-.location {
-    padding: 20px 0;
-}
-
-/* Feature Section */
-.card-body {
-    text-align: left;
-}
-
-.card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
-.card-text {
-    font-size: 0.95rem;
-    color: #555;
-}
-
-.card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-}
-
-.card-img-top {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-</style>
