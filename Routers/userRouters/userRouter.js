@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { GetLocation } = require('../../Models/userModels/userModels')
+const { GetLocation, get_pay_methods } = require('../../Models/userModels/userModels')
 const{DetailTour}=require('../../Controllers/userControllers/detailControllers')
 router.get('/customer', async (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
-  }
+  // if (!req.isAuthenticated()) {
+  //   return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
+  // }
   const location = await GetLocation()
   //console.log(location)
   const role = req.session.userType
@@ -21,6 +21,13 @@ router.get('/customer/booking/:id', (req, res) => {
 })
 const {bookTour}=require('../../Controllers/userControllers/bookingControllers')
 router.post('/customer/bookings/order/:id', bookTour)
+router.post('/customer/bookings/order/:id', bookTour )
+
+router.get('/customer/payment', async (req, res) => {
+  const methods = await get_pay_methods()
+  console.log(methods)
+  res.render('userViews/payment', {methods})
+})
 
 //profile 
 const {showProfile}=require('../../Controllers/userControllers/showProfileControllers')
