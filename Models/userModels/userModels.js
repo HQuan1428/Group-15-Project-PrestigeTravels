@@ -91,4 +91,21 @@ async function getTourDetailsWithDates(tourId) {
 }
 
 
-module.exports={GetLocation,createBooking,getTourPrice,getTourDetailsWithDates}
+// lấy các phương thức thành toán 
+async function get_pay_methods()
+{
+    try
+    {
+        let methods = await db.query(`SELECT id, name
+                                    FROM payment_methods
+                                    WHERE is_active = TRUE`);
+        return methods
+    }
+    catch (error)
+    {
+        console.error('Error: ', error)
+        throw error
+    }
+}
+
+module.exports={GetLocation,createBooking,getTourPrice,getTourDetailsWithDates, get_pay_methods}

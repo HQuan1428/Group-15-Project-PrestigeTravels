@@ -1,0 +1,129 @@
+<style>
+    .payment-method {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .discount-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .summary-box {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        background-color: #f9f9f9;
+    }
+
+    .final-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: red;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: #999;
+    }
+
+    .btn-primary {
+        background-color: red;
+        border: none;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <p class="m-0">Đừng lo lắng, giá vẫn giữ nguyên. Hoàn tất thanh toán của bạn bằng</p>
+                <span><strong id="countdown">02:00:00</strong></span>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="payment-method">
+                {{#each methods}}
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer">
+                    <label class="form-check-label" for="bankTransfer">
+                        
+                            {{this.name}}
+    
+                    </label>
+                </div>
+                {{/each}}
+            </div>
+
+            <!-- Discount Code -->
+            <div class="discount-box mb-3">
+                <label for="discountCode" class="form-label">
+                    <i class="bi bi-tag"></i> Mã giảm giá
+                </label>
+                <input type="text" class="form-control w-50" id="discountCode" placeholder="Nhập mã">
+                <button class="btn btn-info">Áp dụng</button>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Tổng giá tiền</span>
+                <div>
+                    <span class="old-price">1.300.000 VNĐ</span>
+                    <span class="final-price">1.170.000 VNĐ</span>
+                </div>
+            </div>
+            <button class="btn btn-primary w-100 py-3">Thanh toán và hiển thị mã QR</button>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-lg-4">
+            <div class="summary-box">
+                <h5 class="mb-3">Tóm tắt Xperience</h5>
+                <p><strong>Mã đặt chỗ:</strong> 1242342</p>
+                <hr>
+                <h6>Chi tiết đặt chỗ</h6>
+                <p>
+                    Two Islands Excursion, Sun World Hon Thom & Lunch Buffet in Phu Quoc by Rooty Trip - Day Tour
+                </p>
+                <p><strong>Ngày tham quan:</strong> Th 7, 23 thg 11, 2024</p>
+                <p><strong>Áp dụng cho:</strong> Người lớn: 1</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- vui tí thôi -->
+<script>
+    // Cài đặt thời gian đếm ngược (2 giờ)
+    var countdownTime = 2 * 60 * 60; // 2 giờ tính ra giây
+
+    // Hàm cập nhật đếm ngược
+    function updateCountdown() {
+        var hours = Math.floor(countdownTime / 3600);
+        var minutes = Math.floor((countdownTime % 3600) / 60);
+        var seconds = countdownTime % 60;
+
+        // Hiển thị thời gian đếm ngược
+        document.getElementById("countdown").innerHTML =
+            String(hours).padStart(2, '0') + ":" +
+            String(minutes).padStart(2, '0') + ":" +
+            String(seconds).padStart(2, '0');
+
+        // Giảm thời gian đếm ngược
+        if (countdownTime > 0) {
+            countdownTime--;
+        } else {
+            clearInterval(timer); // Dừng đếm ngược khi thời gian kết thúc
+        }
+    }
+
+    // Cập nhật mỗi giây
+    var timer = setInterval(updateCountdown, 1000);
+
+    // Gọi hàm một lần để hiển thị ngay
+    updateCountdown();
+</script>
