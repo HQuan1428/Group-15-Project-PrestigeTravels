@@ -89,7 +89,8 @@ router.post('/tours/add', uploadFields, addTour);
 // Route hiển thị chi tiết tour
 router.get('/tours/:id', renderTourDetails);
 router.get('/tours/:id/edit', ensureAuthenticated, renderEditTourForm);
-router.post('/tours/:id/edit', ensureAuthenticated, updateTour);
+router.post('/tours/:id/edit', uploadFields, updateTour);
+
 router.post('/tours/:id/delete', ensureAuthenticated, deleteTour);
 
 
