@@ -12,6 +12,14 @@ router.get('/customer', async (req, res) => {
 
   res.render('userViews/home', { user: req.user,role,location})
 })
-router.get('/customer/tours/:id',DetailTour)
+router.get('/customer/tours/:id', DetailTour)
+router.get('/customer/booking/:id', (req, res) => {
+  const tour_id = req.params.id;
+  res.render('userViews/bookingTour',{tour_id})
+
+})
+router.post('/customer/bookings/:id', (req, res) => {
+  
+})
 
 module.exports = router
