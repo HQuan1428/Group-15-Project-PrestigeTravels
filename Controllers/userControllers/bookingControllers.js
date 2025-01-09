@@ -3,11 +3,15 @@ const { createBooking, getTourPrice,getTourDetailsWithDates } = require('../../M
 
 async function bookTour(req, res) {
     try {
-        const tour_id = req.params.id;
-        const {adults, children } = req.body;
+        const tour_id = req.params.id; // Lấy ID tour từ URL
+        const { adults, children } = req.body; // Lấy số người lớn và trẻ em từ form
 
         const userId = req.session.user_id; 
-        //console.log(userId);
+
+        // Kiểm tra ID tour trước khi lấy giá
+        if (!tour_id) {
+            return res.status(400).send('Tour ID is missing');
+        }
 
         // Lấy giá tour
         const tourPrice = await getTourPrice(tour_id);
@@ -25,10 +29,11 @@ async function bookTour(req, res) {
         // Chuyển hướng hoặc trả về thông báo thành công
         res.redirect(`/customer`); // Chuyển đến trang chi tiết booking
     } catch (error) {
-        console.error('Error booking tour:', error);
+        console.error('Error booking tour:', error.message);
         res.status(500).send('Đặt tour thất bại! ' + error.message);
     }
 }
+
 
 async function DetailTour(req, res) {
     try {
@@ -66,7 +71,7 @@ async function DetailTour(req, res) {
             available_dates: tour.available_dates
         });
     } catch (error) {
-        console.error('Error fetching tour details:', error);
+        console.error('Error fetching tour details:', error.message);
         res.status(500).send('Không thể lấy thông tin tour');
     }
 }
