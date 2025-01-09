@@ -25,6 +25,18 @@
                     <label for="starting_point" class="form-label">Điểm khởi hành</label>
                     <input type="text" class="form-control" id="starting_point" name="starting_point" placeholder="Nhập điểm bắt đầu">
                 </div>
+
+                <!-- Các trường thông tin địa điểm -->
+                <div class="mb-3">
+    <label for="locationName" class="form-label">Chọn Địa Điểm</label>
+    <select id="locationName" name="locationName" class="form-control" required>
+        {{#each locations}}
+        <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+</div>
+
+    
                 
 
                 <!-- Chọn ngày -->
