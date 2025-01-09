@@ -13,12 +13,14 @@ const renderOrders = async (req, res) => {
         }
 
         const orders = await getOrdersByPartner(partnerId);
+        console.log(orders); // In ra dữ liệu để kiểm tra trạng thái
         res.render('providerViews/providerOrders', { orders });
     } catch (err) {
         console.error('Error rendering orders:', err);
         res.status(500).send('Lỗi hiển thị danh sách đơn hàng');
     }
 };
+
 
 // Hiển thị chi tiết đơn hàng
 const renderOrderDetails = async (req, res) => {
@@ -50,9 +52,29 @@ const updateOrder = async (req, res) => {
         res.status(500).send('Lỗi cập nhật trạng thái đơn hàng');
     }
 };
+const acceptOrder = async (req, res) => {
+    try {
+        const partnerId = req.session.partner_id;
+        if (!partnerId) {
+            return res.status(403).send('Bạn không có quyền thực hiện thao tác này.');
+        }
+
+        const orderId = req.params.id;
+
+        // Cập nhật trạng thái đơn hàng thành 'confirmed'
+        await updateOrderStatus(orderId, 'confirmed');
+        res.redirect('/partner/orders'); // Chuyển hướng về danh sách đơn hàng
+    } catch (err) {
+        console.error('Error accepting order:', err);
+        res.status(500).send('Lỗi chấp nhận đơn hàng');
+    }
+};
+
+
 
 module.exports = {
     renderOrders,
     renderOrderDetails,
     updateOrder,
+    acceptOrder
 };

@@ -16,16 +16,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each orders}}
-                        <tr>
-                            <td>{{this.order_id}}</td>
-                            <td>{{this.customer_name}}</td>
-                            <td>{{this.status}}</td>
-                            <td>{{this.order_date}}</td>
-                            <td><a href="/partner/orders/{{this.order_id}}">Chi tiết</a></td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
+    {{#if orders.length}}
+    {{#each orders}}
+        <tr>
+            <td>{{this.order_id}}</td>
+            <td>{{this.customer_name}}</td>
+            <td>{{this.status}}</td>
+            <td>{{this.order_date}}</td>
+            <td>
+                <a href="/partner/orders/{{this.order_id}}">Chi tiết</a>
+                {{#if (eq this.status "pending")}}
+                <form method="POST" action="/partner/orders/{{this.order_id}}/accept" style="display:inline;">
+                    <button type="submit" class="btn btn-success btn-sm">Chấp nhận</button>
+                </form>
+                {{/if}}
+            </td>
+        </tr>
+    {{/each}}
+{{else}}
+    <tr>
+        <td colspan="5" class="text-center">Không có đơn hàng nào.</td>
+    </tr>
+{{/if}}
+
+</tbody>
+
+
                 </table>
             </div>
         </div>

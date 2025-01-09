@@ -57,10 +57,11 @@ async function getTourPrice(tourId) {
         if (result.length > 0) {
             return result[0].price; // Trả về giá của tour
         } else {
+            console.error(`Tour with ID ${tourId} not found`);
             throw new Error('Tour not found');
         }
     } catch (error) {
-        console.error('Error getting tour price:', error);
+        console.error('Error getting tour price:', error.message);
         throw error;
     }
 }
