@@ -48,7 +48,7 @@ async function createBooking(userId, tourId, adults, children, totalPrice) {
     }
 }
 async function getTourPrice(tourId) {
-    //console.log(tourId);
+    console.log(tourId);
     try {
         const result = await db.query(
             `SELECT "price" FROM "tours" WHERE "id" = $1`,

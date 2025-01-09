@@ -20,9 +20,9 @@ async function DetailApproval(id) {
                 detail.available_date = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
             }
 
-            return detail;
+            //return detail;
         }
-        console.log(detail);
+        //console.log(detail);
         return res[0]; // Trả về danh sách các tour không bị trùng
     } catch (error) {
         console.error('Lỗi truy vấn:', error);

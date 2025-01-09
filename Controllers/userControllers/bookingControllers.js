@@ -4,6 +4,7 @@ const { createBooking, getTourPrice,getTourDetailsWithDates } = require('../../M
 async function bookTour(req, res) {
     try {
         const tour_id = req.params.id;
+        console.log(tour_id);
         const {adults, children } = req.body;
 
         const userId = req.session.user_id; 
@@ -23,7 +24,7 @@ async function bookTour(req, res) {
         const booking = await createBooking(userId, tour_id, adults, children, totalPrice);
 
         // Chuyển hướng hoặc trả về thông báo thành công
-        res.redirect(`/customer`); // Chuyển đến trang chi tiết booking
+        res.redirect('/customer'); // Chuyển đến trang chi tiết booking
     } catch (error) {
         console.error('Error booking tour:', error);
         res.status(500).send('Đặt tour thất bại! ' + error.message);

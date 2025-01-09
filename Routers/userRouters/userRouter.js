@@ -26,11 +26,10 @@ router.get('/customer/booking/:id', (req, res) => {
 
 const {bookTour}=require('../../Controllers/userControllers/bookingControllers')
 router.post('/customer/bookings/order/:id', bookTour)
-router.post('/customer/bookings/order/:id', bookTour )
 
 
 // payment
-router.get('/customer/payment', async (req, res) => {
+router.get('/customer/payment/:id', async (req, res) => {
   const methods = await get_pay_methods()
   
   const tour_id = req.params.id;
@@ -39,7 +38,7 @@ router.get('/customer/payment', async (req, res) => {
   const total_price = await getTourPrice(tour_id);
 
 
-  res.render('userViews/payment', {methods: methods, detatl: detail, total_price: total_price})
+  res.render('userViews/payment', {methods: methods, detail: detail, total_price: total_price})
 })
 
 //profile 
