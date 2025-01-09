@@ -17,7 +17,6 @@
       <!-- Ảnh phụ -->
       {{#if tour.sub_images}}
       <div class="mb-4">
-        
         <div class="row">
           {{#each tour.sub_images}}
           <div class="col-md-3">
@@ -37,11 +36,34 @@
       <h5>Thông tin tour:</h5>
       <p><strong>Giá:</strong> {{tour.price}} VND</p>
       <p><strong>Thời lượng:</strong> {{tour.duration}}</p>
-      <p><strong>Điểm khởi hành:</strong> {{tour.starting_point}}</p>
-      <p><strong>Số lượng tối đa:</strong> {{tour.max_participants}}</p>
+      <p><strong>Địa điểm:</strong> {{tour.starting_point}}</p>
       <p><strong>Địa điểm:</strong> {{tour.location_name}}</p>
       <p><strong>Mô tả:</strong></p>
       <p>{{tour.description}}</p>
+
+      <!-- Số slot tối đa từng ngày -->
+      <h5>Số slot từng ngày:</h5>
+      {{#if tour.available_dates}}
+      <ul>
+        {{#each tour.available_dates}}
+        <li><strong>{{this.date}}</strong>: {{this.slots}} slot</li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <p>Không có thông tin ngày.</p>
+      {{/if}}
+
+      <!-- Dịch vụ -->
+      <h5>Dịch vụ đi kèm:</h5>
+      {{#if tour.services}}
+      <ul>
+        {{#each tour.services}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <p>Không có dịch vụ đi kèm.</p>
+      {{/if}}
     </div>
   </div>
 </div>

@@ -44,13 +44,23 @@ const createTour = (partnerId, tourData) => {
 // Cập nhật tour
 const updateTourById = (tourId, tourData) => {
   const { title, description, price, duration, starting_point } = tourData;
+
+  // Kiểm tra dữ liệu đầu vào
+  if (!title || title.trim() === "") {
+    throw new Error("Tiêu đề không được bỏ trống");
+  }
+  if (!price || isNaN(price)) {
+    throw new Error("Giá không hợp lệ");
+  }
+
   return db.none(
     `UPDATE tours
      SET title = $1, description = $2, price = $3, duration = $4, starting_point = $5
      WHERE id = $6`,
-    [title, description, price, duration, starting_point, tourId]
+    [title, description || null, price, duration || null, starting_point || null, tourId]
   );
 };
+
 
 // Xóa tour
 const deleteTourById = (tourId) => {
@@ -89,6 +99,51 @@ const getTourDetails = (tourId) => {
   );
 };
 
+const getTourDetailsWithDates = async (tourId) => {
+  return db.oneOrNone(
+    `
+    SELECT 
+      t.id, 
+      t.title, 
+      t.description, 
+      t.price, 
+      t.duration, 
+      t.starting_point, 
+      t.max_participants,
+      t.created_at,
+      l.name AS location_name,
+      (
+        SELECT ti.image_url 
+        FROM tour_images ti 
+        WHERE ti.tour_id = t.id AND ti.is_main = true
+        LIMIT 1
+      ) AS main_image,
+      (
+        SELECT json_agg(image_url) 
+        FROM tour_images 
+        WHERE tour_id = t.id AND is_main = false
+      ) AS sub_images,
+      (
+        SELECT json_agg(s.name)
+        FROM tour_services ts
+        JOIN services s ON ts.service_id = s.id
+        WHERE ts.tour_id = t.id
+      ) AS services,
+      (
+        SELECT json_agg(json_build_object('date', td.available_date, 'slots', td.slots_available))
+        FROM tour_dates td
+        WHERE td.tour_id = t.id
+      ) AS available_dates
+    FROM tours t
+    LEFT JOIN tour_locations tl ON t.id = tl.tour_id
+    LEFT JOIN locations l ON tl.location_id = l.id
+    WHERE t.id = $1
+    `,
+    [tourId]
+  );
+};
+
+
 
 
 module.exports = {
@@ -98,4 +153,5 @@ module.exports = {
   updateTourById,
   deleteTourById,
   getTourDetails,
+  getTourDetailsWithDates,
 };

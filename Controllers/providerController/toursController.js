@@ -5,6 +5,7 @@ const {
   updateTourById,
   deleteTourById,
   getTourDetails,
+  getTourDetailsWithDates,
 } = require('../../Models/providerModels/tourModel');
 const { db } = require('../../Models/Connect_Server/db');
 const { v4: uuidv4 } = require('uuid');
@@ -218,7 +219,8 @@ const renderAddTourForm = async (req, res) => {
 const renderEditTourForm = async (req, res) => {
   try {
     const tour = await getTourById(req.params.id);
-    res.render('providerViews/editTour', { tour });
+    const locations = await db.any('SELECT name FROM locations'); // Lấy danh sách địa điểm
+    res.render('providerViews/editTour', { tour, locations });
   } catch (err) {
     console.error('Error rendering edit tour form:', err);
     res.status(500).send('Lỗi hiển thị form chỉnh sửa');
@@ -228,12 +230,18 @@ const renderEditTourForm = async (req, res) => {
 // Cập nhật tour
 const updateTour = async (req, res) => {
   try {
+    console.log("Dữ liệu nhận được từ form:", req.body); // Log toàn bộ dữ liệu nhận từ form
     const { title, description, price, duration, starting_point } = req.body;
+
+    if (!title || title.trim() === "") {
+      throw new Error("Tiêu đề không được bỏ trống");
+    }
+
     await updateTourById(req.params.id, { title, description, price, duration, starting_point });
     res.redirect('/partner/tours');
   } catch (err) {
-    console.error('Error updating tour:', err);
-    res.status(500).send('Lỗi cập nhật tour');
+    console.error('Error updating tour:', err.message);
+    res.status(500).send('Lỗi cập nhật tour: ' + err.message);
   }
 };
 
@@ -247,11 +255,12 @@ const deleteTour = async (req, res) => {
     res.status(500).send('Lỗi xóa tour');
   }
 };
-// Hiển thị chi tiết tour
+
+
 const renderTourDetails = async (req, res) => {
   try {
     const tourId = req.params.id;
-    const tour = await getTourDetails(tourId);
+    const tour = await getTourDetailsWithDates(tourId);
 
     if (!tour) {
       return res.status(404).send('Tour không tồn tại');
@@ -263,6 +272,8 @@ const renderTourDetails = async (req, res) => {
     res.status(500).send('Lỗi hiển thị chi tiết tour');
   }
 };
+
+
 module.exports = {
   uploadFields,
   addTour,

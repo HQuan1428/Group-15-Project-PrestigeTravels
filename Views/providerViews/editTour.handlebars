@@ -1,24 +1,92 @@
-<h1>Chỉnh sửa Tour</h1>
-<form method="POST" action="/partner/tours/{{tour.id}}/edit">
-  <div class="mb-3">
-    <label for="title" class="form-label">Tiêu đề</label>
-    <input type="text" class="form-control" id="title" name="title" value="{{tour.title}}" required />
-  </div>
-  <div class="mb-3">
-    <label for="description" class="form-label">Mô tả</label>
-    <textarea class="form-control" id="description" name="description">{{tour.description}}</textarea>
-  </div>
-  <div class="mb-3">
-    <label for="price" class="form-label">Giá</label>
-    <input type="number" class="form-control" id="price" name="price" value="{{tour.price}}" step="0.01" required />
-  </div>
-  <div class="mb-3">
-    <label for="duration" class="form-label">Thời gian</label>
-    <input type="text" class="form-control" id="duration" name="duration" value="{{tour.duration}}" />
-  </div>
-  <div class="mb-3">
-    <label for="starting_point" class="form-label">Điểm bắt đầu</label>
-    <input type="text" class="form-control" id="starting_point" name="starting_point" value="{{tour.starting_point}}" />
-  </div>
-  <button type="submit" class="btn btn-primary">Cập nhật Tour</button>
-</form>
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Chỉnh sửa Tour</h3>
+        </div>
+        <div class="card-body">
+            <form id="edit-tour-form" method="POST" action="/partner/tours/{{tour.id}}/edit" enctype="multipart/form-data">
+                <!-- Thông tin cơ bản -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Tên Tour</label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{tour.title}}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="description" name="description" rows="3">{{tour.description}}</textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" name="price" value="{{tour.price}}" step="0.01" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="starting_point" class="form-label">Điểm bắt đầu</label>
+                    <input type="text" class="form-control" id="starting_point" name="starting_point" value="{{tour.starting_point}}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="duration" class="form-label">Thời lượng</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="duration" 
+                        name="duration" 
+                        value="{{tour.duration}}" 
+                        required
+                    >
+                </div>
+
+                <!-- Chọn Địa Điểm -->
+                <div class="mb-3">
+                    <label for="locationName" class="form-label">Chọn Địa Điểm</label>
+                    <select id="locationName" name="locationName" class="form-control" required>
+                        {{#each locations}}
+                        <option value="{{this.name}}" {{#ifEquals this.name ../tour.locationName}}selected{{/ifEquals}}>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <!-- Chọn ảnh chính -->
+                <div class="mb-3">
+                    <label for="mainImage" class="form-label">Chọn ảnh chính</label>
+                    <input type="file" id="mainImage" name="mainImage" class="form-control" accept="image/*">
+                    <small class="text-muted">Để trống nếu không muốn thay đổi ảnh chính.</small>
+                </div>
+
+                <!-- Chọn ảnh phụ -->
+                <div id="subImagesSection">
+                    <label class="form-label">Chọn ảnh phụ</label>
+                    {{#each tour.subImages}}
+                    <div class="mb-3">
+                        <img src="{{this}}" alt="Ảnh phụ" class="img-thumbnail" width="150">
+                        <input type="file" name="subImages[]" class="form-control sub-image-input" accept="image/*">
+                    </div>
+                    {{/each}}
+                </div>
+                <button type="button" id="addSubImageBtn" class="btn btn-secondary">Thêm ảnh phụ</button>
+
+                <!-- Các nút hành động -->
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-primary">Cập nhật Tour</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Thêm JavaScript -->
+<script>
+    const subImagesSection = document.getElementById('subImagesSection');
+    const addSubImageBtn = document.getElementById('addSubImageBtn');
+
+    // Thêm chức năng thêm ảnh phụ
+    addSubImageBtn.addEventListener('click', () => {
+        const newSubImageInput = document.createElement('div');
+        newSubImageInput.classList.add('mb-3');
+        newSubImageInput.innerHTML = `
+            <input type="file" name="subImages[]" class="form-control sub-image-input" accept="image/*">
+        `;
+        subImagesSection.appendChild(newSubImageInput);
+    });
+</script>

@@ -53,7 +53,10 @@ app.engine('handlebars', engine({
         style: 'currency',
         currency: 'VND'
       }).format(amount);
-    }
+    },
+    ifEquals: function (arg1, arg2, options) {
+      return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+    },
   }
 }))
 app.set('view engine', 'handlebars')
