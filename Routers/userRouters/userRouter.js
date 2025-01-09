@@ -20,6 +20,9 @@ router.get('/customer/booking/:id', (req, res) => {
 
 })
 const {bookTour}=require('../../Controllers/userControllers/bookingControllers')
-router.post('/customer/bookings/order/:id', bookTour )
+router.post('/customer/bookings/order/:id', bookTour)
 
+//profile 
+const {showProfile}=require('../../Controllers/userControllers/showProfileControllers')
+router.get('/customer/profile',showProfile)
 module.exports = router
