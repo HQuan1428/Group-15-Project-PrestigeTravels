@@ -1,24 +1,19 @@
 // controllers/bookingController.js
-const { createBooking, getTourPrice,getTourDetailsWithDates } = require('../../Models/userModels/userModels');
+const { createBooking, getTourPrice } = require('../../Models/userModels/userModels');
 
 async function bookTour(req, res) {
     try {
         const tour_id = req.params.id;
         //console.log('Tour ID:', tour_id);
 
-        const { adults, children } = req.body;
-        //console.log('Adults:', adults, 'Children:', children);
-
-        // Kiểm tra thông tin người dùng
-        const userId = req.session.user_id; 
-        if (!userId) {
-            return res.status(401).send('Người dùng chưa đăng nhập');
-        }
-
+        const { adults, children,available_date  } = req.body;
+        //console.log(adults, children,available_date);
         // Kiểm tra ID tour
         if (!tour_id) {
             return res.status(400).send('Tour ID is missing');
         }
+        const userId = req.session.user_id;
+        //console.log(userId);
 
         // Kiểm tra số lượng người lớn và trẻ em
         if (!adults || !children) {
@@ -37,7 +32,7 @@ async function bookTour(req, res) {
         //console.log('Total Price:', totalPrice);
 
         // Tạo booking
-        const booking = await createBooking(userId, tour_id, adults, children, totalPrice);
+        const booking = await createBooking(userId, tour_id, adults, children, totalPrice,available_date);
 
         if (!booking) {
             return res.status(500).send('Tạo booking thất bại');
@@ -96,4 +91,5 @@ async function DetailTour(req, res) {
         res.status(500).send('Không thể lấy thông tin tour');
     }
 }
+
 module.exports = { bookTour ,DetailTour};
