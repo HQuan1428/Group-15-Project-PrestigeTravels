@@ -1,0 +1,47 @@
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            {{> profileSidebar}}
+            <!-- Main Content -->
+            <div class="col-md-9 content">
+                <h4>Cài đặt</h4>
+                {{> settingSidebar}}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dữ liệu cá nhân</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Tên đầy đủ</label>
+                                <input type="text" class="form-control" id="fullName" value="{{user.fullname}}">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="gender" class="form-label">Giới tính</label>
+                                    <select class="form-select" id="gender">
+                                        <option selected>Nam</option>
+                                        <option>Nữ</option>
+                                        <option>Khác</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="dob" class="form-label">Ngày sinh</label>
+                                    <input type="date" class="form-control" id="dob">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="city" class="form-label">Thành phố bạn đang ở</label>
+                                    <input type="text" class="form-control" id="city">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
