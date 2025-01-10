@@ -19,7 +19,7 @@ router.get('/customer', async (req, res) => {
 router.get('/customer/tours/:id', DetailTour)
 router.get('/customer/booking/:id', (req, res) => {
   const tour_id = req.params.id;
-  console.log(tour_id)
+  //console.log(tour_id)
   res.render('userViews/bookingTour',{tour_id})
 
 })

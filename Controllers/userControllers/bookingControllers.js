@@ -4,14 +4,25 @@ const { createBooking, getTourPrice,getTourDetailsWithDates } = require('../../M
 async function bookTour(req, res) {
     try {
         const tour_id = req.params.id;
-        console.log(tour_id);
-        const {adults, children } = req.body;
+        //console.log('Tour ID:', tour_id);
 
+        const { adults, children } = req.body;
+        //console.log('Adults:', adults, 'Children:', children);
+
+        // Kiểm tra thông tin người dùng
         const userId = req.session.user_id; 
+        if (!userId) {
+            return res.status(401).send('Người dùng chưa đăng nhập');
+        }
 
-        // Kiểm tra ID tour trước khi lấy giá
+        // Kiểm tra ID tour
         if (!tour_id) {
             return res.status(400).send('Tour ID is missing');
+        }
+
+        // Kiểm tra số lượng người lớn và trẻ em
+        if (!adults || !children) {
+            return res.status(400).send('Số lượng người lớn hoặc trẻ em không hợp lệ');
         }
 
         // Lấy giá tour
@@ -23,12 +34,17 @@ async function bookTour(req, res) {
 
         // Tính tổng giá
         const totalPrice = (adults * tourPrice) + (children * (tourPrice * 0.5));
+        //console.log('Total Price:', totalPrice);
 
         // Tạo booking
         const booking = await createBooking(userId, tour_id, adults, children, totalPrice);
 
+        if (!booking) {
+            return res.status(500).send('Tạo booking thất bại');
+        }
+
         // Chuyển hướng hoặc trả về thông báo thành công
-        res.redirect('/customer'); // Chuyển đến trang chi tiết booking
+        res.redirect(`/customer/payment/${tour_id}`);
     } catch (error) {
         console.error('Error booking tour:', error.message);
         res.status(500).send('Đặt tour thất bại! ' + error.message);
@@ -66,6 +82,10 @@ async function DetailTour(req, res) {
         if (!tour) {
             return res.status(404).send('Tour không tồn tại');
         }
+        if(!req.isAuthenticated())
+    {
+        return res.redirect('/login');
+    }
 
         res.render('userViews/bookingTour', {
             tour_id: tour.id,
@@ -76,7 +96,4 @@ async function DetailTour(req, res) {
         res.status(500).send('Không thể lấy thông tin tour');
     }
 }
-
-
-
 module.exports = { bookTour ,DetailTour};
