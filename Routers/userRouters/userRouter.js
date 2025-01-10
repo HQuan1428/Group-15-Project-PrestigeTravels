@@ -6,9 +6,9 @@ const {DetailApproval}=require('../../Models/adminModels/Approvals/DetailApprova
 
 
 router.get('/customer', async (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
-  // }
+  if (!req.isAuthenticated()) {
+    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
+  }
   const location = await GetLocation()
   //console.log(location)
   const role = req.session.userType
@@ -43,5 +43,9 @@ router.get('/customer/payment/:id', async (req, res) => {
 
 //profile 
 const {showProfile}=require('../../Controllers/userControllers/showProfileControllers')
-router.get('/customer/profile',showProfile)
+router.get('/customer/profile', showProfile)
+
+//show detail account 
+const{showdetailAcoount}=require('../../Controllers/userControllers/detailAccountControllers')
+router.get('/customer/account',showdetailAcoount)
 module.exports = router
