@@ -105,9 +105,61 @@ async function get_pay_methods()
     }
     catch (error)
     {
-        console.error('Error: ', error)
-        throw error
+        console.error('Error: ', error);
+        throw error;
     }
 }
 
-module.exports={GetLocation,createBooking,getTourPrice,getTourDetailsWithDates, get_pay_methods}
+
+// Lấy thông tin booking
+async function get_booking_info(tour_id, user_id)
+{
+    try
+    {
+        let tour_info = await db.query(`SELECT * 
+                                    FROM bookings 
+                                    WHERE tour_id = $1 AND user_id = $2
+                                    `, [tour_id, user_id]);
+        
+        return tour_info;
+    }
+    catch (error)
+    {
+        console.error('Error: ', error);
+        throw error;
+    }
+}
+
+// Create payment
+async function createPayment(booking_id, price, method, datetime) {
+    try
+    {
+        let tour_info = await db.query(`
+        INSERT INTO payments (booking_id, amount, payment_method, transaction_id, status, created_at)
+        VALUES ($1, $2, $3, $4, 'pending', $5)
+                                    `, [booking_id, price, method, ' ', datetime]);
+        
+        return tour_info;
+    }
+    catch (error)
+    {
+        console.error('Error: ', error);
+        throw error;
+    }
+}
+
+// Get discount infomation
+async function getDiscountInfo(discountCode) {
+    
+}
+
+
+module.exports = {
+    GetLocation,
+    createBooking,
+    getTourPrice,
+    getTourDetailsWithDates,
+    get_pay_methods,
+    get_booking_info,
+    createPayment
+}

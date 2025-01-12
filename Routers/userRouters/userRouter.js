@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { GetLocation, get_pay_methods, getTourPrice } = require('../../Models/userModels/userModels')
+const { GetLocation, get_pay_methods, get_booking_info } = require('../../Models/userModels/userModels')
 const{DetailTour}=require('../../Controllers/userControllers/detailControllers')
-const {DetailApproval}=require('../../Models/adminModels/Approvals/DetailApproval')
 const { getAvailableDates}=require('../../Models/userModels/getAvailabledateById')
 
 router.get('/customer', async (req, res) => {
@@ -40,22 +39,10 @@ router.get('/customer/booking/:id', async (req, res) => {
 const {bookTour}=require('../../Controllers/userControllers/bookingControllers')
 router.post('/customer/bookings/order/:id', bookTour)
 
-
 // payment
-router.get('/customer/payment/:id', async (req, res) => {
-  const methods = await get_pay_methods()
-  
-  const tour_id = req.params.id;
-  const detail = await DetailApproval(tour_id);
-
-  const total_price = await getTourPrice(tour_id);
-    if (!req.isAuthenticated()) {
-    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
-  }
-
-
-  res.render('userViews/payment', {methods: methods, detail: detail, total_price: total_price})
-})
+const paymentControllers = require('../../Controllers/userControllers/paymentControllers')
+router.post('/customer/payment/:id', paymentControllers.renderPayment);
+router.get('/customer/payment/:id', paymentControllers.renderPayment);
 
 //profile 
 const {showProfile}=require('../../Controllers/userControllers/showProfileControllers')
