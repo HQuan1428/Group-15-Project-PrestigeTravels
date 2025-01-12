@@ -45,10 +45,15 @@ router.post('/customer/payment/:id', paymentControllers.renderPayment);
 router.get('/customer/payment/:id', paymentControllers.renderPayment);
 
 //profile 
-const {showProfile}=require('../../Controllers/userControllers/showProfileControllers')
+const {showProfile,showBookingTour,showPayment}=require('../../Controllers/userControllers/showProfileControllers')
 router.get('/customer/profile', showProfile)
 
 //show detail account 
 const{showdetailAcoount}=require('../../Controllers/userControllers/detailAccountControllers')
-router.get('/customer/account',showdetailAcoount)
+router.get('/customer/profile/account', showdetailAcoount)
+//show booking tour 
+router.get('/customer/profile/tour', showBookingTour)
+//show trasistion 
+router.get('/customer/profile/transistion',showPayment)
+
 module.exports = router

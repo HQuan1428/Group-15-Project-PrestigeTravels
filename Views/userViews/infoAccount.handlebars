@@ -16,32 +16,22 @@
                                 <input type="text" class="form-control" id="fullName" value="{{user.fullname}}">
                             </div>
                             <div class="row">
+            
                                 <div class="col-md-4 mb-3">
-                                    <label for="gender" class="form-label">Giới tính</label>
-                                    <select class="form-select" id="gender">
-                                        <option selected>Nam</option>
-                                        <option>Nữ</option>
-                                        <option>Khác</option>
-                                    </select>
+                                    <label for="phone" class="form-label">Số điện thoại</label>
+                                    <input type="text" class="form-control" id="phone" value="{{user.phone}}">
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="dob" class="form-label">Ngày sinh</label>
-                                    <input type="date" class="form-control" id="dob">
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="city" class="form-label">Thành phố bạn đang ở</label>
-                                    <input type="text" class="form-control" id="city">
+                                <div  class="col-md-4 mb-3" >
+                                    <label for="email" class="form-label">Email</label>
+                                    <input class="form-control" id="email" rows="3" value="{{user.email}}">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Lưu</button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
