@@ -44,6 +44,8 @@ const paymentControllers = require('../../Controllers/userControllers/paymentCon
 router.get('/customer/payment/:id', paymentControllers.renderPayment);
 // chuyển tiền
 router.post('/customer/payment/:id/create', paymentControllers.renderPayInfo);
+// kiểm tra tình trạng thanh toán 
+router.get('/status/:id', paymentControllers.statePayment);
 
 //profile 
 const {showProfile,showBookingTour,showPayment}=require('../../Controllers/userControllers/showProfileControllers')
