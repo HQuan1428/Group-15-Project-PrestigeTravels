@@ -41,8 +41,9 @@ router.post('/customer/bookings/order/:id', bookTour)
 
 // payment
 const paymentControllers = require('../../Controllers/userControllers/paymentControllers')
-router.post('/customer/payment/:id', paymentControllers.renderPayment);
 router.get('/customer/payment/:id', paymentControllers.renderPayment);
+// chuyển tiền
+router.post('/customer/payment/:id/create', paymentControllers.renderPayInfo);
 
 //profile 
 const {showProfile}=require('../../Controllers/userControllers/showProfileControllers')

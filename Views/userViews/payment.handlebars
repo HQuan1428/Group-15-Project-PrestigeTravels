@@ -48,7 +48,7 @@
 
             <!-- Payment Methods -->
             <div class="payment-method">
-                <form method="POST" action="/customer/payment/{{tour_id}}">
+                <form method="POST" action="/customer/payment/{{tour_id}}/create">
                     {{#each methods}}
                     <div class="form-check mt-3">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer"

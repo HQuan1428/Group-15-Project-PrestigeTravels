@@ -1,0 +1,143 @@
+<style>
+    .order-header,
+    .payment-info {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .status {
+        color: #fff;
+        background-color: #f0ad4e;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 14px;
+    }
+
+    .btn-copy {
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #007bff;
+        text-decoration: underline;
+    }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Order Header -->
+    <div class="order-header">
+        <h5>ĐƠN HÀNG</h5>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Mã đơn #:</strong>
+                <span>{{paymentInfo.booking_id}}</span>
+            </div>
+            <div class="col-md-4">
+                <strong>Số tiền:</strong>
+                <span>{{paymentInfo.amount}}</span>
+            </div>
+            <div class="col-md-4">
+                <strong>TT hóa đơn:</strong>
+                {{#if (eq paymentInfo.status 'pending') }}
+                    <span class="status">Chưa thanh toán</span>
+                {{else}}
+                    <span class="status" style="background-color: green;" >Đã thanh toán</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <strong>Ngày tạo:</strong>
+                <span>{{dateTime}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Information -->
+    <div class="order-header">
+        <h5>Thông tin sản phẩm</h5>
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{detail.title}}</td>
+                    <td>{{numbers}}</td>
+                    <td><span class="badge bg-secondary">Chờ</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Payment Information -->
+    <div class="payment-info">
+        <h5>THÔNG TIN THANH TOÁN</h5>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td><strong>Ngân hàng:</strong></td>
+                    <td>Chuyển khoản ngân hàng </td>
+                </tr>
+                <tr>
+                    <td><strong>Số tài khoản:</strong></td>
+                    <td>
+                        {{bankAccount}}
+                        <button class="btn btn-primary btn-rectangle" onclick="copyToClipboard('{{bankAccount}}')">copy</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Tên tài khoản:</strong></td>
+                    <!-- Chỗ này cũng sửa lại -->
+                    <td>NGUYEN HAI QUAN / VIETCOMBANK </td>
+                </tr>
+                <tr>
+                    <td><strong>Số tiền:</strong></td>
+                    <td>{{paymentInfo.amount}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nội dung thanh toán:</strong></td>
+                    <!-- Tạo định dạng cho nội dung thanh toán -->
+                    <td>Tour: {{tour_id}} {{detail.title}}
+                        <button class="btn btn-primary btn-rectangle" onclick="copyToClipboard('Tour: {{tour_id}} {{detail.title}}')">copy</button>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td><strong>Mã QR:</strong></td>
+                    <td>
+                        <img src="/QRpay/QRcode.jpg" alt="QR Code" class="img-fluid" style="max-width: 150px;">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard(text) {
+        if (!navigator.clipboard) {
+            alert('Trình duyệt của bạn không hỗ trợ Clipboard API.');
+            return;
+        }
+
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                alert('Đã sao chép: ' + text);
+            })
+            .catch((err) => {
+                console.error('Lỗi khi sao chép vào clipboard:', err);
+                alert('Không thể sao chép vào clipboard. Vui lòng thử lại.');
+            });
+    }
+</script>
