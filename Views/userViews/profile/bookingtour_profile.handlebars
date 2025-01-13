@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        {{> profileSidebar}}
+        <!-- Main Content -->
+        <div class="col-md-9 content">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Tour Title</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Adults</th>
+                                <th>Children</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Booking Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each bookTour}}
+                            <tr>
+                                <td>{{title}}</td>
+                                <td>{{description}}</td>
+                                <td>${{price}}</td>
+                                <td>{{adults}}</td>
+                                <td>{{children}}</td>
+                                <td>${{total_price}}</td>
+                                <td>{{booking_status}}</td>
+                                <td>{{formatDate booking_date}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

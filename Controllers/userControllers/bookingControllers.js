@@ -1,17 +1,23 @@
 // controllers/bookingController.js
-const { createBooking, getTourPrice,getTourDetailsWithDates } = require('../../Models/userModels/userModels');
+const { createBooking, getTourPrice } = require('../../Models/userModels/userModels');
 
 async function bookTour(req, res) {
     try {
         const tour_id = req.params.id;
-        console.log(tour_id);
-        const {adults, children } = req.body;
+        //console.log('Tour ID:', tour_id);
 
-        const userId = req.session.user_id; 
-
-        // Kiểm tra ID tour trước khi lấy giá
+        const { adults, children,available_date  } = req.body;
+        //console.log(adults, children,available_date);
+        // Kiểm tra ID tour
         if (!tour_id) {
             return res.status(400).send('Tour ID is missing');
+        }
+        const userId = req.session.user_id;
+        //console.log(userId);
+
+        // Kiểm tra số lượng người lớn và trẻ em
+        if (!adults || !children) {
+            return res.status(400).send('Số lượng người lớn hoặc trẻ em không hợp lệ');
         }
 
         // Lấy giá tour
@@ -23,12 +29,17 @@ async function bookTour(req, res) {
 
         // Tính tổng giá
         const totalPrice = (adults * tourPrice) + (children * (tourPrice * 0.5));
+        //console.log('Total Price:', totalPrice);
 
         // Tạo booking
-        const booking = await createBooking(userId, tour_id, adults, children, totalPrice);
+        const booking = await createBooking(userId, tour_id, adults, children, totalPrice,available_date);
+
+        if (!booking) {
+            return res.status(500).send('Tạo booking thất bại');
+        }
 
         // Chuyển hướng hoặc trả về thông báo thành công
-        res.redirect('/customer'); // Chuyển đến trang chi tiết booking
+        res.redirect(`/customer/payment/${tour_id}`);
     } catch (error) {
         console.error('Error booking tour:', error.message);
         res.status(500).send('Đặt tour thất bại! ' + error.message);
@@ -66,6 +77,10 @@ async function DetailTour(req, res) {
         if (!tour) {
             return res.status(404).send('Tour không tồn tại');
         }
+        if(!req.isAuthenticated())
+    {
+        return res.redirect('/login');
+    }
 
         res.render('userViews/bookingTour', {
             tour_id: tour.id,
@@ -76,7 +91,5 @@ async function DetailTour(req, res) {
         res.status(500).send('Không thể lấy thông tin tour');
     }
 }
-
-
 
 module.exports = { bookTour ,DetailTour};

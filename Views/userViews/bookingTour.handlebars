@@ -14,8 +14,17 @@
             <label for="children" class="form-label">Số Trẻ Em</label>
             <input type="number" class="form-control" id="children" name="children" value="0" min="0">
         </div>
+        <!-- Chọn Ngày -->
+        <div class="mb-3">
+            <label for="available_date" class="form-label">Chọn Ngày</label>
+            <select class="form-select" id="available_date" name="available_date">
+                {{#each availableDates}}
+                <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
 
         <!-- Nút Đặt Tour -->
-        <button type="submit" class="btn btn-primary"><a href="/customer/payment/{{tour_id}}">Đặt Tour</a></button>
+        <button type="submit" class="btn btn-primary">Đặt Tour</button>
     </form>
 </div>

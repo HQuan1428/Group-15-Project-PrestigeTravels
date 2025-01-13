@@ -39,6 +39,12 @@ const {
   getYearlyRevenue,
 } = require('../../Controllers/providerController/revenueStatisticsController');
 
+const {
+  renderFAQs,
+  createFAQ,
+  editFAQ,
+  removeFAQ
+} = require('../../Controllers/providerController/faqsController');
 const PromotionsController = require('../../Controllers/providerController/promotionsController');
 
 const router = express.Router();
@@ -165,5 +171,17 @@ router.post('/promotions/:id/update', ensureAuthenticated, PromotionsController.
 router.get('/promotions/:id', PromotionsController.getPromotionById);
 router.put('/promotions/:id', PromotionsController.updatePromotion);
 router.delete('/promotions/:id', PromotionsController.deletePromotion);
+
+// Hiển thị danh sách FAQs
+router.get('/support', ensureAuthenticated, renderFAQs);
+
+// Thêm FAQ mới
+router.post('/support/add', ensureAuthenticated, createFAQ);
+
+// Cập nhật FAQ
+router.post('/support/:id/edit', ensureAuthenticated, editFAQ);
+
+// Xóa FAQ
+router.post('/support/:id/delete', ensureAuthenticated, removeFAQ);
 
 module.exports = router;

@@ -1,0 +1,37 @@
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            {{> profileSidebar}}
+            <!-- Main Content -->
+            <div class="col-md-9 content">
+                <h4>Cài đặt</h4>
+                {{> settingSidebar}}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dữ liệu cá nhân</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Tên đầy đủ</label>
+                                <input type="text" class="form-control" id="fullName" value="{{user.fullname}}">
+                            </div>
+                            <div class="row">
+            
+                                <div class="col-md-4 mb-3">
+                                    <label for="phone" class="form-label">Số điện thoại</label>
+                                    <input type="text" class="form-control" id="phone" value="{{user.phone}}">
+                                </div>
+                                <div  class="col-md-4 mb-3" >
+                                    <label for="email" class="form-label">Email</label>
+                                    <input class="form-control" id="email" rows="3" value="{{user.email}}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
