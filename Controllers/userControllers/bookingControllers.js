@@ -4,16 +4,19 @@ const { createBooking, getTourPrice } = require('../../Models/userModels/userMod
 async function bookTour(req, res) {
     try {
         const tour_id = req.params.id;
-        //console.log('Tour ID:', tour_id);
+        const { 
+            adults, 
+            children, 
+            available_date,
+            contactName,
+            contactEmail,
+            contactPhone
+        } = req.body;
 
-        const { adults, children,available_date  } = req.body;
-        //console.log(adults, children,available_date);
-        // Kiểm tra ID tour
         if (!tour_id) {
             return res.status(400).send('Tour ID is missing');
         }
         const userId = req.session.user_id;
-        //console.log(userId);
 
         // Kiểm tra số lượng người lớn và trẻ em
         if (!adults || !children) {
@@ -29,16 +32,24 @@ async function bookTour(req, res) {
 
         // Tính tổng giá
         const totalPrice = (adults * tourPrice) + (children * (tourPrice * 0.5));
-        //console.log('Total Price:', totalPrice);
 
-        // Tạo booking
-        const booking = await createBooking(userId, tour_id, adults, children, totalPrice,available_date);
+        // Tạo booking với thông tin liên hệ
+        const booking = await createBooking(
+            userId, 
+            tour_id, 
+            adults, 
+            children, 
+            totalPrice,
+            available_date,
+            contactName,
+            contactEmail,
+            contactPhone
+        );
 
         if (!booking) {
             return res.status(500).send('Tạo booking thất bại');
         }
 
-        // Chuyển hướng hoặc trả về thông báo thành công
         res.redirect(`/customer/payment/${tour_id}`);
     } catch (error) {
         console.error('Error booking tour:', error.message);
