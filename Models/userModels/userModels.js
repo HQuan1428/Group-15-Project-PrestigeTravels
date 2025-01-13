@@ -134,10 +134,36 @@ async function get_booking_info(tour_id, user_id)
 async function createPayment(booking_id, price, method, datetime) {
     try
     {
-        let tour_info = await db.query(`
+        const result = await db.query(`
         INSERT INTO payments (booking_id, amount, payment_method, transaction_id, status, created_at)
-        VALUES ($1, $2, $3, $4, 'pending', $5)
+        VALUES ($1, $2, $3, $4, 'pending', $5) RETURNING *
                                     `, [booking_id, price, method, ' ', datetime]);
+
+        return result[0];
+    }
+    catch (error)
+    {
+        console.error('Error: ', error);
+        throw error;
+    }
+}
+
+async function getPaymentInfo(booking_id) {
+    try
+    {
+        let tour_info = await db.query(`
+            SELECT 
+                id, 
+                booking_id, 
+                amount, 
+                payment_method, 
+                transaction_id, 
+                status, 
+                created_at
+            FROM 
+                public.payments
+            WHERE 
+                booking_id = $1`, [booking_id]);
         
         return tour_info;
     }
@@ -161,5 +187,6 @@ module.exports = {
     getTourDetailsWithDates,
     get_pay_methods,
     get_booking_info,
-    createPayment
+    createPayment,
+    getPaymentInfo,
 }
