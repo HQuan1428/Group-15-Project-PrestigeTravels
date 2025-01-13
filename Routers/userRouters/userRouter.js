@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { GetLocation, get_pay_methods, get_booking_info } = require('../../Models/userModels/userModels')
 const{DetailTour}=require('../../Controllers/userControllers/detailControllers')
-const { getAvailableDates}=require('../../Models/userModels/getAvailabledateById')
+const { getAvailableDates, getTourPrice } = require('../../Models/userModels/getAvailabledateById')
+const { db } = require('../../Models/Connect_Server/db')
 
 router.get('/customer', async (req, res) => {
   if (!req.isAuthenticated()) {
@@ -18,21 +19,56 @@ router.get('/customer', async (req, res) => {
 router.get('/customer/tours/:id', DetailTour)
 router.get('/customer/booking/:id', async (req, res) => {
     if (!req.isAuthenticated()) {
-    return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
-  }
-  const tour_id = req.params.id;
-  //console.log(tour_id);
+        return res.redirect('/login');
+    }
+    const tour_id = req.params.id;
 
-  // Sử dụng await để đợi kết quả từ hàm bất đồng bộ getAvailableDates
-  try {
-    const availableDates = await getAvailableDates(tour_id);
-    //console.log(availableDates);  // Bây giờ bạn sẽ thấy kết quả thay vì Promise
+    try {
+        // Debug để xem tour_id
+        console.log('Tour ID:', tour_id);
 
-    res.render('userViews/bookingTour', { tour_id, availableDates });
-  } catch (error) {
-    console.error('Lỗi khi lấy ngày khả dụng:', error);
-    res.status(500).send('Có lỗi xảy ra khi lấy ngày khả dụng.');
-  }
+        // Lấy thông tin tour và ngày có sẵn
+        const tourQuery = await db.query(
+            `SELECT t.price, 
+                    array_agg(td.available_date ORDER BY td.available_date) as dates
+             FROM tours t
+             LEFT JOIN tour_dates td ON t.id = td.tour_id
+             WHERE t.id = $1 AND td.slots_available > 0
+             GROUP BY t.id, t.price`,
+            [tour_id]
+        );
+
+        // Debug kết quả query
+        console.log('Query result:', tourQuery);
+
+        if (!tourQuery || tourQuery.length === 0) {
+            throw new Error('Không tìm thấy thông tin tour');
+        }
+
+        const { price, dates } = tourQuery[0];
+        
+        // Format lại ngày để hiển thị
+        const formattedDates = dates ? dates.map(date => {
+            return new Date(date).toISOString().split('T')[0];
+        }) : [];
+
+        // Debug dữ liệu trước khi render
+        console.log('Data to render:', {
+            tour_id,
+            availableDates: formattedDates,
+            tourPrice: parseFloat(price)
+        });
+
+        res.render('userViews/bookingTour', {
+            tour_id,
+            availableDates: formattedDates,
+            tourPrice: parseFloat(price) // Chuyển đổi sang số thập phân
+        });
+
+    } catch (error) {
+        console.error('Chi tiết lỗi:', error);
+        res.status(500).send('Có lỗi xảy ra khi lấy thông tin tour: ' + error.message);
+    }
 });
 
 
