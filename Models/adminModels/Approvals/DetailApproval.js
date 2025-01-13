@@ -5,18 +5,13 @@ async function DetailApproval(id) {
         const res = await db.query(
             `
             SELECT 
-                t.id AS tour_id,
-                t.title,
-                t.price,
-                t.description,
-                t.duration,
-                t.starting_point,
-                t.image,
-                t.max_participants,
-                t.average_rating,
-                t.cached_review_count,
-                t.cached_booking_count,
-                ARRAY_AGG(td.available_date ORDER BY td.available_date) AS available_dates
+                t.*,
+                ARRAY_AGG(td.available_date ORDER BY td.available_date) AS available_dates,
+                (
+                    SELECT json_agg(ti.*)
+                    FROM tour_images ti
+                    WHERE ti.tour_id = t.id
+                ) as tour_images
             FROM "tours" t
             LEFT JOIN "tour_dates" td ON t.id = td.tour_id
             WHERE t.id = $1

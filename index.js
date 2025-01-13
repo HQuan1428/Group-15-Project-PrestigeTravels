@@ -8,7 +8,10 @@ const { initializePassport } = require('./config/passport'); // Cấu hình Pass
 
 const port = 4000
 const app = express()
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', (req, res, next) => {
+    console.log('Image request path:', req.path);
+    next();
+}, express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // Cấu hình session
@@ -58,6 +61,9 @@ app.engine('handlebars', engine({
     ifEquals: function (arg1, arg2, options) {
       return arg1 == arg2 ? options.fn(this) : options.inverse(this);
     },
+    add: function(a, b) {
+      return a + b;
+    }
   }
 }))
 app.set('view engine', 'handlebars')
