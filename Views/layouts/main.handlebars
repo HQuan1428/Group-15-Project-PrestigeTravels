@@ -71,79 +71,77 @@
 <body>
     <div class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold" href="/{{role}}">Prestige Travels</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    {{#if (eq role 'admin')}}
-                    <ul class="navbar-nav ms-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/{{role}}">Prestige Travels</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                {{#if (eq role 'admin')}}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+                {{else if (eq role 'partner')}}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/partner/tours">Quản lý tour</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+                {{else}}
+                <!-- Thanh tìm kiếm -->
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <form class="header-search-form d-flex flex-grow-1 me-3" action="/search" method="GET">
+                        <div class="input-group">
+                            <select class="form-select form-select-sm rounded-start" name="location" aria-label="Chọn địa điểm">
+                                <option value="">Tất cả địa điểm</option>
+                                <option value="hanoi">Hà Nội</option>
+                                <option value="halong">Hạ Long</option>
+                                <option value="danang">Đà Nẵng</option>
+                                <option value="hoian">Hội An</option>
+                                <option value="nhatrang">Nha Trang</option>
+                                <option value="dalat">Đà Lạt</option>
+                                <option value="phuquoc">Phú Quốc</option>
+                            </select>
+                            <input type="text" name="query" class="form-control form-control-sm" placeholder="Tìm kiếm...">
+                            <button class="btn btn-primary btn-sm" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Menu đăng nhập/đăng ký -->
+                    <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link text-primary fw-bold" href="/register">Đăng ký</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link text-primary fw-bold" href="/login">Đăng nhập</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <a class="nav-link text-primary" href="/customer/profile">
+                                <i class="fas fa-user"></i>
+                            </a>
                         </li>
                     </ul>
-                    {{else if (eq role 'partner')}}
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                    {{else}}
-                    <!-- Thanh tìm kiếm -->
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <form class="header-search-form d-flex flex-grow-1 me-3">
-                            <div class="input-group">
-                                <select class="form-select form-select-sm rounded-start" aria-label="Chọn địa điểm">
-                                    <option value="">Tất cả địa điểm</option>
-                                    <option value="hanoi">Hà Nội</option>
-                                    <option value="halong">Hạ Long</option>
-                                    <option value="danang">Đà Nẵng</option>
-                                    <option value="hoian">Hội An</option>
-                                    <option value="nhatrang">Nha Trang</option>
-                                    <option value="dalat">Đà Lạt</option>
-                                    <option value="phuquoc">Phú Quốc</option>
-                                </select>
-                                <input type="text" class="form-control form-control-sm" placeholder="Tìm kiếm...">
-                                <button class="btn btn-primary btn-sm" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </form>
-                        <!-- Menu đăng nhập/đăng ký -->
-                        <ul class="navbar-nav ms-3">
-                            <li class="nav-item">
-                                <a class="nav-link text-primary fw-bold" href="/register">Đăng ký</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-primary fw-bold" href="/login">Đăng nhập</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-primary" href="/customer/profile">
-                                    <i class="fas fa-user"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    {{/if}}
                 </div>
+                {{/if}}
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
+
 
 
         {{#if (eq role 'admin')}}

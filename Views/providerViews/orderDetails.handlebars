@@ -1,18 +1,23 @@
-<h2>Chi tiết đơn hàng</h2>
-<p><strong>Mã đơn hàng:</strong> {{order.order_id}}</p>
-<p><strong>Tên khách hàng:</strong> {{order.customer_name}}</p>
-<p><strong>Ngày đặt:</strong> {{order.order_date}}</p>
-<p><strong>Tên tour:</strong> {{order.tour_name}}</p>
-<p><strong>Phương thức thanh toán:</strong> {{order.payment_method}}</p>
-<p><strong>Số lượng người lớn:</strong> {{order.adults}}</p>
-<p><strong>Số lượng trẻ em:</strong> {{order.children}}</p>
-<p><strong>Trạng thái:</strong> {{order.status}}</p>
+<div class="container">
+    <h2>Chi tiết đơn hàng</h2>
+    <p><strong>Mã đơn hàng:</strong> {{order.order_id}}</p>
+    <p><strong>Tên khách hàng:</strong> {{order.customer_name}}</p>
+    <p><strong>Ngày đặt:</strong> {{order.order_date}}</p>
+    <p><strong>Ngày khởi hành:</strong> {{order.available_date}}</p>
+    <p><strong>Tên tour:</strong> {{order.tour_name}}</p>
+    
+    <p><strong>Số lượng người lớn:</strong> {{order.adults}}</p>
+    <p><strong>Số lượng trẻ em:</strong> {{order.children}}</p>
+    <p><strong>Tổng tiền:</strong> {{order.total_price}} VND</p>
+    <p><strong>Trạng thái:</strong> {{order.status}}</p>
 
-<form method="POST" action="/partner/orders/{{order.order_id}}/update">
-    <select name="status">
-        <option value="pending" {{#ifEquals order.status "pending"}}selected{{/ifEquals}}>Đang xử lý</option>
-        <option value="confirmed" {{#ifEquals order.status "confirmed"}}selected{{/ifEquals}}>Đã xác nhận</option>
-        <option value="cancelled" {{#ifEquals order.status "cancelled"}}selected{{/ifEquals}}>Đã hủy</option>
-    </select>
-    <button type="submit">Cập nhật</button>
-</form>
+    <form method="POST" action="/partner/orders/{{order.order_id}}/update">
+        <label for="status">Cập nhật trạng thái:</label>
+        <select name="status" id="status" class="form-select">
+            <option value="pending" {{#ifEquals order.status "pending"}}selected{{/ifEquals}}>Đang xử lý</option>
+            <option value="confirmed" {{#ifEquals order.status "confirmed"}}selected{{/ifEquals}}>Đã xác nhận</option>
+            <option value="cancelled" {{#ifEquals order.status "cancelled"}}selected{{/ifEquals}}>Đã hủy</option>
+        </select>
+        <button type="submit" class="btn btn-primary mt-3">Cập nhật</button>
+    </form>
+</div>
