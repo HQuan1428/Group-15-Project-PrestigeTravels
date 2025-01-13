@@ -151,7 +151,7 @@ async function createPayment(booking_id, price, method, datetime) {
 async function getPaymentInfo(booking_id) {
     try
     {
-        let result = await db.query(`
+        let tour_info = await db.query(`
             SELECT 
                 id, 
                 booking_id, 
@@ -165,7 +165,7 @@ async function getPaymentInfo(booking_id) {
             WHERE 
                 booking_id = $1`, [booking_id]);
         
-        return result[0];
+        return tour_info;
     }
     catch (error)
     {
