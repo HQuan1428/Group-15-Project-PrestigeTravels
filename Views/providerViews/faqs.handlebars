@@ -1,46 +1,137 @@
-<div class="container mt-5">
-    <h2>Hỗ trợ khách hàng</h2>
-    <h3>Danh sách FAQs</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Câu hỏi</th>
-                <th>Trả lời</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each faqs}}
-            <tr>
-                <td>{{this.order_index}}</td>
-                <td>{{this.question}}</td>
-                <td>{{this.answer}}</td>
-                <td>
-                    <form action="/partner/support/{{this.id}}/edit" method="POST" style="display:inline;">
-                        <input type="text" name="question" value="{{this.question}}" required>
-                        <input type="text" name="answer" value="{{this.answer}}" required>
-                        <button type="submit" class="btn btn-warning btn-sm">Cập nhật</button>
-                    </form>
-                    <form action="/partner/support/{{this.id}}/delete" method="POST" style="display:inline;">
-                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                    </form>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        {{> partnerSidebar}}
+        
+        <!-- Main Content -->
+        <div class="col-md-9" style="padding: 20px;">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">
+                        <i class="fas fa-question-circle me-2"></i>Hỗ trợ khách hàng
+                    </h2>
 
-    <h3>Thêm FAQ</h3>
-    <form action="/partner/support/add" method="POST">
-        <div class="mb-3">
-            <label for="question" class="form-label">Câu hỏi</label>
-            <input type="text" class="form-control" id="question" name="question" required>
+                    <!-- Danh sách FAQs -->
+                    <div class="table-responsive mb-4">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Câu hỏi</th>
+                                    <th>Trả lời</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each faqs}}
+                                <tr>
+                                    <td>{{this.order_index}}</td>
+                                    <td>{{this.question}}</td>
+                                    <td>{{this.answer}}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-2" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#editModal{{this.id}}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger"
+                                                onclick="deleteFAQ('{{this.id}}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Modal Chỉnh sửa -->
+                                <div class="modal fade" id="editModal{{this.id}}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Chỉnh sửa FAQ</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <form action="/partner/support/{{this.id}}/edit" method="POST">
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Câu hỏi</label>
+                                                        <input type="text" class="form-control" 
+                                                               name="question" value="{{this.question}}" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Trả lời</label>
+                                                        <textarea class="form-control" name="answer" 
+                                                                  rows="4" required>{{this.answer}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" 
+                                                            data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Form thêm FAQ mới -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="fas fa-plus-circle me-2"></i>Thêm FAQ mới
+                            </h5>
+                            <form action="/partner/support/add" method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label">Câu hỏi</label>
+                                    <input type="text" class="form-control" name="question" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Trả lời</label>
+                                    <textarea class="form-control" name="answer" rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Thêm mới
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="answer" class="form-label">Trả lời</label>
-            <textarea class="form-control" id="answer" name="answer" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Thêm</button>
-    </form>
+    </div>
 </div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+.btn-outline-primary, .btn-outline-danger {
+    padding: 4px 8px;
+}
+
+textarea {
+    resize: vertical;
+}
+</style>
+
+<script>
+function deleteFAQ(id) {
+    if (confirm('Bạn có chắc chắn muốn xóa FAQ này?')) {
+        fetch(`/partner/support/${id}/delete`, {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                location.reload();
+            }
+        });
+    }
+}
+</script>
