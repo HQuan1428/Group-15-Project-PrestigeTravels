@@ -64,6 +64,15 @@ app.engine('handlebars', engine({
     },
     add: function(a, b) {
       return a + b;
+    },
+    truncate: function(str, len) {
+      if (str.length > len) {
+        return str.substring(0, len) + '...';
+      }
+      return str;
+    },
+    isLongerThan: function(str, len) {
+      return str.length > len;
     }
   }
 }))
