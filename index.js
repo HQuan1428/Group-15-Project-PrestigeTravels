@@ -111,7 +111,8 @@ app.use(logoutRoutes)
 // Admin
 const adminRouters = require('./Routers/adminRouters/adminRouters')
 app.use(adminRouters)
-
+const tourRouter = require('./Routers/userRouters/tourRouter');
+app.use('/', tourRouter);
 // Nhà cung cấp
 const providerRouters = require('./Routers/providerRouters/providerRouter')
 app.use('/partner', (req, res, next) => {
@@ -121,6 +122,12 @@ app.use('/partner', (req, res, next) => {
   }
   res.redirect('/login');
 }, providerRouters)
+
+const { loadLocations } = require('./Controllers/userControllers/tourController');
+
+// Đảm bảo danh sách địa điểm luôn được gắn vào res.locals
+app.use(loadLocations);
+
 
 // Khởi động server
 app.listen(port, () => {

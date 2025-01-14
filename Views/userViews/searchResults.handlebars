@@ -1,0 +1,29 @@
+<div class="container mt-4">
+    <h2>Kết quả tìm kiếm</h2>
+    <div class="row">
+        {{#if tours.length}}
+            {{#each tours}}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img 
+                            src="{{this.image}}" 
+                            class="card-img-top" 
+                            alt="{{this.title}}" 
+                            style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.title}}</h5>
+                            <p class="card-text">{{this.description}}</p>
+                            <p class="text-primary">{{formatMoney this.price}}</p>
+                            <p class="text-muted">Địa điểm: {{this.location_name}}</p>
+                            <a href="/customer/tours/{{this.id}}" class="btn btn-primary">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <div class="alert alert-warning">
+                <p>Không tìm thấy kết quả phù hợp.</p>
+            </div>
+        {{/if}}
+    </div>
+</div>

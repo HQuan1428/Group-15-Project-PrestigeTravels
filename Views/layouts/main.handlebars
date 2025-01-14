@@ -103,24 +103,29 @@
                 {{else}}
                 <!-- Thanh tìm kiếm -->
                 <div class="d-flex w-100 align-items-center justify-content-between">
-                    <form class="header-search-form d-flex flex-grow-1 me-3" action="/search" method="GET">
-                        <div class="input-group">
-                            <select class="form-select form-select-sm rounded-start" name="location" aria-label="Chọn địa điểm">
-                                <option value="">Tất cả địa điểm</option>
-                                <option value="hanoi">Hà Nội</option>
-                                <option value="halong">Hạ Long</option>
-                                <option value="danang">Đà Nẵng</option>
-                                <option value="hoian">Hội An</option>
-                                <option value="nhatrang">Nha Trang</option>
-                                <option value="dalat">Đà Lạt</option>
-                                <option value="phuquoc">Phú Quốc</option>
-                            </select>
-                            <input type="text" name="query" class="form-control form-control-sm" placeholder="Tìm kiếm...">
-                            <button class="btn btn-primary btn-sm" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
+                    <form action="/search" method="GET" class="d-flex">
+        <input 
+            type="text" 
+            name="query" 
+            placeholder="Tìm kiếm tour..." 
+            class="form-control me-2"
+            value="{{query}}">
+        <select name="location" class="form-select me-2">
+            <option value="">Tất cả địa điểm</option>
+            {{#each locations}}
+                <option value="{{this.name}}" {{#if (eq ../location this.name)}}selected{{/if}}>
+                    {{this.name}}
+                </option>
+            {{/each}}
+        </select>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+
+
+
+
                     <!-- Menu đăng nhập/đăng ký -->
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
