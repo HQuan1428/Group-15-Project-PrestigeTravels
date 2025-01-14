@@ -192,4 +192,69 @@ router.get('/customer/profile/coupon', async (req, res) => {
     }
 });
 
+// Thêm route xử lý tìm kiếm
+router.get('/search', async (req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const locationsResult = await db.query(`
+            SELECT name 
+            FROM locations 
+            ORDER BY name ASC
+        `);
+        const locations = locationsResult || [];
+
+        const { query, location } = req.query;
+        let searchQuery = `
+            SELECT DISTINCT 
+                t.id, 
+                t.title, 
+                t.description, 
+                t.price, 
+                t.starting_point as location_name,
+                COALESCE(ti.image_url, t.image) as image
+            FROM tours t
+            LEFT JOIN tour_images ti ON t.id = ti.tour_id AND ti.is_main = true
+            WHERE t.status = 'active'
+        `;
+        const queryParams = [];
+
+        if (query && query.trim() !== '') {
+            queryParams.push(`%${query.trim()}%`);
+            searchQuery += ` AND (
+                LOWER(t.title) LIKE LOWER($1) OR 
+                LOWER(t.description) LIKE LOWER($1)
+            )`;
+        }
+
+        if (location && location.trim() !== '') {
+            queryParams.push(`%${location.trim()}%`);
+            searchQuery += ` AND LOWER(t.starting_point) LIKE LOWER($${queryParams.length})`;
+        }
+
+        searchQuery += ` ORDER BY t.title ASC`;
+
+        const toursResult = await db.query(searchQuery, queryParams);
+        const tours = toursResult || [];
+
+        console.log('Found tours:', tours.length); // Log để debug
+
+        res.render('userViews/searchResults', {
+            tours: tours,
+            query: query || '',
+            location: location || '',
+            locations: locations,
+            isSearchPage: true,
+            role: req.session.userType,
+            user: req.user
+        });
+
+    } catch (error) {
+        console.error('Lỗi tìm kiếm:', error);
+        res.status(500).send('Có lỗi xảy ra khi tìm kiếm tour');
+    }
+});
+
 module.exports = router
