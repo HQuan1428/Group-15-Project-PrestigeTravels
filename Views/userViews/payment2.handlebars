@@ -67,7 +67,7 @@
             </div>
             <div class="col-md-4">
                 <strong>Số tiền:</strong>
-                <span>{{paymentInfo.amount}}</span>
+                <span id="amount" >₫0</span>
             </div>
             <div class="col-md-4">
                 <strong>TT hóa đơn:</strong>
@@ -149,6 +149,14 @@
 </div>
 
 <script>
+    function updateSummary() {
+        const price = "{{paymentInfo.amount}}";
+        document.getElementById('amount').textContent = '₫' + parseFloat(price).toLocaleString('vi-VN');
+    }
+    document.addEventListener("DOMContentLoaded", updateSummary);
+</script>
+
+<script>
 
     function updatePaymentStatus() {
         const statusElement = document.getElementById('paymentStatus');
@@ -201,13 +209,7 @@
             });
     }
 
-    const state = "{{status}}";
-    console.log('trang thai hien tai', state)
-    if (state) {
-        // Kiểm tra trạng thái thanh toán sau mỗi 5 giây
-        setInterval(checkPaymentStatus, 5000);
-    }
-
+    document.addEventListener("DOMContentLoaded", setInterval(checkPaymentStatus, 5000))
 </script>
 
 <script>
