@@ -1,6 +1,6 @@
 // controllers/bookingController.js
 const { createBooking, getTourPrice } = require('../../Models/userModels/userModels');
-
+const { addNotification } = require('../../Models/userModels/profileModels/notificationModel');
 async function bookTour(req, res) {
     try {
         const tour_id = req.params.id;
@@ -102,5 +102,26 @@ async function DetailTour(req, res) {
         res.status(500).send('Không thể lấy thông tin tour');
     }
 }
+async function cancelBooking(req, res) {
+    const bookingId = req.params.id;
+    const userId = req.session.user_id;
 
-module.exports = { bookTour ,DetailTour};
+    try {
+        // Logic to cancel the booking
+        await updateBookingStatus(bookingId, 'canceled');
+
+        // Add a notification for canceled booking
+        await addNotification(userId, {
+            title: 'Hủy tour thành công',
+            content: `Đặt chỗ #${bookingId} đã bị hủy.`,
+            type: 'booking',
+        });
+
+        res.redirect('/customer/profile/notification');
+    } catch (error) {
+        console.error('Error canceling booking:', error);
+        res.status(500).send('Không thể hủy đặt chỗ');
+    }
+}
+
+module.exports = { bookTour ,DetailTour,cancelBooking};

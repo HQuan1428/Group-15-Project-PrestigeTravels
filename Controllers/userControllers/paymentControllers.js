@@ -1,6 +1,8 @@
 const {get_pay_methods, get_booking_info, createPayment, getPaymentInfo } = require('../../Models/userModels/userModels')
 const {DetailApproval}=require('../../Models/adminModels/Approvals/DetailApproval')
 const axios = require('axios');
+const { addNotification } = require('../../Models/userModels/profileModels/notificationModel');
+
 
 
 // lấy thời điểm
@@ -73,40 +75,35 @@ const renderPayInfo = async (req, res) => {
         const booking_info = await get_booking_info(tour_id, user_id);
         console.log(booking_info);
 
-        // Kiểm tra nếu không tìm thấy thông tin booking
         if (!booking_info || booking_info.length === 0) {
             return res.status(404).json({ message: 'Thông tin booking không tồn tại.' });
         }
 
-        // Lấy chi tiết tour
         const detail = await DetailApproval(tour_id);
-
-        // Get booking_id tour
         const booking_id = booking_info[0].id;
-
-        // Lấy thông tin từ form 
         const { paymentMethod, discountCode } = req.body;
-        
-        // Lấy thời gian
         const dateTime = getDateTime();
 
-        // Thêm thông tin thanh toán
         const payment_info = await createPayment(booking_id, booking_info[0].total_price, paymentMethod, dateTime);
-        
-        // Số lượng khách
         const numbers = booking_info[0].adults + booking_info[0].children;
 
+        // Add a notification for successful payment
+        await addNotification(user_id, {
+            title: 'Thanh toán thành công',
+            content: `Đặt chỗ #${booking_id} đã được thanh toán thành công.`,
+            type: 'booking',
+        });
+
         res.render('userViews/payment2', {
-            detail: detail,
+            detail,
             paymentInfo: payment_info,
             bankAccount: '1032985921',
-            numbers: numbers,
-            tour_id: tour_id,
-            dateTime: dateTime,
+            numbers,
+            tour_id,
+            dateTime,
             status: booking_info[0].status,
         });
     } catch (error) {
-        // Xử lý lỗi nếu có sự cố
         console.error('Error during payment information rendering:', error);
         res.status(500).json({ message: 'Lỗi khi lấy thông tin thanh toán.' });
     }
