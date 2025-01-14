@@ -6,6 +6,7 @@ const { getAvailableDates, getTourPrice } = require('../../Models/userModels/get
 const { db } = require('../../Models/Connect_Server/db')
 const fs = require('fs').promises;
 const path = require('path');
+const { getCoupons } = require('../../Models/userModels/getCoupons');
 
 router.get('/customer', async (req, res) => {
   if (!req.isAuthenticated()) {
@@ -172,6 +173,22 @@ router.get('/customer/chat/patterns', async (req, res) => {
     } catch (error) {
         console.error('Error reading chat patterns:', error);
         res.status(500).json({ success: false, error: 'Could not load chat patterns' });
+    }
+});
+
+router.get('/customer/profile/coupon', async (req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/login');
+    }
+    try {
+        const coupons = await getCoupons();
+        res.render('userViews/coupon', { 
+            user: req.user,
+            coupons: coupons
+        });
+    } catch (error) {
+        console.error('Error loading coupons:', error);
+        res.status(500).send('Có lỗi xảy ra khi tải khuyến mãi');
     }
 });
 
