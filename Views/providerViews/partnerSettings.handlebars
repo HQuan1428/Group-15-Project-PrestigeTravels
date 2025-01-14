@@ -18,6 +18,10 @@
             <form action="/partner/settings/update" method="POST">
                 <h3>Thông tin nhà cung cấp</h3>
                 <div class="mb-3">
+                    <label for="companyName" class="form-label">Tên công ty</label>
+                    <input type="text" class="form-control" id="companyName" name="companyName" value="{{partner.company_name}}" required>
+                </div>
+                <div class="mb-3">
                     <label for="representativeName" class="form-label">Tên đại diện</label>
                     <input type="text" class="form-control" id="representativeName" name="representativeName" value="{{partner.representative_name}}" required>
                 </div>
@@ -40,7 +44,7 @@
                 <button type="submit" class="btn btn-primary">Lưu</button>
             </form>
             <hr>
-            <!-- Hiển thị danh sách email -->
+            <!-- Display emails and phones -->
             <h3>Thông tin liên hệ</h3>
             <h4>Email</h4>
             <ul>
@@ -53,7 +57,6 @@
                 <input type="email" class="form-control" id="email" name="email" required>
                 <button type="submit" class="btn btn-secondary mt-2">+ Thêm email</button>
             </form>
-            <!-- Hiển thị danh sách số điện thoại -->
             <h4>Số điện thoại</h4>
             <ul>
                 {{#each phones}}

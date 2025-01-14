@@ -1,10 +1,10 @@
 const { getPartnerByUserId, updatePartnerInfo, addPartnerEmail, addPartnerPhone, getPartnerContacts } = require('../../Models/providerModels/settingsModel');
 
-// Hiển thị giao diện cài đặt
+// Render the settings page
 async function renderSettings(req, res) {
     try {
         const partner = await getPartnerByUserId(req.user.id);
-        const contacts = await getPartnerContacts(req.user.id); // Lấy danh sách email và số điện thoại
+        const contacts = await getPartnerContacts(req.user.id);
 
         if (!partner) {
             return res.status(403).send('Không tìm thấy thông tin nhà cung cấp.');
@@ -12,8 +12,8 @@ async function renderSettings(req, res) {
 
         res.render('providerViews/partnerSettings', {
             partner,
-            emails: contacts.emails,   // Danh sách email
-            phones: contacts.phones    // Danh sách số điện thoại
+            emails: contacts.emails,
+            phones: contacts.phones,
         });
     } catch (err) {
         console.error('Error rendering settings page:', err.message);
@@ -21,11 +21,11 @@ async function renderSettings(req, res) {
     }
 }
 
-// Cập nhật thông tin nhà cung cấp
+// Update company information, including company name
 async function updatePersonalInfo(req, res) {
     try {
-        const { representativeName, position, businessAddress, bankAccount, bankName } = req.body;
-        await updatePartnerInfo(req.user.id, { representativeName, position, businessAddress, bankAccount, bankName });
+        const { companyName, representativeName, position, businessAddress, bankAccount, bankName } = req.body;
+        await updatePartnerInfo(req.user.id, { companyName, representativeName, position, businessAddress, bankAccount, bankName });
         res.redirect('/partner/settings');
     } catch (err) {
         console.error('Error updating personal info:', err.message);
@@ -33,7 +33,7 @@ async function updatePersonalInfo(req, res) {
     }
 }
 
-// Thêm email mới
+// Add a new email
 async function addEmail(req, res) {
     try {
         const { email } = req.body;
@@ -45,7 +45,7 @@ async function addEmail(req, res) {
     }
 }
 
-// Thêm số điện thoại mới
+// Add a new phone number
 async function addPhone(req, res) {
     try {
         const { phone } = req.body;
