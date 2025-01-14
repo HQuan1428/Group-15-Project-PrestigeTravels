@@ -247,5 +247,76 @@
                 });
             });
     </script>
+
+    <!-- Thêm nút chat và include partial chat -->
+    <div class="chat-toggle" id="chatToggle">
+        <i class="fas fa-comments"></i>
+    </div>
+    {{> chat}}
+
+    <style>
+    .chat-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: #007bff;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+
+    .chat-toggle i {
+        font-size: 24px;
+    }
+
+    .chat-container {
+        display: none;
+    }
+
+    .chat-container.active {
+        display: block;
+    }
+    </style>
+
+    <script>
+    const chatToggle = document.getElementById('chatToggle');
+    const chatContainer = document.querySelector('.chat-container');
+
+    chatToggle.addEventListener('click', () => {
+        chatContainer.classList.toggle('active');
+        // Ẩn nút toggle khi chat hiện
+        chatToggle.style.display = chatContainer.classList.contains('active') ? 'none' : 'flex';
+    });
+
+    // Thêm nút đóng chat
+    const chatHeader = document.querySelector('.chat-header');
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '<i class="fas fa-times"></i>';
+    closeButton.className = 'chat-close-btn';
+    closeButton.style.cssText = `
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+    `;
+    chatHeader.style.position = 'relative';
+    chatHeader.appendChild(closeButton);
+
+    closeButton.addEventListener('click', () => {
+        chatContainer.classList.remove('active');
+        chatToggle.style.display = 'flex';
+    });
+    </script>
 </body>
 </html>

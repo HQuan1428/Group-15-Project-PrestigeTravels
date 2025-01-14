@@ -33,7 +33,8 @@ app.engine('handlebars', engine({
   partialsDir: [
     path.join(__dirname, 'views', 'partials'),
     path.join(__dirname, 'views', 'providerViews'),
-    path.join(__dirname, 'views', 'userViews')
+    path.join(__dirname, 'views', 'userViews'),
+    path.join(__dirname, 'views', 'userViews', 'Chat')
   ],
   helpers: {
     json: function (context) {

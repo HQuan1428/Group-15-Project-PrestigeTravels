@@ -1,0 +1,196 @@
+<div class="chat-container">
+    <div class="chat-box">
+        <div class="chat-header">
+            <h5><i class="fas fa-robot me-2"></i>Trợ lý ảo</h5>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Tin nhắn chào mừng -->
+            <div class="message bot-message">
+                <div class="message-content">
+                    Xin chào! Tôi là trợ lý ảo của Prestige Travels. Tôi có thể giúp gì cho bạn?
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Nhập tin nhắn của bạn...">
+            <button id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chat-box {
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 15px;
+    background: #007bff;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.message {
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.bot-message {
+    justify-content: flex-start;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    background: #007bff;
+    color: white;
+}
+
+.bot-message .message-content {
+    border-bottom-left-radius: 5px;
+}
+
+.user-message .message-content {
+    border-bottom-right-radius: 5px;
+}
+
+.chat-input {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #eee;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chat-input button {
+    background: #007bff;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+</style>
+
+<script>
+let chatPatterns = {};
+
+// Load patterns từ file
+async function loadChatPatterns() {
+    try {
+        const response = await fetch('/customer/chat/patterns');
+        const result = await response.json();
+        if (result.success) {
+            // Chuyển text thành object
+            const patterns = {};
+            result.data.split('\n').forEach(line => {
+                if (line.trim()) {
+                    const [key, ...responses] = line.split('|');
+                    patterns[key.trim()] = responses;
+                }
+            });
+            return patterns;
+        }
+        throw new Error('Failed to load patterns');
+    } catch (error) {
+        console.error('Error loading patterns:', error);
+        return {
+            'default': ['Xin lỗi, có lỗi xảy ra.']
+        };
+    }
+}
+
+// Load patterns khi trang được load
+window.addEventListener('load', async () => {
+    chatPatterns = await loadChatPatterns();
+});
+
+const chatMessages = document.getElementById('chatMessages');
+const userInput = document.getElementById('userInput');
+const sendButton = document.getElementById('sendButton');
+
+function getBotResponse(message) {
+    // Chuyển message về chữ thường để dễ so sánh
+    const lowerMessage = message.toLowerCase();
+    
+    // Tìm pattern phù hợp
+    for (let pattern in chatPatterns) {
+        if (lowerMessage.includes(pattern)) {
+            // Chọn ngẫu nhiên một câu trả lời từ mảng câu trả lời
+            const responses = chatPatterns[pattern];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+    }
+    
+    // Nếu không tìm thấy pattern phù hợp, trả về câu mặc định
+    return chatPatterns.default[Math.floor(Math.random() * chatPatterns.default.length)];
+}
+
+function addMessage(content, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+    messageDiv.innerHTML = `
+        <div class="message-content">${content}</div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function handleUserInput() {
+    const message = userInput.value.trim();
+    if (message) {
+        // Hiển thị tin nhắn người dùng
+        addMessage(message, true);
+        userInput.value = '';
+        
+        // Giả lập độ trễ phản hồi
+        setTimeout(() => {
+            const botResponse = getBotResponse(message);
+            addMessage(botResponse);
+        }, 1000);
+    }
+}
+
+// Gắn sự kiện cho nút gửi và phím Enter
+sendButton.addEventListener('click', handleUserInput);
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        handleUserInput();
+    }
+});
+</script> 

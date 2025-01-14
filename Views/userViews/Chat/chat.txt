@@ -1,0 +1,47 @@
+chào|Xin chào! Tôi là trợ lý ảo của Prestige Travels. Tôi có thể giúp gì cho bạn?|Chào bạn! Bạn cần tư vấn về tour du lịch?|Rất vui được gặp bạn! Tôi có thể giúp gì không?|Hi! Tôi có thể giúp bạn tìm tour phù hợp nhất.|Chào mừng bạn đến với Prestige Travels!
+
+tạm biệt|Tạm biệt bạn! Chúc bạn một ngày tốt lành|Rất vui được tư vấn cho bạn. Hẹn gặp lại!|Cảm ơn bạn đã quan tâm đến dịch vụ của chúng tôi!|Chào tạm biệt! Hy vọng sớm được phục vụ bạn.|Hẹn gặp lại bạn trong chuyến du lịch sắp tới!
+
+giá|Giá tour sẽ phụ thuộc vào thời gian và số lượng người tham gia.|Bạn vui lòng cho biết tour cụ thể để tôi check giá giúp bạn nhé!|Để biết giá chính xác, bạn có thể xem trong phần chi tiết tour.|Giá tour đã bao gồm vé máy bay, khách sạn, ăn uống và HDV.|Chúng tôi cam kết giá tốt nhất thị trường.
+
+đặt tour|Để đặt tour, bạn cần:\n1. Đăng nhập\n2. Chọn tour\n3. Chọn ngày\n4. Điền thông tin\n5. Thanh toán|Bạn đã có tài khoản chưa? Để đặt tour bạn cần đăng nhập trước nhé!|Rất đơn giản, bạn chỉ cần chọn tour mình thích và làm theo hướng dẫn.|Tôi có thể hướng dẫn bạn từng bước đặt tour.|Sau khi đặt tour, bạn sẽ nhận được email xác nhận chi tiết.
+
+hướng dẫn viên|Tour của chúng tôi đều có hướng dẫn viên chuyên nghiệp đi kèm.|HDV của chúng tôi đều có chứng chỉ và nhiều kinh nghiệm.|Đội ngũ HDV của chúng tôi thông thạo nhiều ngôn ngữ và am hiểu văn hóa địa phương.|HDV sẽ đồng hành cùng bạn trong suốt chuyến đi.|HDV được đào tạo về sơ cứu và xử lý tình huống khẩn cấp.
+
+thanh toán|Chúng tôi hỗ trợ thanh toán qua: Thẻ tín dụng, Chuyển khoản ngân hàng và Ví điện tử.|Bạn có thể thanh toán online hoặc tại văn phòng của chúng tôi.|Thanh toán an toàn và bảo mật qua các cổng thanh toán uy tín.|Có thể trả góp 0% lãi suất qua thẻ tín dụng.|Chấp nhận thanh toán bằng ngoại tệ.
+
+hủy tour|Để hủy tour, bạn cần thông báo trước ít nhất 3 ngày.|Phí hủy tour sẽ tùy thuộc vào thời gian hủy trước ngày khởi hành.|Vui lòng liên hệ hotline để được hỗ trợ hủy tour.|Hoàn tiền trong vòng 7 ngày làm việc.|Có thể chuyển đổi sang tour khác để tránh phí hủy.
+
+khách sạn|Các khách sạn trong tour đều đạt tiêu chuẩn 3-5 sao.|Phòng nghỉ được trang bị đầy đủ tiện nghi cơ bản.|Bạn có thể nâng cấp hạng phòng với phụ phí.|Vị trí khách sạn thuận tiện di chuyển.|Có dịch vụ phòng 24/7.
+
+ăn uống|Tour bao gồm các bữa ăn theo lịch trình.|Thực đơn đa dạng với đặc sản địa phương.|Nếu bạn có yêu cầu đặc biệt về ăn uống, vui lòng thông báo trước.|Đảm bảo vệ sinh an toàn thực phẩm.|Có thực đơn chay và halal.
+
+phương tiện|Di chuyển bằng xe du lịch đời mới, có máy lạnh.|Xe được bảo dưỡng định kỳ, đảm bảo an toàn.|Tùy tour sẽ có thêm các phương tiện khác như tàu, thuyền.|Xe có wifi miễn phí.|Tài xế có nhiều năm kinh nghiệm.
+
+thời gian|Thời gian tour từ 1-10 ngày tùy hành trình.|Lịch trình chi tiết sẽ được gửi sau khi đặt tour.|Thời gian khởi hành linh hoạt, bạn có thể chọn ngày phù hợp.|Có tour ngắn ngày cho người bận rộn.|Tour dài ngày có thời gian nghỉ ngơi hợp lý.
+
+trẻ em|Trẻ em dưới 5 tuổi được miễn phí.|Trẻ em từ 5-10 tuổi được giảm 50% giá tour.|Mỗi người lớn kèm một trẻ em.|Có dịch vụ giữ trẻ tại khách sạn.|Tour thân thiện với gia đình.
+
+bảo hiểm|Tour đã bao gồm bảo hiểm du lịch cơ bản.|Bảo hiểm chi trả tối đa 460 triệu/vụ.|Bạn có thể mua thêm bảo hiểm nâng cao.|Bảo hiểm áp dụng cho mọi độ tuổi.|Hỗ trợ y tế khẩn cấp 24/7.
+
+hành lý|Mỗi khách được mang 20kg hành lý.|Không mang các vật phẩm cấm theo quy định.|Nên mang theo thuốc cá nhân nếu cần.|Có dịch vụ vận chuyển hành lý.|Bảo quản hành lý an toàn.
+
+thủ tục|Cần mang theo CMND/CCCD còn hạn.|Đối với tour nước ngoài cần có hộ chiếu.|Chúng tôi sẽ hỗ trợ thủ tục visa nếu cần.|Thủ tục đơn giản, nhanh chóng.|Hướng dẫn chi tiết qua email.
+
+địa điểm|Tour của chúng tôi đi khắp 63 tỉnh thành.|Có cả tour trong nước và quốc tế.|Các điểm đến được chọn lọc kỹ lưỡng.|Khám phá điểm đến mới lạ.|Tour theo chủ đề: văn hóa, ẩm thực, nghỉ dưỡng.
+
+đánh giá|Prestige Travels được đánh giá 4.5/5 sao.|98% khách hàng hài lòng với dịch vụ.|Bạn có thể xem review chi tiết trong phần đánh giá.|Được nhiều tạp chí du lịch đánh giá cao.|Nhận giải thưởng dịch vụ xuất sắc.
+
+khuyến mãi|Thường xuyên có chương trình giảm giá.|Ưu đãi đặc biệt cho khách hàng thân thiết.|Theo dõi website để cập nhật khuyến mãi mới nhất.|Giảm giá cho nhóm đông.|Tặng voucher cho lần đặt tour tiếp theo.
+
+visa|Hỗ trợ làm visa nhanh chóng.|Tỷ lệ đậu visa cao.|Chi phí visa hợp lý.|Tư vấn hồ sơ miễn phí.|Theo dõi tiến độ visa online.
+
+thời tiết|Chúng tôi sẽ thông báo thời tiết trước chuyến đi.|Lịch trình linh hoạt theo thời tiết.|Chuẩn bị trang phục phù hợp theo mùa.|Có phương án dự phòng khi thời tiết xấu.|Tour được thiết kế phù hợp với điều kiện thời tiết.
+
+hoạt động|Nhiều hoạt động thú vị trong tour.|Team building cho đoàn.|Khám phá văn hóa địa phương.|Chụp ảnh check-in đẹp.|Trải nghiệm ẩm thực độc đáo.
+
+wifi|Xe và khách sạn đều có wifi miễn phí.|Có thể thuê bộ phát wifi du lịch.|Kết nối internet ổn định.|Dễ dàng chia sẻ hình ảnh.|Luôn giữ liên lạc với người thân.
+
+mua sắm|Ghé thăm các trung tâm mua sắm.|Mua đặc sản địa phương.|Có thời gian tự do mua sắm.|Được tư vấn mua hàng chất lượng.|Hỗ trợ vận chuyển hàng hóa.
+
+default|Xin lỗi, bạn có thể nói rõ hơn được không?|Bạn có thể diễn đạt theo cách khác được không?|Tôi chưa hiểu rõ ý bạn, bạn có thể giải thích thêm không?|Bạn cần tư vấn cụ thể về vấn đề gì?|Để tư vấn tốt hơn, bạn có thể cho tôi biết thêm chi tiết không?
