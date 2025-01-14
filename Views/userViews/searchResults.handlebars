@@ -4,24 +4,34 @@
         {{#if tours.length}}
             {{#each tours}}
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 shadow-sm">
+                        <!-- Ảnh Tour -->
                         <img 
                             src="{{this.image}}" 
                             class="card-img-top" 
                             alt="{{this.title}}" 
                             style="height: 200px; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title">{{this.title}}</h5>
-                            <p class="card-text">{{this.description}}</p>
-                            <p class="text-primary">{{formatMoney this.price}}</p>
+                            <!-- Tiêu đề -->
+                            <h5 class="card-title text-primary font-weight-bold">{{this.title}}</h5>
+                            
+                            <!-- Mô tả -->
+                            <p class="card-text text-muted">{{this.description}}</p>
+
+                            <!-- Giá -->
+                            <p class="text-primary font-weight-bold">{{formatMoney this.price}}</p>
+                            
+                            <!-- Địa điểm -->
                             <p class="text-muted">Địa điểm: {{this.location_name}}</p>
-                            <a href="/customer/tours/{{this.id}}" class="btn btn-primary">Xem chi tiết</a>
+
+                            <!-- Nút Xem chi tiết -->
+                            <a href="/customer/tours/{{this.id}}" class="btn btn-primary btn-block">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
             {{/each}}
         {{else}}
-            <div class="alert alert-warning">
+            <div class="alert alert-warning text-center w-100">
                 <p>Không tìm thấy kết quả phù hợp.</p>
             </div>
         {{/if}}

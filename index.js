@@ -123,12 +123,6 @@ app.use('/partner', (req, res, next) => {
   res.redirect('/login');
 }, providerRouters)
 
-const { loadLocations } = require('./Controllers/userControllers/tourController');
-
-// Đảm bảo danh sách địa điểm luôn được gắn vào res.locals
-app.use(loadLocations);
-
-
 // Khởi động server
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
