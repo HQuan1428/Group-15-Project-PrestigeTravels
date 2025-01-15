@@ -11,7 +11,9 @@ const {
     try {
       const partnerId = req.session.partner_id; // Lấy partner_id từ session
       const services = await getServicesByPartner(partnerId);
-      res.render('providerViews/providerServices', { services });
+      const role = req.session.userType;
+
+      res.render('providerViews/providerServices', { services,role });
     } catch (err) {
       console.error('Error rendering services:', err);
       res.status(500).send('Lỗi hiển thị dịch vụ');
@@ -19,8 +21,10 @@ const {
   };
   
   // Hiển thị form thêm dịch vụ
-  const renderAddServiceForm = (req, res) => {
-    res.render('providerViews/addService');
+const renderAddServiceForm = (req, res) => {
+    const role = req.session.userType;
+
+    res.render('providerViews/addService',{role});
   };
   
   // Xử lý thêm dịch vụ
@@ -45,7 +49,9 @@ const {
   const renderEditServiceForm = async (req, res) => {
     try {
       const service = await getServiceById(req.params.id);
-      res.render('providerViews/editService', { service });
+      const role = req.session.userType;
+
+      res.render('providerViews/editService', { service,role });
     } catch (err) {
       console.error('Error rendering edit service form:', err);
       res.status(500).send('Lỗi hiển thị form chỉnh sửa');

@@ -1,51 +1,237 @@
-<div class="me-3">
-    <h3>Chi tiết dịch vụ</h3>
+<div class="tour-header" style="background: linear-gradient(45deg, #1a75ff, #00ccff); padding: 30px 0; color: white;">
+    <div class="container">
+        <h1 class="mb-3">{{detail.title}}</h1>
+        <div class="d-flex align-items-center gap-3">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{detail.starting_point}}</span>
+            <i class="fas fa-clock ms-4"></i>
+            <span>{{detail.duration}}</span>
+        </div>
+    </div>
 </div>
-<div class="container mt-5">
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h2 class="card-title text-primary">{{detail.title}}</h2>
-            <p class="card-text text-muted">{{detail.description}}</p>
+<div class="container mt-4">
+    <!-- Carousel ảnh -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div id="tourImageCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <!-- Indicators/dots -->
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#tourImageCarousel" data-bs-slide-to="0" class="active"></button>
+                            {{#each detail.tour_images}}
+                                <button type="button" data-bs-target="#tourImageCarousel" data-bs-slide-to="{{add @index 1}}"></button>
+                            {{/each}}
+                        </div>
 
-            <ul class="list-group list-group-flush mt-4">
-                <li class="list-group-item"><strong>Giá:</strong> {{detail.price}} VND</li>
-                <li class="list-group-item"><strong>Thời lượng:</strong> {{detail.duration}}</li>
-                <li class="list-group-item"><strong>Điểm khởi hành:</strong> {{detail.starting_point}}</li>
-                <li class="list-group-item">
-                    <strong>Trạng thái:</strong> {{detail.status}}
-                </li>
-                <li class="list-group-item"><strong>Mức độ khó:</strong> {{detail.difficulty_level}}</li>
-                {{#if detail.average_rating}}
-                <li class="list-group-item"><strong>Đánh giá trung bình:</strong> {{detail.average_rating}} / 5</li>
-                {{/if}}
-                {{#if detail.max_participants}}
-                <li class="list-group-item"><strong>Số lượng tham gia tối đa:</strong> {{detail.max_participants}} người
-                </li>
-                {{/if}}
-                <!-- Hiển thị tất cả các ngày available_date -->
-                <li class="list-group-item">
-                    <strong>Ngày có sẵn:</strong>
-                    <ul>
+                        <!-- The slideshow/carousel -->
+                        <div class="carousel-inner">
+                            {{#each detail.tour_images}}
+                                <div class="carousel-item {{#if @first}}active{{/if}}">
+                                    <img src="{{image_url}}" class="d-block w-100" alt="Tour Image {{add @index 1}}" style="height: 500px; object-fit: cover;">
+                                </div>
+                            {{/each}}
+                        </div>
+
+                        <!-- Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#tourImageCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#tourImageCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông tin bên phải -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="text-primary mb-0">{{formatMoney detail.price}}</h3>
+                        {{#if detail.average_rating}}
+                            <div class="rating">
+                                <span class="badge bg-warning text-dark">
+                                    <i class="fas fa-star"></i> {{detail.average_rating}}/5
+                                </span>
+                            </div>
+                        {{/if}}
+                    </div>
+                    
+                    <hr>
+
+                    <div class="tour-info">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-users me-2"></i>
+                            <span>Số người tối đa: {{detail.max_participants}} người</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-hiking me-2"></i>
+                            <span>Mức độ: {{detail.difficulty_level}}</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <span>Trạng thái: {{detail.status}}</span>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Ngày có sẵn -->
+                    <h5>Ngày khởi hành sắp tới:</h5>
+                    <ul class="list-group list-group-flush">
                         {{#each detail.available_dates}}
-                        <li>{{this}}</li>
+                            <li class="list-group-item">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                {{this}}
+                            </li>
                         {{/each}}
                     </ul>
-                </li>
-            </ul>
+
+                    <a href="/customer/booking/{{detail.id}}" id="booking-button" class="btn btn-primary w-100 mt-4">Booking</a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Nút Booking -->
-    <div class="mt-4">
-        <a href="/customer/booking/{{detail.tour_id}}" id="booking-button" class="btn btn-primary">Booking</a>
+    <!-- Mô tả chi tiết -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Mô tả chi tiết</h4>
+                    <p class="card-text">{{detail.description}}</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <a href="/customer">Quay lại</a>
+
+    <div class="row">
+        <!-- Dịch vụ -->
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Dịch vụ bao gồm</h4>
+                    <ul class="list-group list-group-flush">
+                        {{#each detail.services}}
+                            <li class="list-group-item">
+                                <i class="fas fa-check text-success me-2"></i>
+                                {{this}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lịch trình -->
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Lịch trình tour</h4>
+                    <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#itineraryModal">
+                        Xem chi tiết lịch trình
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lịch trình -->
+    <div class="modal fade" id="itineraryModal" tabindex="-1" aria-labelledby="itineraryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="itineraryModalLabel">Chi tiết lịch trình tour</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        {{#each detail.itinerary}}
+                            <li class="list-group-item">
+                                <h6 class="mb-2">{{this.title}}</h6>
+                                <p class="mb-0">{{this.description}}</p>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/customer" class="text-decoration-none">
+            <i class="fas fa-arrow-left me-2"></i>Quay lại
+        </a>
+    </div>
 </div>
 
 <style>
+    .tour-header {
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .carousel {
+        border-radius: 0.375rem;
+        overflow: hidden;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+        background: rgba(0,0,0,0.3);
+    }
+    
+    .tour-info i {
+        width: 25px;
+        color: #1a75ff;
+    }
+    
+    .btn-primary {
+        background: #1a75ff;
+        border: none;
+        padding: 12px;
+        font-weight: 600;
+    }
+    
+    .btn-primary:hover {
+        background: #0052cc;
+    }
+
     #booking-button:disabled {
         background-color: #ccc;
         cursor: not-allowed;
+    }
+
+    .list-group-item {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .modal-body ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .modal-body li {
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+    .btn-link {
+        color: #1a75ff;
+        text-decoration: none;
+    }
+
+    .btn-link:hover {
+        color: #0052cc;
+        text-decoration: underline;
     }
 </style>

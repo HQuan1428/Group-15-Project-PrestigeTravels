@@ -27,7 +27,34 @@
     .table th {
         vertical-align: middle;
     }
+
+    /* CSS đi kèm để demo */
+    #notification {
+        position: fixed;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: top 0.5s ease-out;
+        z-index: 1000;
+    }
+
+    #notification.show {
+        top: 20px;
+    }
+
+    .hidden {
+        display: none;
+    }
 </style>
+
+<div id="notification" class="hidden">
+    <p>Thanh toán thành công!</p>
+</div>
 
 <div class="container mt-5">
     <!-- Order Header -->
@@ -40,15 +67,11 @@
             </div>
             <div class="col-md-4">
                 <strong>Số tiền:</strong>
-                <span>{{paymentInfo.amount}}</span>
+                <span id="amount" >₫0</span>
             </div>
             <div class="col-md-4">
                 <strong>TT hóa đơn:</strong>
-                {{#if (eq paymentInfo.status 'pending') }}
-                    <span class="status">Chưa thanh toán</span>
-                {{else}}
-                    <span class="status" style="background-color: green;" >Đã thanh toán</span>
-                {{/if}}
+                <span class="status" id="paymentStatus">Chưa thanh toán</span>
             </div>
         </div>
         <div class="row mt-3">
@@ -74,7 +97,6 @@
                 <tr>
                     <td>{{detail.title}}</td>
                     <td>{{numbers}}</td>
-                    <td><span class="badge bg-secondary">Chờ</span></td>
                 </tr>
             </tbody>
         </table>
@@ -93,7 +115,8 @@
                     <td><strong>Số tài khoản:</strong></td>
                     <td>
                         {{bankAccount}}
-                        <button class="btn btn-primary btn-rectangle" onclick="copyToClipboard('{{bankAccount}}')">copy</button>
+                        <button class="btn btn-primary btn-rectangle"
+                            onclick="copyToClipboard('{{bankAccount}}')">copy</button>
                     </td>
                 </tr>
                 <tr>
@@ -109,9 +132,10 @@
                     <td><strong>Nội dung thanh toán:</strong></td>
                     <!-- Tạo định dạng cho nội dung thanh toán -->
                     <td>Tour: {{tour_id}} {{detail.title}}
-                        <button class="btn btn-primary btn-rectangle" onclick="copyToClipboard('Tour: {{tour_id}} {{detail.title}}')">copy</button>
+                        <button class="btn btn-primary btn-rectangle"
+                            onclick="copyToClipboard('Tour: {{tour_id}} {{detail.title}}')">copy</button>
                     </td>
-                    
+
                 </tr>
                 <tr>
                     <td><strong>Mã QR:</strong></td>
@@ -123,6 +147,70 @@
         </table>
     </div>
 </div>
+
+<script>
+    function updateSummary() {
+        const price = "{{paymentInfo.amount}}";
+        document.getElementById('amount').textContent = '₫' + parseFloat(price).toLocaleString('vi-VN');
+    }
+    document.addEventListener("DOMContentLoaded", updateSummary);
+</script>
+
+<script>
+
+    function updatePaymentStatus() {
+        const statusElement = document.getElementById('paymentStatus');
+
+        // Thay đổi nội dung và màu nền của thẻ
+        statusElement.textContent = 'Đã thanh toán';
+        statusElement.style.backgroundColor = 'green'; // Màu nền xanh
+        statusElement.style.color = 'white'; // Chữ màu trắng
+    }
+
+    function showNotification() {
+        const notification = document.getElementById('notification');
+
+        // Hiển thị bảng và kích hoạt animation
+        notification.classList.remove('hidden');
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10); // Thêm độ trễ nhỏ để đảm bảo transition hoạt động
+
+        // Ẩn bảng sau 3 giây
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 500); // Chờ cho animation kết thúc trước khi ẩn
+        }, 3000);
+    }
+
+
+
+    function checkPaymentStatus() {
+        const tour_id = "{{tour_id}}";
+        fetch(`/status/${tour_id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'confirmed') {
+                    updatePaymentStatus();
+                    // Hiển thị thông báo thanh toán thành công
+                    showNotification();
+
+
+                    // Chuyển hướng tới trang chủ sau 3.5 giây
+                    setTimeout(() => {
+                        window.location.href = '/customer'; // Đường dẫn trang chủ
+                    }, 3500); // 3.5 giây cho người dùng xem thông báo
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi kiểm tra trạng thái thanh toán:', error);
+            });
+    }
+
+    document.addEventListener("DOMContentLoaded", setInterval(checkPaymentStatus, 5000))
+</script>
 
 <script>
     function copyToClipboard(text) {

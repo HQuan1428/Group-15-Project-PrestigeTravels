@@ -1,0 +1,121 @@
+<style>
+    .notification-item.bg-light {
+    background-color: #e9f7ff !important; /* Màu nền xanh nhạt */
+    color: #000 !important; /* Màu chữ đen */
+}
+.notification-item.bg-light .notification-icon {
+    background-color: #cceeff !important; /* Đảm bảo màu icon đồng nhất */
+}
+
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        {{> profileSidebar}}
+        
+        <!-- Main Content -->
+        <div class="col-md-9 content">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">
+                        <i class="fas fa-bell me-2"></i>Thông Báo
+                    </h4>
+
+                    <!-- Tabs thông báo -->
+                    <ul class="nav nav-tabs mb-4">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#all">
+                                Tất cả
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#unread">
+                                Chưa đọc
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Nội dung thông báo -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="all">
+                            {{#if notifications}}
+                                {{#each notifications}}
+                                    <div class="notification-item p-3 mb-3 border rounded {{#unless this.is_read}}bg-light{{/unless}}">
+    <div class="d-flex align-items-center">
+        <div class="notification-icon me-3">
+            {{#if (eq this.type "system")}}
+                <i class="fas fa-info-circle text-info fa-lg"></i>
+            {{else if (eq this.type "booking")}}
+                <i class="fas fa-calendar-check text-success fa-lg"></i>
+            {{else if (eq this.type "promotion")}}
+                <i class="fas fa-gift text-primary fa-lg"></i>
+            {{/if}}
+        </div>
+        <div class="notification-content flex-grow-1">
+            <h6 class="mb-1">{{this.title}}</h6>
+            <p class="mb-1">{{this.content}}</p>
+            <small class="text-muted">
+                <i class="far fa-clock me-1"></i>{{formatDate this.created_at}}
+            </small>
+        </div>
+        {{#unless this.is_read}}
+            <button class="btn btn-sm btn-outline-primary mark-as-read" 
+                    data-id="{{this.id}}">
+                Đánh dấu đã đọc
+            </button>
+        {{/unless}}
+    </div>
+</div>
+
+                                {{/each}}
+                            {{else}}
+                                <div class="text-center py-5">
+                                    <i class="fas fa-bell-slash fa-3x text-muted mb-3"></i>
+                                    <p>Không có thông báo nào</p>
+                                </div>
+                            {{/if}}
+                        </div>
+
+                        <div class="tab-pane fade" id="unread">
+                            <!-- Nội dung tương tự như trên nhưng chỉ hiển thị thông báo chưa đọc -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+}
+</style>
+
+<script>
+document.querySelectorAll('.mark-as-read').forEach(button => {
+    button.addEventListener('click', async () => {
+        const notificationId = button.dataset.id;
+        try {
+            const response = await fetch(`/customer/notifications/${notificationId}/read`, {
+                method: 'POST'
+            });
+            if (response.ok) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Lỗi khi đánh dấu đã đọc:', error);
+        }
+    });
+});
+</script> 

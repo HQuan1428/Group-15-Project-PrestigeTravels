@@ -15,8 +15,9 @@ const getOrdersByPartner = (partnerId) => {
 // Lấy chi tiết đơn hàng
 const getOrderDetails = (orderId) => {
     return db.oneOrNone(`
-        SELECT b.id AS order_id, u.fullname AS customer_name, b.total_price, b.status, 
-               b.created_at AS order_date, t.title AS tour_name, b.payment_method, b.adults, b.children
+        SELECT b.id AS order_id, u.fullname AS customer_name, 
+               b.total_price, b.status, b.created_at AS order_date, 
+               t.title AS tour_name, b.adults, b.children
         FROM bookings b
         JOIN tours t ON b.tour_id = t.id
         JOIN users u ON b.user_id = u.id

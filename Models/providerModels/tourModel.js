@@ -124,11 +124,10 @@ const getTourDetailsWithDates = async (tourId) => {
         WHERE tour_id = t.id AND is_main = false
       ) AS sub_images,
       (
-        SELECT json_agg(s.name)
-        FROM tour_services ts
-        JOIN services s ON ts.service_id = s.id
-        WHERE ts.tour_id = t.id
-      ) AS services,
+        SELECT json_agg(json_build_object('day', ti.day_number, 'title', ti.title, 'description', ti.description))
+        FROM tour_itinerary ti
+        WHERE ti.tour_id = t.id
+      ) AS itinerary,
       (
         SELECT json_agg(json_build_object('date', td.available_date, 'slots', td.slots_available))
         FROM tour_dates td

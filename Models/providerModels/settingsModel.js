@@ -1,23 +1,23 @@
 const { db } = require('../Connect_Server/db');
 
-// Lấy thông tin nhà cung cấp
+// Get partner details by user ID
 async function getPartnerByUserId(userId) {
     return db.oneOrNone('SELECT * FROM partners WHERE user_id = $1', [userId]);
 }
 
-// Cập nhật thông tin nhà cung cấp
+// Update partner information
 async function updatePartnerInfo(userId, data) {
-    const { representativeName, position, businessAddress, bankAccount, bankName } = data;
+    const { companyName, representativeName, position, businessAddress, bankAccount, bankName } = data;
     return db.none(
         `UPDATE partners 
-         SET representative_name = $1, position = $2, business_address = $3, 
-             bank_account = $4, bank_name = $5
-         WHERE user_id = $6`,
-        [representativeName, position, businessAddress, bankAccount, bankName, userId]
+         SET company_name = $1, representative_name = $2, position = $3, business_address = $4, 
+             bank_account = $5, bank_name = $6
+         WHERE user_id = $7`,
+        [companyName, representativeName, position, businessAddress, bankAccount, bankName, userId]
     );
 }
 
-// Thêm email mới
+// Add a new email
 async function addPartnerEmail(userId, email) {
     return db.none(
         `INSERT INTO partner_emails (partner_id, email) 
@@ -26,7 +26,7 @@ async function addPartnerEmail(userId, email) {
     );
 }
 
-// Thêm số điện thoại mới
+// Add a new phone number
 async function addPartnerPhone(userId, phone) {
     return db.none(
         `INSERT INTO partner_phones (partner_id, phone) 
@@ -35,7 +35,7 @@ async function addPartnerPhone(userId, phone) {
     );
 }
 
-// Lấy danh sách email và số điện thoại của nhà cung cấp
+// Get partner contacts
 async function getPartnerContacts(userId) {
     const emails = await db.manyOrNone(
         `SELECT email 
@@ -52,9 +52,9 @@ async function getPartnerContacts(userId) {
     );
 
     return {
-        emails: emails.map(e => e.email),
-        phones: phones.map(p => p.phone)
+        emails: emails.map((e) => e.email),
+        phones: phones.map((p) => p.phone),
     };
 }
 
-module.exports = { getPartnerByUserId, updatePartnerInfo, addPartnerEmail, addPartnerPhone,getPartnerContacts };
+module.exports = { getPartnerByUserId, updatePartnerInfo, addPartnerEmail, addPartnerPhone, getPartnerContacts };

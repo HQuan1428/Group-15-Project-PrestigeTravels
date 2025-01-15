@@ -1,0 +1,26 @@
+const { db } = require('../Connect_Server/db');
+
+async function getCoupons() {
+    try {
+        const result = await db.query(`
+            SELECT 
+                c.*, 
+                t.title as tour_name,
+                CASE 
+                    WHEN c.end_date >= CURRENT_DATE THEN true 
+                    ELSE false 
+                END as is_available
+            FROM coupons c
+            LEFT JOIN tours t ON c.tour_id = t.id
+            ORDER BY c.created_at DESC
+        `);
+        return result;
+    } catch (error) {
+        console.error('Error getting coupons:', error);
+        throw error;
+    }
+}
+
+module.exports = {
+    getCoupons
+}

@@ -119,6 +119,7 @@ async function get_booking_info(tour_id, user_id)
         let tour_info = await db.query(`SELECT * 
                                     FROM bookings 
                                     WHERE tour_id = $1 AND user_id = $2
+                                    ORDER BY id DESC
                                     `, [tour_id, user_id]);
         
         return tour_info;

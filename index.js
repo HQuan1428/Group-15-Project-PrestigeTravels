@@ -8,7 +8,10 @@ const { initializePassport } = require('./config/passport'); // Cấu hình Pass
 
 const port = 4000
 const app = express()
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', (req, res, next) => {
+    console.log('Image request path:', req.path);
+    next();
+}, express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // Cấu hình session
@@ -30,7 +33,8 @@ app.engine('handlebars', engine({
   partialsDir: [
     path.join(__dirname, 'views', 'partials'),
     path.join(__dirname, 'views', 'providerViews'),
-    path.join(__dirname, 'views', 'userViews')
+    path.join(__dirname, 'views', 'userViews'),
+    path.join(__dirname, 'views', 'userViews', 'Chat')
   ],
   helpers: {
     json: function (context) {
@@ -58,6 +62,18 @@ app.engine('handlebars', engine({
     ifEquals: function (arg1, arg2, options) {
       return arg1 == arg2 ? options.fn(this) : options.inverse(this);
     },
+    add: function(a, b) {
+      return a + b;
+    },
+    truncate: function(str, len) {
+      if (str.length > len) {
+        return str.substring(0, len) + '...';
+      }
+      return str;
+    },
+    isLongerThan: function(str, len) {
+      return str.length > len;
+    }
   }
 }))
 app.set('view engine', 'handlebars')
@@ -95,7 +111,8 @@ app.use(logoutRoutes)
 // Admin
 const adminRouters = require('./Routers/adminRouters/adminRouters')
 app.use(adminRouters)
-
+const tourRouter = require('./Routers/userRouters/tourRouter');
+app.use('/', tourRouter);
 // Nhà cung cấp
 const providerRouters = require('./Routers/providerRouters/providerRouter')
 app.use('/partner', (req, res, next) => {

@@ -14,7 +14,9 @@ const renderOrders = async (req, res) => {
 
         const orders = await getOrdersByPartner(partnerId);
         console.log(orders); // In ra dữ liệu để kiểm tra trạng thái
-        res.render('providerViews/providerOrders', { orders });
+        const role = req.session.userType;
+
+        res.render('providerViews/providerOrders', { orders,role });
     } catch (err) {
         console.error('Error rendering orders:', err);
         res.status(500).send('Lỗi hiển thị danh sách đơn hàng');
@@ -31,8 +33,10 @@ const renderOrderDetails = async (req, res) => {
         if (!order) {
             return res.status(404).send('Không tìm thấy đơn hàng.');
         }
+        const role = req.session.userType;
 
-        res.render('providerViews/orderDetails', { order });
+
+        res.render('providerViews/orderDetails', { order,role });
     } catch (err) {
         console.error('Error rendering order details:', err);
         res.status(500).send('Lỗi hiển thị chi tiết đơn hàng');

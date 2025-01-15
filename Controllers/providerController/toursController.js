@@ -197,7 +197,9 @@ const renderTours = async (req, res) => {
 
     const tours = await getToursByPartner(partnerId);
     console.log(tours); // Log dữ liệu tours ra để kiểm tra
-    res.render('providerViews/providerTours', { tours });
+            const role = req.session.userType;
+
+    res.render('providerViews/providerTours', { tours,role });
   } catch (err) {
     console.error('Error rendering tours:', err);
     res.status(500).send('Lỗi hiển thị danh sách tour');
@@ -207,8 +209,10 @@ const renderTours = async (req, res) => {
 // Hiển thị form thêm tour
 const renderAddTourForm = async (req, res) => {
   try {
-      const locations = await db.any('SELECT name FROM locations');
-      res.render('providerViews/addTour', { locations });
+    const locations = await db.any('SELECT name FROM locations');
+            const role = req.session.userType;
+
+      res.render('providerViews/addTour', { locations,role });
   } catch (error) {
       console.error('Error fetching locations:', error.message);
       res.status(500).send('Lỗi lấy danh sách địa điểm');
@@ -220,7 +224,9 @@ const renderEditTourForm = async (req, res) => {
   try {
     const tour = await getTourById(req.params.id);
     const locations = await db.any('SELECT name FROM locations'); // Lấy danh sách địa điểm
-    res.render('providerViews/editTour', { tour, locations });
+            const role = req.session.userType;
+
+    res.render('providerViews/editTour', { tour, locations,role });
   } catch (err) {
     console.error('Error rendering edit tour form:', err);
     res.status(500).send('Lỗi hiển thị form chỉnh sửa');
@@ -265,8 +271,10 @@ const renderTourDetails = async (req, res) => {
     if (!tour) {
       return res.status(404).send('Tour không tồn tại');
     }
+            const role = req.session.userType;
 
-    res.render('providerViews/tourDetails', { tour });
+
+    res.render('providerViews/tourDetails', { tour,role });
   } catch (err) {
     console.error('Error rendering tour details:', err);
     res.status(500).send('Lỗi hiển thị chi tiết tour');

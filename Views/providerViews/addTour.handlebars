@@ -25,6 +25,20 @@
                     <label for="starting_point" class="form-label">Địa điểm</label>
                     <input type="text" class="form-control" id="starting_point" name="starting_point" placeholder="Nhập điểm bắt đầu">
                 </div>
+
+                <!-- Lịch trình -->
+<div class="mb-3">
+  <label for="itinerary" class="form-label">Lịch trình</label>
+  <div id="itinerarySection">
+    <div class="input-group mb-3 itinerary-item">
+      
+      <textarea name="itinerary[0][description]" class="form-control" placeholder="Mô tả"></textarea>
+      <button type="button" class="btn btn-danger remove-itinerary-btn">Xóa</button>
+    </div>
+  </div>
+  <button type="button" id="addItineraryBtn" class="btn btn-secondary">Thêm ngày</button>
+</div>
+
                 
                 
 
@@ -217,4 +231,25 @@ servicesSection.addEventListener('click', (event) => {
     }
 });
 
+let itineraryIndex = 1;
+
+  document.getElementById('addItineraryBtn').addEventListener('click', () => {
+    const itinerarySection = document.getElementById('itinerarySection');
+    const itineraryItem = document.createElement('div');
+    itineraryItem.classList.add('input-group', 'mb-3', 'itinerary-item');
+    itineraryItem.innerHTML = `
+      <input type="number" name="itinerary[${itineraryIndex}][day]" class="form-control" placeholder="Ngày" required>
+      <input type="text" name="itinerary[${itineraryIndex}][title]" class="form-control" placeholder="Tiêu đề lịch trình" required>
+      <textarea name="itinerary[${itineraryIndex}][description]" class="form-control" placeholder="Mô tả"></textarea>
+      <button type="button" class="btn btn-danger remove-itinerary-btn">Xóa</button>
+    `;
+    itinerarySection.appendChild(itineraryItem);
+    itineraryIndex++;
+  });
+
+  document.getElementById('itinerarySection').addEventListener('click', (event) => {
+    if (event.target.classList.contains('remove-itinerary-btn')) {
+      event.target.closest('.itinerary-item').remove();
+    }
+  });
 </script>

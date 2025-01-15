@@ -5,7 +5,9 @@ async function renderFAQs(req, res) {
     try {
         const partnerId = req.session.partner_id;
         const faqs = await getFAQs(partnerId);
-        res.render('providerViews/faqs', { faqs });
+        const role = req.session.userType;
+
+        res.render('providerViews/faqs', { faqs,role });
     } catch (error) {
         console.error('Error fetching FAQs:', error.message);
         res.status(500).send('Lỗi lấy danh sách FAQs.');

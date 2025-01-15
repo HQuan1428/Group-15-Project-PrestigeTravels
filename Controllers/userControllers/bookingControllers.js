@@ -1,19 +1,22 @@
 // controllers/bookingController.js
 const { createBooking, getTourPrice } = require('../../Models/userModels/userModels');
-
+const { addNotification } = require('../../Models/userModels/profileModels/notificationModel');
 async function bookTour(req, res) {
     try {
         const tour_id = req.params.id;
-        //console.log('Tour ID:', tour_id);
+        const { 
+            adults, 
+            children, 
+            available_date,
+            contactName,
+            contactEmail,
+            contactPhone
+        } = req.body;
 
-        const { adults, children,available_date  } = req.body;
-        //console.log(adults, children,available_date);
-        // Kiểm tra ID tour
         if (!tour_id) {
             return res.status(400).send('Tour ID is missing');
         }
         const userId = req.session.user_id;
-        //console.log(userId);
 
         // Kiểm tra số lượng người lớn và trẻ em
         if (!adults || !children) {
@@ -29,16 +32,24 @@ async function bookTour(req, res) {
 
         // Tính tổng giá
         const totalPrice = (adults * tourPrice) + (children * (tourPrice * 0.5));
-        //console.log('Total Price:', totalPrice);
 
-        // Tạo booking
-        const booking = await createBooking(userId, tour_id, adults, children, totalPrice,available_date);
+        // Tạo booking với thông tin liên hệ
+        const booking = await createBooking(
+            userId, 
+            tour_id, 
+            adults, 
+            children, 
+            totalPrice,
+            available_date,
+            contactName,
+            contactEmail,
+            contactPhone
+        );
 
         if (!booking) {
             return res.status(500).send('Tạo booking thất bại');
         }
 
-        // Chuyển hướng hoặc trả về thông báo thành công
         res.redirect(`/customer/payment/${tour_id}`);
     } catch (error) {
         console.error('Error booking tour:', error.message);
@@ -80,16 +91,39 @@ async function DetailTour(req, res) {
         if(!req.isAuthenticated())
     {
         return res.redirect('/login');
-    }
+        }
+        const role = req.session.userType;
+
 
         res.render('userViews/bookingTour', {
             tour_id: tour.id,
-            available_dates: tour.available_dates
+            available_dates: tour.available_dates,role
         });
     } catch (error) {
         console.error('Error fetching tour details:', error.message);
         res.status(500).send('Không thể lấy thông tin tour');
     }
 }
+async function cancelBooking(req, res) {
+    const bookingId = req.params.id;
+    const userId = req.session.user_id;
 
-module.exports = { bookTour ,DetailTour};
+    try {
+        // Logic to cancel the booking
+        await updateBookingStatus(bookingId, 'canceled');
+
+        // Add a notification for canceled booking
+        await addNotification(userId, {
+            title: 'Hủy tour thành công',
+            content: `Đặt chỗ #${bookingId} đã bị hủy.`,
+            type: 'booking',
+        });
+
+        res.redirect('/customer/profile/notification');
+    } catch (error) {
+        console.error('Error canceling booking:', error);
+        res.status(500).send('Không thể hủy đặt chỗ');
+    }
+}
+
+module.exports = { bookTour ,DetailTour,cancelBooking};

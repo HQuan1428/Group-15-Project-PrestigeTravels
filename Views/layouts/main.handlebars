@@ -71,79 +71,84 @@
 <body>
     <div class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold" href="/{{role}}">Prestige Travels</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    {{#if (eq role 'admin')}}
-                    <ul class="navbar-nav ms-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/{{role}}">Prestige Travels</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                {{#if (eq role 'admin')}}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+                {{else if (eq role 'partner')}}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/partner/tours">Quản lý tour</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+                {{else}}
+                <!-- Thanh tìm kiếm -->
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <form action="/search" method="GET" class="d-flex">
+        <input 
+            type="text" 
+            name="query" 
+            placeholder="Tìm kiếm tour..." 
+            class="form-control me-2"
+            value="{{query}}">
+        {{#if isSearchPage}}
+        <select name="location" class="form-select me-2">
+            <option value="">Tất cả địa điểm</option>
+            {{#each locations}}
+                <option value="{{this.name}}" {{#if (eq ../location this.name)}}selected{{/if}}>
+                    {{this.name}}
+                </option>
+            {{/each}}
+        </select>
+        {{/if}}
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+
+
+
+
+                    <!-- Menu đăng nhập/đăng ký -->
+                    <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link text-primary fw-bold" href="/register">Đăng ký</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link text-primary fw-bold" href="/login">Đăng nhập</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <a class="nav-link text-primary" href="/customer/profile">
+                                <i class="fas fa-user"></i>
+                            </a>
                         </li>
                     </ul>
-                    {{else if (eq role 'partner')}}
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                    {{else}}
-                    <!-- Thanh tìm kiếm -->
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <form class="header-search-form d-flex flex-grow-1 me-3">
-                            <div class="input-group">
-                                <select class="form-select form-select-sm rounded-start" aria-label="Chọn địa điểm">
-                                    <option value="">Tất cả địa điểm</option>
-                                    <option value="hanoi">Hà Nội</option>
-                                    <option value="halong">Hạ Long</option>
-                                    <option value="danang">Đà Nẵng</option>
-                                    <option value="hoian">Hội An</option>
-                                    <option value="nhatrang">Nha Trang</option>
-                                    <option value="dalat">Đà Lạt</option>
-                                    <option value="phuquoc">Phú Quốc</option>
-                                </select>
-                                <input type="text" class="form-control form-control-sm" placeholder="Tìm kiếm...">
-                                <button class="btn btn-primary btn-sm" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </form>
-                        <!-- Menu đăng nhập/đăng ký -->
-                        <ul class="navbar-nav ms-3">
-                            <li class="nav-item">
-                                <a class="nav-link text-primary fw-bold" href="/register">Đăng ký</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-primary fw-bold" href="/login">Đăng nhập</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-primary" href="/customer/profile">
-                                    <i class="fas fa-user"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    {{/if}}
                 </div>
+                {{/if}}
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
+
 
 
         {{#if (eq role 'admin')}}
@@ -248,6 +253,77 @@
                     }
                 });
             });
+    </script>
+
+    <!-- Thêm nút chat và include partial chat -->
+    <div class="chat-toggle" id="chatToggle">
+        <i class="fas fa-comments"></i>
+    </div>
+    {{> chat}}
+
+    <style>
+    .chat-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: #007bff;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+
+    .chat-toggle i {
+        font-size: 24px;
+    }
+
+    .chat-container {
+        display: none;
+    }
+
+    .chat-container.active {
+        display: block;
+    }
+    </style>
+
+    <script>
+    const chatToggle = document.getElementById('chatToggle');
+    const chatContainer = document.querySelector('.chat-container');
+
+    chatToggle.addEventListener('click', () => {
+        chatContainer.classList.toggle('active');
+        // Ẩn nút toggle khi chat hiện
+        chatToggle.style.display = chatContainer.classList.contains('active') ? 'none' : 'flex';
+    });
+
+    // Thêm nút đóng chat
+    const chatHeader = document.querySelector('.chat-header');
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '<i class="fas fa-times"></i>';
+    closeButton.className = 'chat-close-btn';
+    closeButton.style.cssText = `
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+    `;
+    chatHeader.style.position = 'relative';
+    chatHeader.appendChild(closeButton);
+
+    closeButton.addEventListener('click', () => {
+        chatContainer.classList.remove('active');
+        chatToggle.style.display = 'flex';
+    });
     </script>
 </body>
 </html>
