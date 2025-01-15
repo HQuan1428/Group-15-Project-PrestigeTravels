@@ -133,7 +133,7 @@
                         {{else}}
                         <!-- Thanh tìm kiếm -->
                         <div class="d-flex w-100 align-items-center justify-content-between">
-                            <form action="/search" method="GET" class="d-flex">
+                            <form action="/search" method="GET" class="d-flex custom-form">
                                 <input type="text" name="query" placeholder="Tìm kiếm tour..." class="form-control me-2"
                                     value="{{query}}">
                                 <select name="location" class="form-select me-2">
@@ -144,7 +144,7 @@
                                     </option>
                                     {{/each}}
                                 </select>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </form>
@@ -379,6 +379,48 @@
             .footer-bottom {
                 font-size: 12px;
             }
+        }
+
+        /* Đặt màu chữ và viền đen cho toàn bộ form */
+        .custom-form input,
+        .custom-form select,
+        .custom-form button {
+            color: #000;
+            /* Chữ màu đen */
+            border-color: #000;
+            /* Viền màu đen */
+        }
+
+        /* Đặt màu chữ đen cho placeholder */
+        .custom-form input::placeholder {
+            color: #000;
+            /* Placeholder màu đen */
+        }
+
+        /* Đặt viền đen khi focus */
+        .custom-form input:focus,
+        .custom-form select:focus {
+            outline: none;
+            /* Loại bỏ viền mặc định */
+            box-shadow: 0 0 5px #000;
+            /* Viền đen khi focus */
+        }
+
+        /* Đặt màu chữ và viền đen cho nút */
+        .custom-form button {
+            background-color: #fff;
+            /* Nền trắng */
+            color: #000;
+            /* Chữ màu đen */
+            border-color: #000;
+            /* Viền màu đen */
+        }
+
+        .custom-form button:hover {
+            background-color: #000;
+            /* Nền đen khi hover */
+            color: #fff;
+            /* Chữ trắng khi hover */
         }
     </style>
 
