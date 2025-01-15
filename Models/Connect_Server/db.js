@@ -4,10 +4,10 @@ const initOption = {
 const pgp=require('pg-promise')(initOption)
 const dbConfig = {
 user: 'postgres',
-password: '123456',
+password: 'postgres',
 host: 'localhost',
 port: '5432',
-database: 'CNPM2',
+database: 'CNPM',
 };
 
 const db = pgp(dbConfig)

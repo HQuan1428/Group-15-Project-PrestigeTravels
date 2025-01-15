@@ -38,149 +38,175 @@
             background-color: #f8f9fa;
             border-top: 1px solid #dee2e6;
         }
+
         .active {
             background-color: #007bff !important;
             color: white !important;
         }
+
         .nav-search .form-select {
-    max-width: 200px;
-    border-right: 0;
-}
+            max-width: 200px;
+            border-right: 0;
+        }
 
-.nav-search .form-control {
-    border-left: 0;
-}
+        .nav-search .form-control {
+            border-left: 0;
+        }
 
-.nav-search button {
-    border-radius: 0;
-    padding: 0 20px;
-}
+        .nav-search button {
+            border-radius: 0;
+            padding: 0 20px;
+        }
 
-.navbar-nav .nav-link {
-    margin-left: 15px;
-    transition: color 0.3s ease;
-}
+        .navbar-nav .nav-link {
+            margin-left: 15px;
+            transition: color 0.3s ease;
+        }
 
-.navbar-nav .nav-link:hover {
-    color: #0056b3;
-}
+        .navbar-nav .nav-link:hover {
+            color: #0056b3;
+        }
 
+        header {
+            background-color: pink;
+            color: white;
+            padding: 20px;
+        }
+
+        header * {
+            background-color: transparent !important;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid rgb(101, 98, 98);
+        }
+
+        .nav-link {
+            border: 2px solid rgb(101, 98, 98);
+            /* Khung viền màu đen */
+            padding: 5px 10px;
+            /* Đảm bảo có khoảng cách xung quanh text */
+            border-radius: 5px;
+            /* Làm tròn các góc của viền (tùy chọn) */
+        }
+
+        .nav-link:hover {
+            background-color: #f0f0f0;
+            /* Thêm màu nền khi hover (tùy chọn) */
+        }
     </style>
 </head>
 
 <body>
     <div class="d-flex flex-column min-vh-100">
-    <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="/{{role}}">Prestige Travels</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                {{#if (eq role 'admin')}}
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
-                {{else if (eq role 'partner')}}
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/partner/tours">Quản lý tour</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
-                {{else}}
-                <!-- Thanh tìm kiếm -->
-                <div class="d-flex w-100 align-items-center justify-content-between">
-                    <form action="/search" method="GET" class="d-flex">
-        <input 
-            type="text" 
-            name="query" 
-            placeholder="Tìm kiếm tour..." 
-            class="form-control me-2"
-            value="{{query}}">
-        <select name="location" class="form-select me-2">
-            <option value="">Tất cả địa điểm</option>
-            {{#each locations}}
-                <option value="{{this.name}}" {{#if (eq ../location this.name)}}selected{{/if}}>
-                    {{this.name}}
-                </option>
-            {{/each}}
-        </select>
-        <button type="submit" class="btn btn-primary">
-            <i class="fas fa-search"></i>
-        </button>
-    </form>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+                <div class="container-fluid">
+                    <a class="navbar-brand fw-bold" href="/{{role}}">Prestige Travels</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        {{#if (eq role 'admin')}}
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                        {{else if (eq role 'partner')}}
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/partner/tours">Quản lý tour</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                        {{else}}
+                        <!-- Thanh tìm kiếm -->
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <form action="/search" method="GET" class="d-flex custom-form">
+                                <input type="text" name="query" placeholder="Tìm kiếm tour..." class="form-control me-2"
+                                    value="{{query}}">
+                                <select name="location" class="form-select me-2">
+                                    <option value="">Tất cả địa điểm</option>
+                                    {{#each locations}}
+                                    <option value="{{this.name}}" {{#if (eq ../location this.name)}}selected{{/if}}>
+                                        {{this.name}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                                <button type="submit" class="btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
 
 
 
 
-                    <!-- Menu đăng nhập/đăng ký -->
-                    <ul class="navbar-nav ms-3">
-                        <li class="nav-item">
-                            <a class="nav-link text-primary fw-bold" href="/register">Đăng ký</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-primary fw-bold" href="/login">Đăng nhập</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" href="/customer/profile">
-                                <i class="fas fa-user"></i>
-                            </a>
-                        </li>
-                    </ul>
+                            <!-- Menu đăng nhập/đăng ký -->
+                            <ul class="navbar-nav ms-3">
+                                <li class="nav-item">
+                                    <a class="nav-link text-primary fw-bold" href="/register">Đăng ký</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-primary fw-bold" href="/login">Đăng nhập</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-primary" href="/customer/profile">
+                                        <i class="fas fa-user"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {{/if}}
+                    </div>
                 </div>
-                {{/if}}
-            </div>
-        </div>
-    </nav>
-</header>
+            </nav>
+        </header>
 
 
 
         {{#if (eq role 'admin')}}
         <div class="container-fluid">
             <div class="row">
-            <!-- Menu bên trái -->
-            <div class="col-md-3 bg-light vh-100">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link " href="/admin/accounts">Quản lý tài
-                            khoản</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="/admin/approvals">Xét duyệt dịch
-                            vụ</a>
-                    </li>
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link " href="/admin/systems">Hoạt động hệ
-                            thống</a>
-                    </li> --}}
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link " href="/admin/reports">Phân tích và báo
-                            cáo</a>
-                    </li> --}}
-                    {{!-- <li class="nav-item">
-                        <a class="nav-link " href="/admin/errors">Quản lý lỗi hệ
-                            thống</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/posts">Quản lý bài viết</a>
-                    </li> --}}
+                <!-- Menu bên trái -->
+                <div class="col-md-3 bg-light vh-100">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link " href="/admin/accounts">Quản lý tài
+                                khoản</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/admin/approvals">Xét duyệt dịch
+                                vụ</a>
+                        </li>
+                        {{!-- <li class="nav-item">
+                            <a class="nav-link " href="/admin/systems">Hoạt động hệ
+                                thống</a>
+                        </li> --}}
+                        {{!-- <li class="nav-item">
+                            <a class="nav-link " href="/admin/reports">Phân tích và báo
+                                cáo</a>
+                        </li> --}}
+                        {{!-- <li class="nav-item">
+                            <a class="nav-link " href="/admin/errors">Quản lý lỗi hệ
+                                thống</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/posts">Quản lý bài viết</a>
+                        </li> --}}
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
                 <!-- Nội dung bên phải -->
                 <div class="col-md-9">
                     <div class="p-4">
@@ -226,9 +252,9 @@
                     </div>
                     <div class="col-md-3 footer-column">
                         <h3>Liên hệ</h3>
-                        <p>Trường ĐH KHTN</p>
-                        <p>(+84 12) 345 6789</p>
-                        <p>PrestigeTravels@gmail.com</p>
+                        <p>Đ/c: Trường ĐH KHTN</p>
+                        <p>SĐT: (+84 12) 345 6789</p>
+                        <p>Email: PrestigeTravels@gmail.com</p>
                     </div>
                 </div>
                 <div class="footer-bottom text-center mt-3">
@@ -242,15 +268,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-         document.addEventListener('DOMContentLoaded', function () {
-                var currentUrl = window.location.pathname;
-                var links = document.querySelectorAll('.nav-link');
-                links.forEach(function (link) {
-                    if (link.getAttribute('href') === currentUrl) {
-                        link.classList.add('active');
-                    }
-                });
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentUrl = window.location.pathname;
+            var links = document.querySelectorAll('.nav-link');
+            links.forEach(function (link) {
+                if (link.getAttribute('href') === currentUrl) {
+                    link.classList.add('active');
+                }
             });
+        });
     </script>
 
     <!-- Thêm nút chat và include partial chat -->
@@ -260,52 +286,160 @@
     {{> chat}}
 
     <style>
-    .chat-toggle {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-        background: #007bff;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        z-index: 1000;
-    }
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
 
-    .chat-toggle i {
-        font-size: 24px;
-    }
+        .chat-toggle i {
+            font-size: 24px;
+        }
 
-    .chat-container {
-        display: none;
-    }
+        .chat-container {
+            display: none;
+        }
 
-    .chat-container.active {
-        display: block;
-    }
+        .chat-container.active {
+            display: block;
+        }
+
+        /* Cải tiến phần footer */
+        footer {
+            background-color: black;
+            color: black;
+            padding-top: 40px;
+            padding-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        footer h3 {
+            color: rgb(225, 109, 128);
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        footer ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer ul li a {
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        footer ul li a:hover {
+            color: rgb(225, 109, 128);
+        }
+
+        .footer-column {
+            margin-bottom: 20px;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            font-size: 14px;
+            color: black;
+        }
+
+        .footer-bottom a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            color: rgb(225, 109, 128);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .footer-column {
+                text-align: center;
+            }
+
+            .footer-bottom {
+                font-size: 12px;
+            }
+        }
+
+        /* Đặt màu chữ và viền đen cho toàn bộ form */
+        .custom-form input,
+        .custom-form select,
+        .custom-form button {
+            color: #000;
+            /* Chữ màu đen */
+            border-color: #000;
+            /* Viền màu đen */
+        }
+
+        /* Đặt màu chữ đen cho placeholder */
+        .custom-form input::placeholder {
+            color: #000;
+            /* Placeholder màu đen */
+        }
+
+        /* Đặt viền đen khi focus */
+        .custom-form input:focus,
+        .custom-form select:focus {
+            outline: none;
+            /* Loại bỏ viền mặc định */
+            box-shadow: 0 0 5px #000;
+            /* Viền đen khi focus */
+        }
+
+        /* Đặt màu chữ và viền đen cho nút */
+        .custom-form button {
+            background-color: #fff;
+            /* Nền trắng */
+            color: #000;
+            /* Chữ màu đen */
+            border-color: #000;
+            /* Viền màu đen */
+        }
+
+        .custom-form button:hover {
+            background-color: #000;
+            /* Nền đen khi hover */
+            color: #fff;
+            /* Chữ trắng khi hover */
+        }
     </style>
 
     <script>
-    const chatToggle = document.getElementById('chatToggle');
-    const chatContainer = document.querySelector('.chat-container');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatContainer = document.querySelector('.chat-container');
 
-    chatToggle.addEventListener('click', () => {
-        chatContainer.classList.toggle('active');
-        // Ẩn nút toggle khi chat hiện
-        chatToggle.style.display = chatContainer.classList.contains('active') ? 'none' : 'flex';
-    });
+        chatToggle.addEventListener('click', () => {
+            chatContainer.classList.toggle('active');
+            // Ẩn nút toggle khi chat hiện
+            chatToggle.style.display = chatContainer.classList.contains('active') ? 'none' : 'flex';
+        });
 
-    // Thêm nút đóng chat
-    const chatHeader = document.querySelector('.chat-header');
-    const closeButton = document.createElement('button');
-    closeButton.innerHTML = '<i class="fas fa-times"></i>';
-    closeButton.className = 'chat-close-btn';
-    closeButton.style.cssText = `
+        // Thêm nút đóng chat
+        const chatHeader = document.querySelector('.chat-header');
+        const closeButton = document.createElement('button');
+        closeButton.innerHTML = '<i class="fas fa-times"></i>';
+        closeButton.className = 'chat-close-btn';
+        closeButton.style.cssText = `
         position: absolute;
         right: 10px;
         top: 50%;
@@ -315,13 +449,14 @@
         color: white;
         cursor: pointer;
     `;
-    chatHeader.style.position = 'relative';
-    chatHeader.appendChild(closeButton);
+        chatHeader.style.position = 'relative';
+        chatHeader.appendChild(closeButton);
 
-    closeButton.addEventListener('click', () => {
-        chatContainer.classList.remove('active');
-        chatToggle.style.display = 'flex';
-    });
+        closeButton.addEventListener('click', () => {
+            chatContainer.classList.remove('active');
+            chatToggle.style.display = 'flex';
+        });
     </script>
 </body>
+
 </html>

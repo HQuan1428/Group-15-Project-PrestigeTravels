@@ -1,13 +1,11 @@
 <div class="container my-5">
     <div class="row">
-        <!-- Thông tin tour bên trái -->
         <div class="col-md-8">
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow-sm mb-4 border-0">
                 <div class="card-body">
-                    <h3 class="card-title mb-4">Thông Tin Đặt Tour</h3>
+                    <h3 class="card-title mb-4 text-primary">Thông Tin Đặt Tour</h3>
                     <form action="/customer/bookings/order/{{tour_id}}" method="POST" id="bookingForm">
                         <div class="row">
-                            <!-- Chọn Ngày -->
                             <div class="col-md-12 mb-4">
                                 <label class="form-label fw-bold">
                                     <i class="fas fa-calendar-alt me-2"></i>Chọn Ngày
@@ -15,20 +13,22 @@
                                 <select class="form-select" id="available_date" name="available_date" required>
                                     <option value="">-- Chọn ngày khởi hành --</option>
                                     {{#each availableDates}}
-                                        <option value="{{this}}">{{this}}</option>
+                                    <option value="{{this}}">{{this}}</option>
                                     {{/each}}
                                 </select>
                             </div>
 
-                            <!-- Số lượng người -->
                             <div class="col-md-6 mb-4">
                                 <label class="form-label fw-bold">
                                     <i class="fas fa-user me-2"></i>Số Người Lớn
                                 </label>
                                 <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" onclick="decrementValue('adults')">-</button>
-                                    <input type="number" class="form-control text-center" id="adults" name="adults" value="1" min="1" required>
-                                    <button type="button" class="btn btn-outline-secondary" onclick="incrementValue('adults')">+</button>
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="decrementValue('adults')">-</button>
+                                    <input type="number" class="form-control text-center" id="adults" name="adults"
+                                        value="1" min="1" required>
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="incrementValue('adults')">+</button>
                                 </div>
                                 <small class="text-muted">Từ 12 tuổi trở lên</small>
                             </div>
@@ -38,19 +38,22 @@
                                     <i class="fas fa-child me-2"></i>Số Trẻ Em
                                 </label>
                                 <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" onclick="decrementValue('children')">-</button>
-                                    <input type="number" class="form-control text-center" id="children" name="children" value="0" min="0">
-                                    <button type="button" class="btn btn-outline-secondary" onclick="incrementValue('children')">+</button>
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="decrementValue('children')">-</button>
+                                    <input type="number" class="form-control text-center" id="children" name="children"
+                                        value="0" min="0">
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="incrementValue('children')">+</button>
                                 </div>
                                 <small class="text-muted">Từ 2-11 tuổi</small>
                             </div>
 
-                            <!-- Ghi chú đặc biệt -->
                             <div class="col-12 mb-4">
                                 <label class="form-label fw-bold">
                                     <i class="fas fa-comment-alt me-2"></i>Ghi Chú Đặc Biệt
                                 </label>
-                                <textarea class="form-control" name="special_notes" rows="3" placeholder="Nhập yêu cầu đặc biệt của bạn (nếu có)"></textarea>
+                                <textarea class="form-control" name="special_notes" rows="3"
+                                    placeholder="Nhập yêu cầu đặc biệt của bạn (nếu có)"></textarea>
                             </div>
                         </div>
                     </form>
@@ -58,11 +61,10 @@
             </div>
         </div>
 
-        <!-- Tóm tắt đơn hàng bên phải -->
         <div class="col-md-4">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Tóm Tắt Đơn Hàng</h4>
+                    <h4 class="card-title mb-4 text-primary">Tóm Tắt Đơn Hàng</h4>
                     <div class="d-flex justify-content-between mb-3">
                         <span>Người lớn (x<span id="adultCount">1</span>)</span>
                         <span id="adultTotal">₫0</span>
@@ -85,65 +87,110 @@
     </div>
 </div>
 
+
 <style>
-.form-floating > .form-control {
-    height: calc(3.5rem + 2px);
-    line-height: 1.25;
-}
+    .form-floating>.form-control {
+        height: calc(3.5rem + 2px);
+        line-height: 1.25;
+    }
 
-.form-floating > label {
-    padding: 1rem 0.75rem;
-}
+    .form-floating>label {
+        padding: 1rem 0.75rem;
+    }
 
-.btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: white;
-}
+    .btn-outline-secondary:hover {
+        background-color: #007bff;
+        color: white;
+    }
 
-.card {
-    border-radius: 10px;
-    border: none;
-}
+    .card {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.form-control:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title,
+    .card-subtitle {
+        font-weight: bold;
+    }
+
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .input-group button {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+    }
+
+    .input-group button:hover {
+        background-color: #e2e6ea;
+    }
+
+    .card-body h3,
+    .card-body h4 {
+        color: #007bff;
+    }
+
+    .card-body .d-flex span {
+        font-size: 1.125rem;
+    }
+
+    .card-body .fw-bold {
+        font-size: 1.25rem;
+    }
+
+    .btn-primary {
+        font-size: 1.125rem;
+        padding: 12px 16px;
+        border-radius: 8px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
 </style>
 
 <script>
-const tourPrice = {{tourPrice}}; // Nhận giá từ server
+    const tourPrice = {{ tourPrice }}; // Nhận giá từ server
 
-function incrementValue(id) {
-    const input = document.getElementById(id);
-    input.value = parseInt(input.value) + 1;
-    updateSummary();
-}
-
-function decrementValue(id) {
-    const input = document.getElementById(id);
-    const newValue = parseInt(input.value) - 1;
-    if (newValue >= (id === 'adults' ? 1 : 0)) {
-        input.value = newValue;
+    function incrementValue(id) {
+        const input = document.getElementById(id);
+        input.value = parseInt(input.value) + 1;
         updateSummary();
     }
-}
 
-function updateSummary() {
-    const adults = parseInt(document.getElementById('adults').value);
-    const children = parseInt(document.getElementById('children').value);
+    function decrementValue(id) {
+        const input = document.getElementById(id);
+        const newValue = parseInt(input.value) - 1;
+        if (newValue >= (id === 'adults' ? 1 : 0)) {
+            input.value = newValue;
+            updateSummary();
+        }
+    }
 
-    document.getElementById('adultCount').textContent = adults;
-    document.getElementById('childCount').textContent = children;
-    
-    const adultTotal = adults * tourPrice;
-    const childTotal = children * (tourPrice * 0.5);
-    
-    document.getElementById('adultTotal').textContent = '₫' + adultTotal.toLocaleString('vi-VN');
-    document.getElementById('childTotal').textContent = '₫' + childTotal.toLocaleString('vi-VN');
-    document.getElementById('totalPrice').textContent = '₫' + (adultTotal + childTotal).toLocaleString('vi-VN');
-}
+    function updateSummary() {
+        const adults = parseInt(document.getElementById('adults').value);
+        const children = parseInt(document.getElementById('children').value);
 
-// Khởi tạo summary khi trang load
-document.addEventListener('DOMContentLoaded', updateSummary);
+        document.getElementById('adultCount').textContent = adults;
+        document.getElementById('childCount').textContent = children;
+
+        const adultTotal = adults * tourPrice;
+        const childTotal = children * (tourPrice * 0.5);
+
+        document.getElementById('adultTotal').textContent = '₫' + adultTotal.toLocaleString('vi-VN');
+        document.getElementById('childTotal').textContent = '₫' + childTotal.toLocaleString('vi-VN');
+        document.getElementById('totalPrice').textContent = '₫' + (adultTotal + childTotal).toLocaleString('vi-VN');
+    }
+
+    // Khởi tạo summary khi trang load
+    document.addEventListener('DOMContentLoaded', updateSummary);
+
 </script>

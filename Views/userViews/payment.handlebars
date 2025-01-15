@@ -1,9 +1,20 @@
 <style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Roboto', sans-serif;
+    }
+
     .payment-method {
         border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 20px;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-method .form-check-label {
+        font-weight: 600;
+        font-size: 1.1rem;
     }
 
     .discount-box {
@@ -15,15 +26,16 @@
 
     .summary-box {
         border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .final-price {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: bold;
-        color: red;
+        color: #e74c3c;
     }
 
     .old-price {
@@ -32,8 +44,53 @@
     }
 
     .btn-primary {
-        background-color: red;
+        background-color: #e74c3c;
         border: none;
+        padding: 12px 0;
+        font-size: 1.2rem;
+        border-radius: 8px;
+    }
+
+    .btn-primary:hover {
+        background-color: #c0392b;
+    }
+
+    .countdown {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #3498db;
+    }
+
+    .payment-method input[type="radio"]:checked+label {
+        color: #e74c3c;
+    }
+
+    .btn-info {
+        background-color: #3498db;
+        border: none;
+    }
+
+    .btn-info:hover {
+        background-color: #2980b9;
+    }
+
+    .input-group .form-control {
+        border-radius: 8px;
+    }
+
+    .summary-box h5 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .summary-box hr {
+        border-top: 2px solid #e74c3c;
+    }
+
+    .summary-box p {
+        font-size: 1.1rem;
+        color: #34495e;
     }
 </style>
 
