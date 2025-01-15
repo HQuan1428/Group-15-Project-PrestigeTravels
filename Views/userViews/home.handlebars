@@ -81,7 +81,13 @@
     }
 
     .title {
-        font-size: 2rem;
+        font-family: 'Arial', sans-serif;
+        font-size: 36px;
+        font-weight: bold;
+        color: #ff69b4;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     /* Location Buttons */
@@ -90,30 +96,66 @@
         transition: 0.3s;
     }
 
-    #location-buttons .btn:hover,
-    #location-buttons .btn.active {
-        background-color: #007bff;
-        color: white;
+    #location-buttons .btn {
+        border-radius: 12px;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
     }
+
+    #location-buttons .btn-outline-primary {
+        border-color: #ff69b4;
+        color: #ff69b4;
+    }
+
+    #location-buttons .btn:hover {
+        background-color: #ff69b4;
+        color: white;
+        border-color: #ff69b4;
+    }
+
+    /* Hiệu ứng focus */
+    #location-buttons .btn:focus {
+        box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+    }
+
+    h2.text-primary {
+        font-family: 'Arial', sans-serif;
+        font-size: 36px;
+        font-weight: bold;
+        color: #ff69b4;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
 
     /* Card Styling */
     .card {
-        border-radius: 12px;
-        transition: transform 0.2s;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     .card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     }
 
     .card-title {
-        font-size: 1.2rem;
-        font-weight: bold;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #ff69b4;
+        transition: color 0.3s ease;
+    }
+
+    .card:hover .card-title {
+        color: #e6007e;
     }
 
     .card-text {
-        font-size: 0.9rem;
-        color: #6c757d;
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.5;
     }
 
     .card-img-top {
@@ -190,4 +232,3 @@
         }
     }
 </script>
-
