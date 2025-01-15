@@ -3,7 +3,15 @@
         <h1 class="mb-3">{{detail.title}}</h1>
         <div class="d-flex align-items-center gap-3">
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{detail.starting_point}}</span>
+            <span>
+                {{#if detail.locations}}
+                    {{#each detail.locations}}
+                        {{this}}{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                {{else}}
+                    {{detail.starting_point}}
+                {{/if}}
+            </span>
             <i class="fas fa-clock ms-4"></i>
             <span>{{detail.duration}}</span>
         </div>
