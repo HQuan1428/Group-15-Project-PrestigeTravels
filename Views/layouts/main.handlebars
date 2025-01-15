@@ -110,7 +110,6 @@
             placeholder="Tìm kiếm tour..." 
             class="form-control me-2"
             value="{{query}}">
-        {{#if isSearchPage}}
         <select name="location" class="form-select me-2">
             <option value="">Tất cả địa điểm</option>
             {{#each locations}}
@@ -119,7 +118,6 @@
                 </option>
             {{/each}}
         </select>
-        {{/if}}
         <button type="submit" class="btn btn-primary">
             <i class="fas fa-search"></i>
         </button>

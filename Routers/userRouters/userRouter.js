@@ -13,10 +13,21 @@ router.get('/customer', async (req, res) => {
     return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
   }
   const location = await GetLocation()
-  //console.log(location)
+  const locationsResult = await db.query(`
+    SELECT name 
+    FROM locations 
+    ORDER BY name ASC
+  `);
+  const locations = locationsResult || [];
+  
   const role = req.session.userType
 
-  res.render('userViews/home', { user: req.user,role,location})
+  res.render('userViews/home', { 
+    user: req.user,
+    role,
+    location,
+    locations: locations
+  })
 })
 
 router.get('/customer/tours/:id', DetailTour)
@@ -246,7 +257,6 @@ router.get('/search', async (req, res) => {
             query: query || '',
             location: location || '',
             locations: locations,
-            isSearchPage: true,
             role: req.session.userType,
             user: req.user
         });
