@@ -13,10 +13,21 @@ router.get('/customer', async (req, res) => {
     return res.redirect('/login'); // Nếu chưa đăng nhập, chuyển đến trang login
   }
   const location = await GetLocation()
-  //console.log(location)
+  const locationsResult = await db.query(`
+    SELECT name 
+    FROM locations 
+    ORDER BY name ASC
+  `);
+  const locations = locationsResult || [];
+  
   const role = req.session.userType
 
-  res.render('userViews/home', { user: req.user,role,location})
+  res.render('userViews/home', { 
+    user: req.user,
+    role,
+    location,
+    locations: locations
+  })
 })
 
 router.get('/customer/tours/:id', DetailTour)
@@ -223,6 +234,8 @@ router.get('/search', async (req, res) => {
                 COALESCE(ti.image_url, t.image) as image
             FROM tours t
             LEFT JOIN tour_images ti ON t.id = ti.tour_id AND ti.is_main = true
+            LEFT JOIN tour_locations tl ON t.id = tl.tour_id
+            LEFT JOIN locations l ON tl.location_id = l.id
             WHERE t.status = 'active'
         `;
         const queryParams = [];
@@ -236,23 +249,29 @@ router.get('/search', async (req, res) => {
         }
 
         if (location && location.trim() !== '') {
-            queryParams.push(`%${location.trim()}%`);
-            searchQuery += ` AND LOWER(t.starting_point) LIKE LOWER($${queryParams.length})`;
+            const locationParam = `%${location.trim()}%`;
+            queryParams.push(locationParam);
+            searchQuery += ` AND (
+                LOWER(t.starting_point) LIKE LOWER($${queryParams.length}) OR
+                LOWER(l.name) LIKE LOWER($${queryParams.length})
+            )`;
         }
 
         searchQuery += ` ORDER BY t.title ASC`;
 
+        console.log('Search Query:', searchQuery); // Log để debug
+        console.log('Query Params:', queryParams); // Log để debug
+
         const toursResult = await db.query(searchQuery, queryParams);
         const tours = toursResult || [];
 
-        console.log('Found tours:', tours.length); // Log để debug
+        console.log('Found tours:', tours); // Log để debug
 
         res.render('userViews/searchResults', {
             tours: tours,
             query: query || '',
             location: location || '',
             locations: locations,
-            isSearchPage: true,
             role: req.session.userType,
             user: req.user
         });
