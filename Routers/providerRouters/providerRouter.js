@@ -116,16 +116,20 @@ router.post('/orders/:id/update', ensureAuthenticated, updateOrder);
 router.get('/revenue', ensureAuthenticated, async (req, res) => {
     try {
         const { fromDate, toDate, serviceCode } = req.query;
-        const partnerId = req.user.id;
+        const partnerId = req.session.partner_id; // Lấy partner_id từ session
 
         console.log('Filter params:', { fromDate, toDate, serviceCode, partnerId }); // Debug log
 
         const revenue = await getRevenueByDate(partnerId, fromDate, toDate, serviceCode);
+        
+        // Chuyển đổi dữ liệu sang JSON để sử dụng trong template
+        const revenueJSON = JSON.stringify(revenue);
 
         res.render('providerViews/revenueStatistics', {
             layout: 'main',
             role: 'partner',
             revenue: revenue || [],
+            json: revenueJSON, // Thêm dữ liệu JSON cho biểu đồ
             fromDate,
             toDate,
             serviceCode

@@ -3,25 +3,26 @@ const { db } = require('../Connect_Server/db');
 // Lấy doanh thu theo ngày
 const getRevenueByDate = async (partnerId, fromDate, toDate, serviceCode) => {
     try {
+        console.log('Query params:', { partnerId, fromDate, toDate, serviceCode });
+        
         const result = await db.any(`
             SELECT 
-                rs.year,
-                rs.month,
-                rs.day,
-                rs.revenue as total_revenue,
-                t.id as service_code,
-                to_date(rs.year || '-' || rs.month || '-' || rs.day, 'YYYY-MM-DD') as from_date,
-                to_date(rs.year || '-' || rs.month || '-' || rs.day, 'YYYY-MM-DD') as to_date
-            FROM revenue_statistics rs
-            LEFT JOIN tours t ON t.partner_id = rs.partner_id
-            WHERE rs.partner_id = $1 
-            AND ($2::date is null OR to_date(rs.year || '-' || rs.month || '-' || rs.day, 'YYYY-MM-DD') >= $2)
-            AND ($3::date is null OR to_date(rs.year || '-' || rs.month || '-' || rs.day, 'YYYY-MM-DD') <= $3)
-            AND ($4::text is null OR t.id = $4)
-            ORDER BY rs.year, rs.month, rs.day
+                b.tour_id as service_code,
+                t.title as tour_name,
+                b.total_price as total_revenue,
+                b.created_at::date as from_date,
+                b.created_at::date as to_date
+            FROM bookings b
+            JOIN tours t ON b.tour_id = t.id
+            WHERE t.partner_id = $1 
+            AND b.status = 'confirmed'
+            AND ($2::date IS NULL OR b.created_at::date >= $2::date)
+            AND ($3::date IS NULL OR b.created_at::date <= $3::date)
+            AND ($4::text IS NULL OR b.tour_id = $4)
+            ORDER BY b.created_at DESC
         `, [partnerId, fromDate, toDate, serviceCode]);
         
-        console.log('Query result:', result); // Debug log
+        console.log('Query result:', result);
         return result;
     } catch (error) {
         console.error('Database error:', error);
