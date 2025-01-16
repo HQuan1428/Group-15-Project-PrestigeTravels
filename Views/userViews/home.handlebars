@@ -134,8 +134,17 @@
     /* Card Styling */
     .card {
         border-radius: 10px;
+        overflow: hidden;
+        /* Đảm bảo hình ảnh không vượt ra ngoài card */
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        /* Sử dụng flexbox để căn chỉnh các phần tử bên trong */
+        flex-direction: column;
+        /* Đảm bảo các phần tử nằm theo chiều dọc */
+        height: 100%;
+        /* Đảm bảo các card có chiều cao bằng nhau */
     }
+
     .card:hover {
         transform: translateY(-10px);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
@@ -159,9 +168,20 @@
     }
 
     .card-img-top {
-        border-radius: 50%;
+        border-radius: 0;
+        /* Bỏ bo góc tròn */
+        width: 100%;
+        /* Đảm bảo ảnh chiếm hết chiều rộng của card */
+        height: 200px;
+        /* Đặt chiều cao cố định cho ảnh */
+        object-fit: cover;
+        /* Đảm bảo ảnh bao phủ hết khung mà không bị méo */
     }
-    
+
+    #tour-list .col-md-4 {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 
 <script>
