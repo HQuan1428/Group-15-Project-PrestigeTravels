@@ -72,11 +72,14 @@ router.get('/customer/booking/:id', async (req, res) => {
             availableDates: formattedDates,
             tourPrice: parseFloat(price)
         });
+          const role = req.session.userType
+
 
         res.render('userViews/bookingTour', {
             tour_id,
             availableDates: formattedDates,
-            tourPrice: parseFloat(price) // Chuyển đổi sang số thập phân
+            tourPrice: parseFloat(price), // Chuyển đổi sang số thập phân
+            role
         });
 
     } catch (error) {
@@ -127,10 +130,11 @@ router.get('/customer/profile/notification', async (req, res) => {
             WHERE n.user_id = $1
             ORDER BY n.created_at DESC
         `, [req.user.id]);
+  const role = req.session.userType
 
         res.render('userViews/notification', {
             user: req.user,
-            notifications: notifications,
+            notifications: notifications,role,
             helpers: {
                 formatDate: function(date) {
                     return new Date(date).toLocaleDateString('vi-VN', {
@@ -191,11 +195,13 @@ router.get('/customer/profile/coupon', async (req, res) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/login');
     }
+      const role = req.session.userType
+
     try {
         const coupons = await getCoupons();
         res.render('userViews/coupon', { 
             user: req.user,
-            coupons: coupons
+            coupons: coupons,role
         });
     } catch (error) {
         console.error('Error loading coupons:', error);

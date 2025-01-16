@@ -34,6 +34,17 @@ const DetailTour = async (req, res) => {
         );
         detail.itinerary = itinerary;
 
+        // Lấy thông tin địa điểm từ bảng locations
+        const locations = await db.any(`
+            SELECT l.name
+            FROM tour_locations tl
+            JOIN locations l ON tl.location_id = l.id
+            WHERE tl.tour_id = $1
+        `, [id]);
+        
+        // Thêm thông tin địa điểm vào detail
+        detail.locations = locations.map(loc => loc.name);
+
         if (!req.isAuthenticated()) {
             return res.redirect('/login');
         }

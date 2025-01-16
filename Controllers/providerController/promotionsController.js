@@ -25,10 +25,12 @@ class PromotionsController {
             
             const promotions = await db.any(query, [partnerId]);
             console.log('Loaded promotions:', promotions);
-            
+            const role = req.session.userType;
+
             res.render('providerViews/promotions', {
                 promotions,
-                title: 'Quản lý khuyến mãi'
+                title: 'Quản lý khuyến mãi',
+                role
             });
         } catch (error) {
             console.error('Detailed error:', error);

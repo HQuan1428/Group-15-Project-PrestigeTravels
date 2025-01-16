@@ -36,7 +36,7 @@ const verify = async (email, password, done) => {
   try {
       const user = await getUserByEmail(email); // Lấy người dùng từ DB theo email
     if (!user) {
-      return done(null, false, { message: 'Email không tồn tại.' });
+      return done(null, false, { message: 'Email hoặc mật khẩu của bạn không đúng.' });
     }
     // if (userType != user.role) {
     //   return done(null, false, { message: 'Dữ liệu không hợp lệ.' });
@@ -46,7 +46,7 @@ const verify = async (email, password, done) => {
     // Kiểm tra mật khẩu
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return done(null, false, { message: 'Mật khẩu không đúng.' });
+      return done(null, false, { message: 'Email hoặc mật khẩu của bạn không đúng.' });
     }
 
     return done(null, { id: user.id, fullname: user.fullname, userType: user.role });

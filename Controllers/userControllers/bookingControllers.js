@@ -91,11 +91,13 @@ async function DetailTour(req, res) {
         if(!req.isAuthenticated())
     {
         return res.redirect('/login');
-    }
+        }
+        const role = req.session.userType;
+
 
         res.render('userViews/bookingTour', {
             tour_id: tour.id,
-            available_dates: tour.available_dates
+            available_dates: tour.available_dates,role
         });
     } catch (error) {
         console.error('Error fetching tour details:', error.message);

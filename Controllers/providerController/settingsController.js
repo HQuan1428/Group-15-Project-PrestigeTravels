@@ -9,11 +9,13 @@ async function renderSettings(req, res) {
         if (!partner) {
             return res.status(403).send('Không tìm thấy thông tin nhà cung cấp.');
         }
+                const role = req.session.userType;
+
 
         res.render('providerViews/partnerSettings', {
             partner,
             emails: contacts.emails,
-            phones: contacts.phones,
+            phones: contacts.phones,role
         });
     } catch (err) {
         console.error('Error rendering settings page:', err.message);

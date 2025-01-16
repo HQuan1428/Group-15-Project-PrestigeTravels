@@ -39,8 +39,9 @@ async function searchTours(req, res) {
 
         const tours = await db.query(sql, [query || null, location || null]);
         const locations = await getLocations(); // Lấy danh sách địa điểm
-        
-        res.render('userViews/searchResults', { tours, locations, query, location });
+                const role = req.session.userType;
+
+        res.render('userViews/searchResults', { tours, locations, query, location,role });
     } catch (error) {
         console.error('Error searching tours:', error);
         res.status(500).send('Internal Server Error');

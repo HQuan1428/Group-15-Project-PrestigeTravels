@@ -3,7 +3,15 @@
         <h1 class="mb-3">{{detail.title}}</h1>
         <div class="d-flex align-items-center gap-3">
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{detail.starting_point}}</span>
+            <span>
+                {{#if detail.locations}}
+                {{#each detail.locations}}
+                {{this}}{{#unless @last}}, {{/unless}}
+                {{/each}}
+                {{else}}
+                {{detail.starting_point}}
+                {{/if}}
+            </span>
             <i class="fas fa-clock ms-4"></i>
             <span>{{detail.duration}}</span>
         </div>
@@ -19,26 +27,31 @@
                     <div id="tourImageCarousel" class="carousel slide" data-bs-ride="carousel">
                         <!-- Indicators/dots -->
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#tourImageCarousel" data-bs-slide-to="0" class="active"></button>
+                            <button type="button" data-bs-target="#tourImageCarousel" data-bs-slide-to="0"
+                                class="active"></button>
                             {{#each detail.tour_images}}
-                                <button type="button" data-bs-target="#tourImageCarousel" data-bs-slide-to="{{add @index 1}}"></button>
+                            <button type="button" data-bs-target="#tourImageCarousel"
+                                data-bs-slide-to="{{add @index 1}}"></button>
                             {{/each}}
                         </div>
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner">
                             {{#each detail.tour_images}}
-                                <div class="carousel-item {{#if @first}}active{{/if}}">
-                                    <img src="{{image_url}}" class="d-block w-100" alt="Tour Image {{add @index 1}}" style="height: 500px; object-fit: cover;">
-                                </div>
+                            <div class="carousel-item {{#if @first}}active{{/if}}">
+                                <img src="{{image_url}}" class="d-block w-100" alt="Tour Image {{add @index 1}}"
+                                    style="height: 500px; object-fit: cover;">
+                            </div>
                             {{/each}}
                         </div>
 
                         <!-- Controls -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#tourImageCarousel" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#tourImageCarousel"
+                            data-bs-slide="prev">
                             <span class="carousel-control-prev-icon"></span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#tourImageCarousel" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#tourImageCarousel"
+                            data-bs-slide="next">
                             <span class="carousel-control-next-icon"></span>
                         </button>
                     </div>
@@ -51,30 +64,31 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="text-primary mb-0">{{formatMoney detail.price}}</h3>
+                        <h3 class="text-primary mb-0">Price: {{formatMoney detail.price}}</h3>
                         {{#if detail.average_rating}}
-                            <div class="rating">
-                                <span class="badge bg-warning text-dark">
-                                    <i class="fas fa-star"></i> {{detail.average_rating}}/5
-                                </span>
-                            </div>
+                        <div class="rating">
+                            <span class="badge bg-warning text-dark">
+                                <i class="fas fa-star"></i> {{detail.average_rating}}/5
+                            </span>
+                        </div>
                         {{/if}}
                     </div>
-                    
+
                     <hr>
 
                     <!-- Ngày có sẵn -->
                     <h5>Ngày khởi hành sắp tới:</h5>
                     <ul class="list-group list-group-flush">
                         {{#each detail.available_dates}}
-                            <li class="list-group-item">
-                                <i class="far fa-calendar-alt me-2"></i>
-                                {{this}}
-                            </li>
+                        <li class="list-group-item">
+                            <i class="far fa-calendar-alt me-2"></i>
+                            {{this}}
+                        </li>
                         {{/each}}
                     </ul>
 
-                    <a href="/customer/booking/{{detail.id}}" id="booking-button" class="btn btn-primary w-100 mt-4">Booking</a>
+                    <a href="/customer/booking/{{detail.id}}" id="booking-button"
+                        class="btn btn-primary w-100 mt-4">Booking</a>
                 </div>
             </div>
         </div>
@@ -100,10 +114,10 @@
                     <h4 class="card-title">Dịch vụ bao gồm</h4>
                     <ul class="list-group list-group-flush">
                         {{#each detail.services}}
-                            <li class="list-group-item">
-                                <i class="fas fa-check text-success me-2"></i>
-                                {{this}}
-                            </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check text-success me-2"></i>
+                            {{this}}
+                        </li>
                         {{/each}}
                     </ul>
                 </div>
@@ -115,7 +129,8 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <h4 class="card-title">Lịch trình tour</h4>
-                    <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#itineraryModal">
+                    <button type="button" class="btn btn-link p-0" data-bs-toggle="modal"
+                        data-bs-target="#itineraryModal">
                         Xem chi tiết lịch trình
                     </button>
                 </div>
@@ -134,10 +149,10 @@
                 <div class="modal-body">
                     <ul class="list-group list-group-flush">
                         {{#each detail.itinerary}}
-                            <li class="list-group-item">
-                                <h6 class="mb-2">{{this.title}}</h6>
-                                <p class="mb-0">{{this.description}}</p>
-                            </li>
+                        <li class="list-group-item">
+                            <h6 class="mb-2">{{this.title}}</h6>
+                            <p class="mb-0">{{this.description}}</p>
+                        </li>
                         {{/each}}
                     </ul>
                 </div>
@@ -157,30 +172,30 @@
         background-size: cover;
         background-position: center;
     }
-    
+
     .carousel {
         border-radius: 0.375rem;
         overflow: hidden;
     }
-    
+
     .carousel-control-prev,
     .carousel-control-next {
         width: 5%;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0, 0, 0, 0.3);
     }
-    
+
     .tour-info i {
         width: 25px;
         color: #1a75ff;
     }
-    
+
     .btn-primary {
         background: #1a75ff;
         border: none;
         padding: 12px;
         font-weight: 600;
     }
-    
+
     .btn-primary:hover {
         background: #0052cc;
     }
@@ -216,5 +231,60 @@
     .btn-link:hover {
         color: #0052cc;
         text-decoration: underline;
+    }
+
+    .card {
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3.text-primary {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #007bff;
+    }
+
+    .card h5.text-secondary {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: #6c757d;
+    }
+
+    #booking-button {
+        font-size: 1.125rem;
+        font-weight: 600;
+        padding: 12px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    #booking-button:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .card .list-group-item {
+        font-size: 1rem;
+        padding: 10px 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .card .list-group-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .card .list-group-item i {
+        color: #007bff;
+    }
+
+    .card-body {
+        padding: 20px;
     }
 </style>

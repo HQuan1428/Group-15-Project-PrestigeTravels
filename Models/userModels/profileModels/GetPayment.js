@@ -23,6 +23,7 @@ async function GetBookingsAndPayments(userId) {
         WHERE b.user_id = $1
     `;
     const results = await db.query(query, [userId]);
+    //console.log(results);
     return results;
 }
 

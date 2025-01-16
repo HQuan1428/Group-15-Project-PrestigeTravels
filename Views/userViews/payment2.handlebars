@@ -1,17 +1,35 @@
 <style>
-    .order-header,
-    .payment-info {
+    /* Cải tiến giao diện tổng thể */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    /* Order Header */
+    .order-header {
         border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 15px;
-        margin-bottom: 20px;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-header h5 {
+        font-size: 20px;
+        font-weight: 600;
     }
 
     .status {
         color: #fff;
         background-color: #f0ad4e;
         padding: 5px 10px;
-        border-radius: 3px;
+        border-radius: 5px;
         font-size: 14px;
     }
 
@@ -28,7 +46,30 @@
         vertical-align: middle;
     }
 
-    /* CSS đi kèm để demo */
+    /* Cải tiến Payment Information */
+    .payment-info {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+    }
+
+    .payment-info h5 {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .payment-info table td {
+        font-size: 14px;
+    }
+
+    .payment-info table td strong {
+        color: #007bff;
+    }
+
+    /* Style cho thông báo */
     #notification {
         position: fixed;
         top: -100px;
@@ -41,6 +82,7 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: top 0.5s ease-out;
         z-index: 1000;
+        font-size: 16px;
     }
 
     #notification.show {
@@ -49,6 +91,55 @@
 
     .hidden {
         display: none;
+    }
+
+    img.img-fluid {
+        max-width: 180px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Nút thanh toán */
+    .btn-rectangle {
+        background-color: #007bff;
+        border: none;
+        padding: 8px 16px;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-rectangle:hover {
+        background-color: #0056b3;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Style cho bảng */
+    .table {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    .table-light {
+        background-color: #f7f7f7;
+    }
+
+    /* Thiết kế giao diện cho thanh sao chép */
+    .btn-copy {
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .btn-copy:hover {
+        text-decoration: underline;
+        transition: text-decoration 0.3s;
     }
 </style>
 
@@ -67,7 +158,7 @@
             </div>
             <div class="col-md-4">
                 <strong>Số tiền:</strong>
-                <span id="amount" >₫0</span>
+                <span id="amount">₫0</span>
             </div>
             <div class="col-md-4">
                 <strong>TT hóa đơn:</strong>
@@ -109,20 +200,18 @@
             <tbody>
                 <tr>
                     <td><strong>Ngân hàng:</strong></td>
-                    <td>Chuyển khoản ngân hàng </td>
+                    <td>Chuyển khoản ngân hàng</td>
                 </tr>
                 <tr>
                     <td><strong>Số tài khoản:</strong></td>
                     <td>
                         {{bankAccount}}
-                        <button class="btn btn-primary btn-rectangle"
-                            onclick="copyToClipboard('{{bankAccount}}')">copy</button>
+                        <button class="btn-rectangle" onclick="copyToClipboard('{{bankAccount}}')">Sao chép</button>
                     </td>
                 </tr>
                 <tr>
                     <td><strong>Tên tài khoản:</strong></td>
-                    <!-- Chỗ này cũng sửa lại -->
-                    <td>NGUYEN HAI QUAN / VIETCOMBANK </td>
+                    <td>NGUYEN HAI QUAN / VIETCOMBANK</td>
                 </tr>
                 <tr>
                     <td><strong>Số tiền:</strong></td>
@@ -130,17 +219,14 @@
                 </tr>
                 <tr>
                     <td><strong>Nội dung thanh toán:</strong></td>
-                    <!-- Tạo định dạng cho nội dung thanh toán -->
                     <td>Tour: {{tour_id}} {{detail.title}}
-                        <button class="btn btn-primary btn-rectangle"
-                            onclick="copyToClipboard('Tour: {{tour_id}} {{detail.title}}')">copy</button>
+                        <button class="btn-rectangle" onclick="copyToClipboard('Tour: {{tour_id}} {{detail.title}}')">Sao chép</button>
                     </td>
-
                 </tr>
                 <tr>
                     <td><strong>Mã QR:</strong></td>
                     <td>
-                        <img src="/QRpay/QRcode.jpg" alt="QR Code" class="img-fluid" style="max-width: 150px;">
+                        <img src="/QRpay/QRcode.jpg" alt="QR Code" class="img-fluid">
                     </td>
                 </tr>
             </tbody>
@@ -149,44 +235,32 @@
 </div>
 
 <script>
+    // Cập nhật giá trị thanh toán
     function updateSummary() {
         const price = "{{paymentInfo.amount}}";
         document.getElementById('amount').textContent = '₫' + parseFloat(price).toLocaleString('vi-VN');
     }
     document.addEventListener("DOMContentLoaded", updateSummary);
-</script>
 
-<script>
-
+    // Cập nhật trạng thái thanh toán và hiển thị thông báo thành công
     function updatePaymentStatus() {
         const statusElement = document.getElementById('paymentStatus');
-
-        // Thay đổi nội dung và màu nền của thẻ
         statusElement.textContent = 'Đã thanh toán';
-        statusElement.style.backgroundColor = 'green'; // Màu nền xanh
-        statusElement.style.color = 'white'; // Chữ màu trắng
+        statusElement.style.backgroundColor = 'green';
+        statusElement.style.color = 'white';
     }
 
     function showNotification() {
         const notification = document.getElementById('notification');
-
-        // Hiển thị bảng và kích hoạt animation
         notification.classList.remove('hidden');
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 10); // Thêm độ trễ nhỏ để đảm bảo transition hoạt động
-
-        // Ẩn bảng sau 3 giây
+        setTimeout(() => notification.classList.add('show'), 10);
         setTimeout(() => {
             notification.classList.remove('show');
-            setTimeout(() => {
-                notification.classList.add('hidden');
-            }, 500); // Chờ cho animation kết thúc trước khi ẩn
+            setTimeout(() => notification.classList.add('hidden'), 500);
         }, 3000);
     }
 
-
-
+    // Kiểm tra trạng thái thanh toán
     function checkPaymentStatus() {
         const tour_id = "{{tour_id}}";
         fetch(`/status/${tour_id}`)
@@ -194,22 +268,14 @@
             .then(data => {
                 if (data.status === 'confirmed') {
                     updatePaymentStatus();
-                    // Hiển thị thông báo thanh toán thành công
                     showNotification();
-
-
-                    // Chuyển hướng tới trang chủ sau 3.5 giây
-                    setTimeout(() => {
-                        window.location.href = '/customer'; // Đường dẫn trang chủ
-                    }, 3500); // 3.5 giây cho người dùng xem thông báo
+                    setTimeout(() => window.location.href = '/customer', 3500);
                 }
             })
-            .catch(error => {
-                console.error('Lỗi khi kiểm tra trạng thái thanh toán:', error);
-            });
+            .catch(error => console.error('Lỗi khi kiểm tra trạng thái thanh toán:', error));
     }
 
-    document.addEventListener("DOMContentLoaded", setInterval(checkPaymentStatus, 5000))
+    document.addEventListener("DOMContentLoaded", setInterval(checkPaymentStatus, 5000));
 </script>
 
 <script>
@@ -220,9 +286,7 @@
         }
 
         navigator.clipboard.writeText(text)
-            .then(() => {
-                alert('Đã sao chép: ' + text);
-            })
+            .then(() => alert('Đã sao chép: ' + text))
             .catch((err) => {
                 console.error('Lỗi khi sao chép vào clipboard:', err);
                 alert('Không thể sao chép vào clipboard. Vui lòng thử lại.');

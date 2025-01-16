@@ -48,13 +48,15 @@ const renderPayment = async (req, res) => {
 
         // Lấy chi tiết tour
         const detail = await DetailApproval(tour_id);
+                const role = req.session.userType;
+
 
         // Render trang payment
         res.render('userViews/payment', {
             tour_id: tour_id,
             methods: methods,
             detail: detail,
-            total_price: booking_info[0].total_price
+            total_price: booking_info[0].total_price,role
         });
     } catch (error) {
         // Xử lý lỗi nếu có sự cố
@@ -93,6 +95,8 @@ const renderPayInfo = async (req, res) => {
             content: `Đặt chỗ #${booking_id} đã được thanh toán thành công.`,
             type: 'booking',
         });
+                const role = req.session.userType;
+
 
         res.render('userViews/payment2', {
             detail,
@@ -101,7 +105,7 @@ const renderPayInfo = async (req, res) => {
             numbers,
             tour_id,
             dateTime,
-            status: booking_info[0].status,
+            status: booking_info[0].status,role
         });
     } catch (error) {
         console.error('Error during payment information rendering:', error);
