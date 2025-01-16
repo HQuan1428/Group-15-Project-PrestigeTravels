@@ -6,6 +6,7 @@ async function DetailApproval(id) {
             `
             SELECT 
                 t.*,
+                t.starting_point, -- Lấy thêm starting_point
                 ARRAY_AGG(td.available_date ORDER BY td.available_date) AS available_dates,
                 (
                     SELECT json_agg(ti.*)

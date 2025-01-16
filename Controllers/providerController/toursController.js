@@ -42,7 +42,7 @@ const addTour = async (req, res) => {
       description,
       price,
       duration,
-      startingPoint,
+      starting_point,
       maxParticipants,
       availableDates, // JSON từ client
       services,       // Dịch vụ
@@ -87,7 +87,7 @@ const addTour = async (req, res) => {
       await t.none(
         `INSERT INTO tours (id, partner_id, title, description, price, duration, starting_point, max_participants) 
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-        [tourId, partnerId, title, description, price, duration, startingPoint, maxParticipants]
+        [tourId, partnerId, title, description, price, duration, starting_point, maxParticipants]
       );
       
 

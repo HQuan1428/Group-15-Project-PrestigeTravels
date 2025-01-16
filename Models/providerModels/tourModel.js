@@ -26,19 +26,16 @@ const getTourById = (tourId) => {
 
 // Thêm tour mới
 const createTour = (partnerId, tourData) => {
-    const { title, description, price, duration, starting_point } = tourData;
-    const id = `TOUR-${Date.now()}`; // Tạo ID tự động
+  const { title, description, price, duration, starting_point } = tourData;
+  const id = `TOUR-${Date.now()}`;
 
-    if (!partnerId) {
-        throw new Error('Partner ID không hợp lệ.');
-    }
-
-    return db.one(
-        `INSERT INTO tours (id, partner_id, title, description, price, duration, starting_point)
-         VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-        [id, partnerId, title, description, price, duration, starting_point]
-    );
+  return db.one(
+    `INSERT INTO tours (id, partner_id, title, description, price, duration, starting_point)
+     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+    [id, partnerId, title, description, price, duration, starting_point]
+  );
 };
+
 
 
 // Cập nhật tour

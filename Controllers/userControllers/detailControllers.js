@@ -34,16 +34,14 @@ const DetailTour = async (req, res) => {
         );
         detail.itinerary = itinerary;
 
-        // Lấy thông tin địa điểm từ bảng locations
-        const locations = await db.any(`
-            SELECT l.name
-            FROM tour_locations tl
-            JOIN locations l ON tl.location_id = l.id
-            WHERE tl.tour_id = $1
-        `, [id]);
-        
-        // Thêm thông tin địa điểm vào detail
-        detail.locations = locations.map(loc => loc.name);
+        // Thêm thông tin `starting_point`
+        const startingPoint = await db.oneOrNone(
+            `SELECT starting_point 
+             FROM tours 
+             WHERE id = $1`,
+            [id]
+        );
+        detail.starting_point = startingPoint?.starting_point || 'Không xác định';
 
         if (!req.isAuthenticated()) {
             return res.redirect('/login');
@@ -56,6 +54,7 @@ const DetailTour = async (req, res) => {
         res.status(500).send('Lỗi hệ thống');
     }
 };
+
 
 
 module.exports = { DetailTour };
