@@ -6,8 +6,8 @@ const dbConfig = {
 user: 'postgres',
 password: '123456789',
 host: 'localhost',
-port: '52433',
-database: 'cnpm',
+port: '5432',
+database: 'CNPM',
 };
 
 const db = pgp(dbConfig)
