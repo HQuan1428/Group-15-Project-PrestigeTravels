@@ -88,6 +88,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Lấy dữ liệu doanh thu từ server
+    const revenueData = {{{json revenue}}};
+    console.log('Revenue data:', revenueData);
+    
     const chartCanvas = document.getElementById('revenueChart');
     let revenueChart = null;
 
@@ -96,31 +100,29 @@ document.addEventListener('DOMContentLoaded', function() {
             revenueChart.destroy();
         }
 
-        const years = [...new Set(data.map(item => item.year))].sort();
-        const chartData = years.map(year => {
-            return {
-                year: year,
-                total: data
-                    .filter(item => item.year === year)
-                    .reduce((sum, item) => sum + parseFloat(item.total_revenue), 0)
-            };
-        });
+        // Nhóm dữ liệu theo năm và tính tổng doanh thu
+        const yearlyData = data.reduce((acc, item) => {
+            const year = new Date(item.from_date).getFullYear();
+            if (!acc[year]) {
+                acc[year] = 0;
+            }
+            acc[year] += parseFloat(item.total_revenue);
+            return acc;
+        }, {});
+
+        // Chuyển đổi dữ liệu cho biểu đồ
+        const years = Object.keys(yearlyData).sort();
+        const revenues = years.map(year => yearlyData[year]);
 
         revenueChart = new Chart(chartCanvas, {
             type: 'bar',
             data: {
-                labels: chartData.map(item => item.year),
+                labels: years,
                 datasets: [{
                     label: 'Doanh thu ($)',
-                    data: chartData.map(item => item.total),
-                    backgroundColor: [
-                        'rgba(200, 200, 200, 0.7)',
-                        'rgba(150, 150, 150, 0.7)'
-                    ],
-                    borderColor: [
-                        'rgba(200, 200, 200, 1)',
-                        'rgba(150, 150, 150, 1)'
-                    ],
+                    data: revenues,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 }]
             },
@@ -132,7 +134,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         beginAtZero: true,
                         ticks: {
                             callback: function(value) {
-                                return value + '$';
+                                return value.toLocaleString() + '$';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Doanh thu: ' + context.raw.toLocaleString() + '$';
                             }
                         }
                     }
@@ -141,10 +152,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Khởi tạo dữ liệu ban đầu
-    const initialData = {{{json revenue}}};
-    if (initialData && initialData.length > 0) {
-        renderChart(initialData);
+    // Khởi tạo biểu đồ với dữ liệu ban đầu
+    if (revenueData && revenueData.length > 0) {
+        renderChart(revenueData);
     }
 
     // Xử lý form filter

@@ -3,12 +3,20 @@ const { getRevenueByDate, getRevenueByMonth, getRevenueByYear } = require('../..
 // Lấy doanh thu theo ngày
 const getDailyRevenue = async (req, res) => {
     try {
-        const { partnerId, year, month } = req.query;
-        const revenue = await getRevenueByDate(partnerId, year, month);
+        const partnerId = req.session.partner_id;
+        const { fromDate, toDate, serviceCode } = req.query;
+
+        console.log('Request params:', { partnerId, fromDate, toDate, serviceCode });
+
+        const revenue = await getRevenueByDate(partnerId, fromDate, toDate, serviceCode);
         res.status(200).json({ success: true, data: revenue });
     } catch (error) {
         console.error('Error fetching daily revenue:', error.message);
-        res.status(500).json({ success: false, message: 'Lỗi khi lấy doanh thu theo ngày.' });
+        res.status(500).json({ 
+            success: false, 
+            message: 'Lỗi khi lấy doanh thu theo ngày.',
+            error: error.message 
+        });
     }
 };
 
