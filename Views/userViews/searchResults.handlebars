@@ -33,14 +33,43 @@
         margin-bottom: 0.5em;
     }
 
-    .read-more {
-        display: none;
-        /* Mặc định ẩn nút "Xem thêm" */
+
+    .price-display {
+        font-size: 1.5rem;
+        /* Tăng kích thước chữ */
+        font-weight: 700;
+        /* Làm chữ đậm hơn */
+        color: red;
+        text-align: center;
+        /* Căn giữa nếu cần */
+        margin-top: 6px;
+        /* Khoảng cách phía trên */
     }
 
-    .card-text:hover+.read-more {
-        display: inline-block;
-        /* Hiển thị nút "Xem thêm" khi hover */
+    .title-display {
+        font-size: 1.3rem;
+        /* Tăng kích thước chữ */
+        font-weight: 600;
+        /* Làm chữ đậm hơn */
+        color: #afc4db;
+        /* Màu xanh nổi bật */
+        letter-spacing: 0.5px;
+        /* Giãn chữ nhẹ để tạo sự thanh lịch */
+        text-transform: uppercase;
+        /* Viết hoa toàn bộ chữ */
+        text-align: center;
+        /* Căn giữa */
+        margin-bottom: 15px;
+        /* Thêm khoảng cách dưới */
+    }
+
+    .title-display:hover {
+        color: #3f8bdc;
+        /* Thay đổi màu khi hover */
+        text-decoration: underline;
+        /* Gạch chân khi hover */
+        transition: all 0.3s ease-in-out;
+        /* Hiệu ứng mượt */
     }
 </style>
 
@@ -71,16 +100,16 @@
                     style="height: 200px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px;">
                 <div class="card-body d-flex flex-column">
                     <!-- Tiêu đề -->
-                    <h5 class="card-title text-primary font-weight-bold">{{this.title}}</h5>
+                    <h5 class="card-title title-display text-primary font-weight-bold">{{this.title}}</h5>
 
-                    <!-- Mô tả -->
-                    <p class="card-text text-muted description">{{this.description}}</p>
+                    {{!-- <!-- Mô tả -->
+                    <p class="card-text text-muted description">{{this.description}}</p> --}}
 
                     <!-- Giá -->
-                    <p class="text-primary font-weight-bold mt-auto">{{formatMoney this.price}}</p>
+                    <p class="price-display text-primary font-weight-bold mt-auto">Price: {{formatMoney this.price}}</p>
 
-                    <!-- Địa điểm -->
-                    <p class="text-muted">Địa điểm: {{this.location_name}}</p>
+                    {{!-- <!-- Địa điểm -->
+                    <p class="text-muted">Địa điểm: {{this.location_name}}</p> --}}
 
                     <!-- Nút Xem chi tiết -->
                     <a href="/customer/tours/{{this.id}}" class="btn btn-primary btn-block">Xem chi tiết</a>
